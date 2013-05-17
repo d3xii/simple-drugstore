@@ -11,7 +11,6 @@ namespace SDM.Main.Controllers
         public ActionResult Index()
         {
             return View();
-        }
-
+        }     
     }
 }
