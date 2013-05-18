@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.ComponentModel;
+using System.IO;
 using MHTools.Common;
 using SDM.Core.Context;
 
@@ -46,11 +48,56 @@ namespace SDM.Core.Configuration
             if (!File.Exists(realFilePath))
             {
                 // use default config
-                return new Config();
+                var result = new Config();
+                this.SetDefaultValues(result);
+                return result;
             }
 
             // read it            
             return IOHelper.DeserializeAsXml<Config>(realFilePath);
+        }
+
+        #endregion
+
+
+        //**************************************************
+        //
+        // Private methods
+        //
+        //**************************************************
+
+        #region Private methods
+
+        /// <summary>
+        /// Sets default values for given objects and its chidlren.
+        /// This will Stackoverflow exception if there is circular dependency in the object.
+        /// </summary>
+        public void SetDefaultValues(object obj)
+        {
+            // for each property
+            foreach (PropertyDescriptor property in TypeDescriptor.GetProperties(obj))
+            {
+                // reset its value
+                property.ResetValue(obj);
+
+                // get its value
+                object value = property.GetValue(obj);
+
+                // if value is complex type
+                if (!(value is ValueType) && property.PropertyType != typeof(string))
+                {
+                    // if it is null
+                    if (value == null)
+                    {          
+                        // try to initialize it
+                        value = Activator.CreateInstance(property.PropertyType);
+                        property.SetValue(obj, value);
+                    }
+
+                    // move deeper
+                    SetDefaultValues(value);
+                }
+            }
         }
 
         #endregion
