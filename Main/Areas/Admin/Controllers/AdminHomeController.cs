@@ -1,4 +1,6 @@
 ﻿using System.Web.Mvc;
+using SDM.Core.Configuration;
+using SDM.Core.Context;
 
 namespace SDM.Main.Areas.Admin.Controllers
 {
@@ -23,11 +25,25 @@ namespace SDM.Main.Areas.Admin.Controllers
         }
 
         [AllowAnonymous, HttpPost]
-        public ActionResult Login(string returningUrl, string password)
+        public string Login(string returningUrl, string password)
         {
             // read from config
+            ConfigManager configManager = new ConfigManager();
+            Config config = configManager.Load(new ServerContext(this.Server));
 
-            return View();
+            // check same password
+            if (password == config.AdminPassword)
+            {
+                // ok
+                return "Login OK.";
+            }
+            else
+            {
+                // invalid password
+                return "Invalid password.";
+            }
+
+            return null;
         }
     }
 }

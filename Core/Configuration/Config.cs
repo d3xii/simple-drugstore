@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace SDM.Core.Config
+namespace SDM.Core.Configuration
 {
     /// <summary>
     /// Contains application config.

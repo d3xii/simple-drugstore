@@ -1,6 +1,8 @@
-﻿using MHTools.Common;
+﻿using System.IO;
+using MHTools.Common;
+using SDM.Core.Context;
 
-namespace SDM.Core.Config
+namespace SDM.Core.Configuration
 {
     /// <summary>
     /// Provides methods to load/save config.
@@ -18,7 +20,7 @@ namespace SDM.Core.Config
         /// <summary>
         /// Gets the filepath to the config file on the server.
         /// </summary>
-        private const string FilePath = "datastore\\config.xml";
+        private const string FilePath = "~/bin/datastore/config.xml";
 
         #endregion
 
@@ -34,9 +36,21 @@ namespace SDM.Core.Config
         /// <summary>
         /// Loads config used by the server.
         /// </summary>
-        public Config Load()
+        public Config Load(IServerContext context)
         {
-            IOHelper.DeserializeAsXml<Config>("");
+            // get real file path
+            string realFilePath = context.Server.MapPath(FilePath);
+            //IOHelper.PrepareFolderContainsFile(realFilePath);
+
+            // exists?
+            if (!File.Exists(realFilePath))
+            {
+                // use default config
+                return new Config();
+            }
+
+            // read it            
+            return IOHelper.DeserializeAsXml<Config>(realFilePath);
         }
 
         #endregion
