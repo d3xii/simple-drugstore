@@ -1,0 +1,1061 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MHTools.Common</name>
+    </assembly>
+    <members>
+        <member name="T:MHTools.Common.CacheManager">
+            <summary>
+            Provides multi-keys caching.
+            </summary>
+        </member>
+        <member name="F:MHTools.Common.CacheManager.Cache">
+            <summary>
+            Gets or sets table of cached data.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.CacheManager.GetValue``1(System.Func{``0},System.Object[])">
+            <summary>
+            Gets cached value of given set of keys. 
+            If one the keys is not found, the keys will be created.
+            If the value is not added, it will be re-initialized by given initializer(), 
+            if the initializer() is null, not value is added.
+            </summary>
+            <typeparam name="T">Type of the result.</typeparam>
+            <param name="initializer">Reference to the initializer. This is an optional parameter.</param>
+            <param name="keys">Set of keys to access the value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MHTools.Common.CacheManager.GetCachedValue``1(System.Object[])">
+            <summary>
+            Gets cached value of given set of keys. 
+            If one of the keys is not found OR the value is not added, an exception will be thrown, 
+            </summary>
+            <typeparam name="T">Type of the result.</typeparam>
+            <param name="keys">Set of keys to access the value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MHTools.Common.CacheManager.GetCachedValueOrDefault``1(System.Object[])">
+            <summary>
+            Gets cached value of given set of keys. 
+            If one of the keys is not found OR the value is not added, the default value will be returned, 
+            </summary>
+            <typeparam name="T">Type of the result.</typeparam>
+            <param name="keys">Set of keys to access the value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MHTools.Common.CacheManager.SetCachedValue(System.Object,System.Object[])">
+            <summary>
+            Sets cached value of given set of keys. 
+            If one the keys is not found, the keys will be created.
+            </summary>
+            <param name="value"></param>
+            <param name="keys">Set of keys to access the value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MHTools.Common.CacheManager.Clear">
+            <summary>
+            Clears all cached data.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.CacheManager.ContainsKey(System.Object[])">
+            <summary>
+            Indicates the mananager contains given set of keys or not. 
+            </summary>
+            <param name="keys">Set of keys to access the value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MHTools.Common.CacheManager.Remove(System.Object[])">
+            <summary>
+            Removes cached value of given set of keys. 
+            If one of the keys is not found OR the value is not added, an exception will be thrown, 
+            </summary>
+            <param name="keys">Set of keys to access the value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MHTools.Common.CacheManager.GetContainingHashtable(System.Boolean,System.Object[])">
+            <summary>
+            Gets the hashtable contains given lastest keys.
+            </summary>
+            <param name="createNonExistedKeys">Indicates that the keys will be created if they are not existed.</param>
+            <param name="keys">Set of keys to access the value.</param>
+            <returns></returns>
+        </member>
+        <member name="T:MHTools.Common.CircularDependencyException">
+            <summary>
+            Represents a circular dependency exception when sorting dependency objects.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.CircularDependencyException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:MHTools.Common.CircularDependencyException"/> class.
+            </summary>
+        </member>
+        <member name="T:MHTools.Common.ConsoleColorChanger">
+            <summary>
+            Provides method to change color of console and automatically resets that color to original color.
+            This implement Fluent Interface.
+            </summary>
+            <author>ThangTran</author>
+            <history>
+            2012.02.09 - ThangTran: added.
+            </history>
+        </member>
+        <member name="F:MHTools.Common.ConsoleColorChanger.OriginalForegroundColor">
+            <summary>
+            Gets original console foreground color.
+            </summary>
+        </member>
+        <member name="F:MHTools.Common.ConsoleColorChanger.OriginalBackgroundColor">
+            <summary>
+            Gets original console background color.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.ConsoleColorChanger.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:MHTools.Common.ConsoleColorChanger"/> class with current colors.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.ConsoleColorChanger.#ctor(System.ConsoleColor,System.ConsoleColor)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MHTools.Common.ConsoleColorChanger"/> class with specified colors.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.ConsoleColorChanger.SetForegroundColor(System.ConsoleColor)">
+            <summary>
+            Sets console foreground color to desired one.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.ConsoleColorChanger.SetBackgroundColor(System.ConsoleColor)">
+            <summary>
+            Sets console background color to desired one.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.ConsoleColorChanger.SetColor(System.ConsoleColor)">
+            <summary>
+            Sets console foreground color to desired one.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.ConsoleColorChanger.SetColor(System.ConsoleColor,System.ConsoleColor)">
+            <summary>
+            Sets console foreground and background color to desired ones.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.ConsoleColorChanger.Reset">
+            <summary>
+            Resets all colors into their original state.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MHTools.Common.ConsoleColorChanger.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+            <filterpriority>2</filterpriority>
+        </member>
+        <member name="P:MHTools.Common.ConsoleColorChanger.Begin">
+            <summary>
+            Initializes new instance of ConsoleColorChanger.
+            This is a shortcut to new ConsoleColorChanger().
+            </summary>
+        </member>
+        <member name="T:MHTools.Common.Contents">
+            <summary>
+            Contains application-wide resources.
+            </summary>
+        </member>
+        <member name="F:MHTools.Common.Contents.ContentFolderPath">
+            <summary>
+            Gets or sets the path of content folder.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.Contents.Load(System.String)">
+            <summary>
+            Loads a named content as string.
+            </summary>
+            <param name="name">Name of the content.</param>
+            <returns></returns>        
+        </member>
+        <member name="M:MHTools.Common.Contents.Extract(System.String,System.String)">
+            <summary>
+            Loads the named content and then uses it to extract the given HTML content by using Regular Expression.
+            </summary>
+            <param name="contentName"></param>
+            <param name="htmlContent"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MHTools.Common.Contents.Extract(System.String,System.String,System.String)">
+            <summary>
+            Loads the named content and then uses it to extract the given HTML content by using Regular Expression.
+            A specified single content will be returned.        
+            </summary>
+            <param name="contentName"></param>
+            <param name="groupName"></param>
+            <param name="htmlContent"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MHTools.Common.Contents.LoadOrEmpty(System.String,System.String,System.String)">
+            <summary>
+            Loads the named content and then uses it to extract the given HTML content by using Regular Expression.
+            A specified single content will be returned.        
+            If the content is not found, empty string will be return.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.Contents.Save(System.String,System.String)">
+            <summary>
+            Saves a named content as string.
+            </summary>
+            <param name="name">Name of the content.</param>
+            <param name="content">Content value.</param>
+            <returns></returns>        
+        </member>
+        <member name="M:MHTools.Common.Contents.Format(System.String,System.Object[])">
+            <summary>
+            Loads a named content as string.
+            </summary>
+            <param name="contentName">Name of the content.</param>
+            <param name="args">Arguments of the content.</param>
+            <returns></returns>        
+        </member>
+        <member name="M:MHTools.Common.Contents.ConvertCustomizedTemplateToStandardFormat(System.String,System.String)">
+            <summary>
+            Converts a customized template to .NET standard format: string.Format().
+            </summary>
+            <param name="mappingsName">Name of the mappings.</param>
+            <param name="templateName">Name of the template.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MHTools.Common.Contents.FormatTemplate(System.String,System.String,System.Object[])">
+            <summary>
+            Formats a customized string.
+            </summary>
+            <param name="mappingsName">Name of the mappings.</param>
+            <param name="templateName">Name of the template.</param>
+            <param name="args">Format arguments</param>
+            <returns></returns>
+        </member>
+        <member name="T:MHTools.Common.Converter">
+            <summary>
+            Provides type conversation functions.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.Converter.ToInt(System.String)">
+            <summary>
+            Converts string to integer.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MHTools.Common.Converter.ToUtf8String(System.Byte[])">
+            <summary>
+            Converts bytes array to string by using Utf-8 encoding.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MHTools.Common.Converter.ReplaceHtmlTag(System.String)">
+            <summary>
+            Releases Html tags such as BR.
+            </summary>
+            <param name="html"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MHTools.Common.Converter.IsLocked(System.Threading.WaitHandle)">
+            <summary>
+            Indicates the wait handle is being locked or not.
+            </summary>
+            <param name="waitHandle"></param>
+            <returns>TRUE if the signal is set, otherwise FALSE></returns>
+        </member>
+        <member name="M:MHTools.Common.Converter.FromPhpTimeToNetTime(System.Int64)">
+            <summary>
+            Converts PHP time to .Net time format.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MHTools.Common.DependencySorter`1">
+            <summary>
+            Provides fast-algorithm and low-memory usage to sort objects based on their dependencies. 
+            </summary>
+            <remarks>
+            Definition: http://en.wikipedia.org/wiki/Topological_sorting
+            Source code credited to: http://tawani.blogspot.com/2009/02/topological-sorting-and-cyclic.html    
+            Original Java source code: http://www.java2s.com/Code/Java/Collections-Data-Structure/Topologicalsorting.htm
+            </remarks>
+            <author>ThangTran</author>
+            <history>
+            2012.03.21 - ThangTran: rewritten based on TopologicalSorter.
+            2012.04.11 - ThangTran: updated CircularDependencyException and published to StackOverflow.
+            </history>
+        </member>
+        <member name="F:MHTools.Common.DependencySorter`1._matrix">
+            <summary>
+            Gets the dependency matrix used by this instance.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.DependencySorter`1.AddObjects(`0[])">
+            <summary>
+            Adds a list of objects that will be sorted.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.DependencySorter`1.SetDependencies(`0,`0[])">
+            <summary>
+            Sets dependencies of given object.
+            This means <paramref name="obj"/> depends on these <paramref name="dependsOnObjects"/> to run.
+            Please make sure objects given in the <paramref name="obj"/> and <paramref name="dependsOnObjects"/> are added first.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.DependencySorter`1.Sort">
+            <summary>
+            Sorts objects based on this dependencies.
+            Note: because of the nature of algorithm and memory usage efficiency, this method can be used only one time.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.DependencySorter`1.GetIndependentObject(`0@)">
+            <summary>
+            Returns independent object or returns NULL if no independent object is found.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.DependencySorter`1.DeleteObject(`0)">
+            <summary>
+            Deletes given object from the matrix.
+            </summary>
+        </member>
+        <member name="T:MHTools.Common.DetailedException">
+            <summary>
+            Contains technical information related to the exception while keeping the friendly message at top.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.DetailedException.#ctor(System.Exception,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MHTools.Common.DetailedException"/> class 
+            with a specified error message and a reference to the inner exception that is the cause of this exception.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.DetailedException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MHTools.Common.DetailedException"/> class 
+            with a specified error message and a reference to the inner exception that is the cause of this exception.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.DetailedException.#ctor(System.Exception,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MHTools.Common.DetailedException"/> class 
+            with a specified error message and a reference to the inner exception that is the cause of this exception.
+            </summary>
+        </member>
+        <member name="T:MHTools.Common.EnumHelper">
+            <summary>
+            Provides helper functions for Enum.
+            </summary>
+            <author>ThangTran</author>
+            <history>
+            2011.08.16 - ThangTran: added.
+            </history>
+            <remarks>
+            Credit to Hugoware.
+            URL: http://stackoverflow.com/questions/93744/most-common-c-bitwise-operations
+            </remarks>
+        </member>
+        <member name="M:MHTools.Common.EnumHelper.Has``1(System.Enum,``0)">
+            <summary>
+            Indicates the enum has given value or not.
+            </summary>
+            <typeparam name="T">Type of the value.</typeparam>
+            <param name="type">Enum to check.</param>
+            <param name="value">Value to check whether the enum contains it or not.</param>
+        </member>
+        <member name="M:MHTools.Common.EnumHelper.Add``1(System.Enum,``0)">
+            <summary>
+            Adds a value to the enum.
+            </summary>
+            <typeparam name="T">Type of the value.</typeparam>
+            <param name="type">Enum to check.</param>
+            <param name="value">Value to add to the enum.</param>
+        </member>
+        <member name="M:MHTools.Common.EnumHelper.Remove``1(System.Enum,``0)">
+            <summary>
+            Removes a value from the enum.
+            </summary>
+            <typeparam name="T">Type of the value.</typeparam>
+            <param name="type">Enum to check.</param>
+            <param name="value">Value to remove from the enum.</param>
+        </member>
+        <member name="T:MHTools.Common.HiddenConsole.ConsoleCommandAttribute">
+            <summary>
+            Contains metadatabase of a console command.
+            </summary>
+        </member>
+        <member name="F:MHTools.Common.HiddenConsole.ConsoleCommandAttribute._description">
+            <summary>
+            Description of the console command which will be shown on the help.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.HiddenConsole.ConsoleCommandAttribute.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:MHTools.Common.HiddenConsole.ConsoleCommandAttribute"/> class.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.HiddenConsole.ConsoleCommandAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MHTools.Common.HiddenConsole.ConsoleCommandAttribute"/> class.
+            </summary>
+        </member>
+        <member name="P:MHTools.Common.HiddenConsole.ConsoleCommandAttribute.Description">
+            <summary>
+            Description of the console command which will be shown on the help.
+            </summary>
+        </member>
+        <member name="T:MHTools.Common.HiddenConsole.ConsoleCommandBase">
+            <summary>
+            Provides a base for all console commands.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.HiddenConsole.ConsoleCommandBase.Execute(System.String[])">
+            <summary>
+            Default entry point for console command.
+            If any "Execute" method is defined, it will called if the number of arguments fits.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.HiddenConsole.ConsoleCommandBase.ShowHelp">
+            <summary>
+            Shows a brief help to indicates how to use this command.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.HiddenConsole.ConsoleCommandBase.GetConsoleCommands">
+            <summary>
+            Gets all console commands defined in this class.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MHTools.Common.HiddenConsole.ConsoleCommandBase.IsConsoleCommand(System.Reflection.MethodInfo)">
+            <summary>
+            Indicates given method information is of a console command.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.HiddenConsole.ConsoleCommandBase.GetConsoleCommandAttribute(System.Reflection.MethodInfo)">
+            <summary>
+            Gets ConsoleCommandAttribute associated with given method info.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.HiddenConsole.ConsoleCommandBase.ConvertArgumentsToCorrectTypes(System.String[],System.Reflection.ParameterInfo[])">
+            <summary>
+            Converts given arguments to its correct types. 
+            For example, string "12.34" to double "12.34".
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.HiddenConsole.ConsoleCommandBase.ConvertType(System.String,System.Type)">
+            <summary>
+            Converts a string value into given target type.
+            </summary>
+        </member>
+        <member name="T:MHTools.Common.HiddenConsole.HiddenConsoleManager">
+            <summary>
+            Provides functions to manage special console which is hidden from normal user.
+            </summary>
+            <author>ThangTran</author>
+            <history>2011.05.18 - ThangTran: added to provide to use 'magic' functions.</history>
+        </member>
+        <member name="F:MHTools.Common.HiddenConsole.HiddenConsoleManager._isConsoleVisible">
+            <summary>
+            Indicates the hidden is visible or not.
+            This is different with the startup console when running in the UnitTest.
+            </summary>
+        </member>
+        <member name="F:MHTools.Common.HiddenConsole.HiddenConsoleManager._consoleThread">
+            <summary>
+            Reference to the single thread that process the console.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.HiddenConsole.HiddenConsoleManager.ToggleConsole">
+            <summary>
+            Toggles the console visible.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.HiddenConsole.HiddenConsoleManager.ShowConsole">
+            <summary>
+            Shows the console.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.HiddenConsole.HiddenConsoleManager.CloseConsole">
+            <summary>
+            Close the console opened by ShowConsole().
+            The console is different with the startup console when running in the UnitTest.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.HiddenConsole.HiddenConsoleManager.CommandLineToArgs(System.String)">
+            <summary>
+            Converts the given command line into a list of arguments.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.HiddenConsole.HiddenConsoleManager.ThreadRun">
+            <summary>
+            Processes console messages.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.HiddenConsole.HiddenConsoleManager.ExecuteCommand(System.Collections.Generic.IEnumerable{System.Type},System.String[])">
+            <summary>
+            Executes approriate command type based on given array of commands.
+            </summary>
+            <param name="commandTypes">Reference to collection of command types that inherites from ConsoleCommandBase.</param>
+            <param name="commands">Refernece to collection of command strings inputted in the console.</param>
+        </member>
+        <member name="T:MHTools.Common.IOHelper">
+            <summary>
+            Provides support for IO access.
+            </summary>
+            <author>ThangTran</author>
+            <history>
+            2011.02.15 - ThangTran: splited from external library MHTools.IO and added to DIoms.Utilities.
+            2011.12.08 - ThangTran: synchronized with external source code, added overload of SerializeAsXml(), DeserializeAsXml(), GetFullPath().
+            2012.01.16 - ThangTran: fixed issue that tab character is not correctly serialized, added InitializeEnviromentsVariables().
+            2012.04.03 - ThangTran: sync'ed from DIoms source code.
+            2013.04.11 - ThangTran: add XmlWriterSettings to prevent Deserialize() kill NewLine character.
+            </history>
+        </member>
+        <member name="M:MHTools.Common.IOHelper.InitializeEnviromentsVariables">
+            <summary>
+            Initializes enviroments variables such as %appdir%.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.IOHelper.CombinePath(System.String[])">
+            <summary>
+            Combines 2 or many paths together.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.IOHelper.GetFullPath(System.String)">
+            <summary>
+            Gets full path of the given relative or absolute path by utilizing Path.GetFullPath() and also expands environment variables like %apprdir% or %windir%.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.IOHelper.ExpandEnvironmentVariables(System.String)">
+            <summary>
+            Replaces the name of each environment variable embedded in the specified string with the string equivalent of the value of the variable, then returns the resulting string.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.IOHelper.PrepareFolder(System.String,System.String)">
+            <summary>
+            Prepares a folder with sub path.
+            The SubPath may be folder name or file name.
+            </summary>
+            <param name="path">Parent folder</param>
+            <param name="subPath">Sub folder or file name</param>
+            <returns>Indices the folder and its sub are created successfully or not.</returns>
+        </member>
+        <member name="M:MHTools.Common.IOHelper.PrepareFolder(System.String)">
+            <summary>
+            Prepares a folder with sub path.
+            The folderPath must be file name.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.IOHelper.PrepareFolderContainsFile(System.String)">
+            <summary>
+            Prepares a folder with sub path.
+            The filePath must be file name.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.IOHelper.CopyFolder(System.String,System.String)">
+            <summary>
+            Copies a source folder to destination folder.
+            </summary>
+            <param name="source"></param>
+            <param name="destination"></param>
+        </member>
+        <member name="M:MHTools.Common.IOHelper.CopyFile(System.String,System.String)">
+            <summary>
+            Copies file from source to target file.
+            If the target containing folder is not existing, it will be created.
+            If the target file exists, it will be overwritten even marked with Read-Only attribute.        
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.IOHelper.RemoveReadOnlyAttributeOfFile(System.String)">
+            <summary>
+            Removes readonly attribute of given file.
+            If the file may be exist or not. Only readonly attribute is removed.
+            </summary>
+            <param name="filePath">Target file path to change the attribute.</param>
+        </member>
+        <member name="M:MHTools.Common.IOHelper.SerializeAsXml(System.Object,System.String,System.Boolean)">
+            <summary>
+            Serializes the object as XML and saves it to specified path.
+            </summary>
+            <returns>Indicates the serialization process succeed or not.</returns>
+        </member>
+        <member name="M:MHTools.Common.IOHelper.DeserializeAsXml``1(``0@,System.String)">
+            <summary>
+            Reads specified file as XML and deserializes it to an object.
+            </summary>
+            <returns>Indicates the deserialization process succeed or not.</returns>
+        </member>
+        <member name="M:MHTools.Common.IOHelper.DeserializeAsXml``1(System.String)">
+            <summary>
+            Reads specified file as XML and deserializes it to an object.
+            </summary>
+            <returns>Indicates the deserialization process succeed or not.</returns>
+        </member>
+        <member name="M:MHTools.Common.IOHelper.DeserializeFromXml``1(System.String)">
+            <summary>
+            Reads specified string as XML and deserializes it to an object.
+            </summary>
+            <returns>Indicates the deserialization process succeed or not.</returns>
+        </member>
+        <member name="M:MHTools.Common.IOHelper.DeserializeAsXmlAndCopyToObject``1(``0,System.String)">
+            <summary>
+            Reads specified file as XML, deserializes it to an object WITHOUT creating a new one.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.IOHelper.CopyClass(System.Object,System.Object,System.Func{System.Object,System.Boolean})">
+            <summary>
+            Copies all members value from source class to destination class.
+            Destination class will NOT be recreated.
+            <param name="source">Reference to the source object.</param>
+            <param name="destination">Reference to the destination object.</param>
+            <param name="predicator">Optional parameter. Conditioner to filter fields or properties to be copied.</param>
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.IOHelper.Compress(System.Byte[])">
+            <summary>
+            Compresses given data.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.IOHelper.Decompress(System.Byte[])">
+            <summary>
+            Decompresses given data.
+            </summary>
+        </member>
+        <member name="P:MHTools.Common.IOHelper.CustomExecutePath">
+            <summary>
+            Gets or sets the custom execute path which is used to redirect the directory usage in testing scenario.
+            </summary>
+        </member>
+        <member name="P:MHTools.Common.IOHelper.ExecutePath">
+            <summary>
+            Returns the path that current assembly running in.
+            If the CustomExecutePath is not null, it will be returned instead.
+            </summary>
+        </member>
+        <member name="T:MHTools.Common.MathHelper">
+            <summary>
+            Provides helper for common and advanced maths.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.MathHelper.InRange``1(``0,``0,``0)">
+            <summary>
+            Indicates a value to be within a specified range.
+            The function is equivalent with "returns value in [min, max]". 
+            </summary>
+            <typeparam name="T">Type that inheriated from interface IComparable(<typeparamref name="T"/>).</typeparam>
+            <param name="value">The value to clamp.</param>
+            <param name="min">The minimum value. If value is less than min, min will be returned.</param>
+            <param name="max">The maximum value. If value is greater than max, max will be returned.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MHTools.Common.MathHelper.Clamp``1(``0,``0,``0)">
+            <summary>
+            Restricts a value to be within a specified range.
+            </summary>
+            <typeparam name="T">Type that inheriated from interface IComparable(<typeparamref name="T"/>).</typeparam>
+            <param name="value">The value to clamp.</param>
+            <param name="min">The minimum value. If value is less than min, min will be returned.</param>
+            <param name="max">The maximum value. If value is greater than max, max will be returned.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MHTools.Common.MathHelper.TakeMax``1(``0[])">
+            <summary>
+            Returns the greatest of all values.
+            </summary>
+            <typeparam name="T">Type that inheriated from interface IComparable(<typeparamref name="T"/>).</typeparam>
+            <param name="values">Source values.</param>
+            <returns>The greatest value.</returns>
+        </member>
+        <member name="M:MHTools.Common.MathHelper.TakeMin``1(``0[])">
+            <summary>
+            Returns the least of all values.
+            </summary>
+            <typeparam name="T">Type that inheriated from interface IComparable(<typeparamref name="T"/>).</typeparam>
+            <param name="values">Source values.</param>
+            <returns>The least value.</returns>
+        </member>
+        <member name="T:MHTools.Common.ProjectionComparer">
+            <summary>
+            Non-generic class to produce instances of the generic class,
+            optionally using type inference.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.ProjectionComparer.Create``2(System.Func{``0,``1})">
+            <summary>
+            Creates an instance of ProjectionComparer using the specified projection.
+            </summary>
+            <typeparam name="TSource">Type parameter for the elements to be compared</typeparam>
+            <typeparam name="TKey">Type parameter for the keys to be compared, after being projected from the elements</typeparam>
+            <param name="projection">Projection to use when determining the key of an element</param>
+            <returns>A comparer which will compare elements by projecting each element to its key, and comparing keys</returns>
+        </member>
+        <member name="T:MHTools.Common.ProjectionComparer`1">
+            <summary>
+            Class generic in the source only to produce instances of the 
+            doubly generic class, optionally using type inference.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.ProjectionComparer`1.Create``1(System.Func{`0,``0})">
+            <summary>
+            Creates an instance of ProjectionComparer using the specified projection.
+            </summary>
+            <typeparam name="TKey">Type parameter for the keys to be compared, after being projected from the elements</typeparam>
+            <param name="projection">Projection to use when determining the key of an element</param>
+            <returns>A comparer which will compare elements by projecting each element to its key, and comparing keys</returns>        
+        </member>
+        <member name="T:MHTools.Common.ProjectionComparer`2">
+            <summary>
+            ProjectionComparer which projects each element of the comparison to a key, and then compares
+            those keys using the specified (or default) comparer for the key type.
+            </summary>
+            <typeparam name="TSource">Type of elements which this comparer will be asked to compare</typeparam>
+            <typeparam name="TKey">Type of the key projected from the element</typeparam>
+        </member>
+        <member name="M:MHTools.Common.ProjectionComparer`2.#ctor(System.Func{`0,`1},System.Collections.Generic.IComparer{`1})">
+            <summary>
+            Creates a new instance using the specified projection, which must not be null.
+            </summary>
+            <param name="projection">Projection to use during comparisons</param>
+            <param name="comparer">The comparer to use on the keys. May be null, in
+            which case the default comparer will be used.</param>
+        </member>
+        <member name="M:MHTools.Common.ProjectionComparer`2.Compare(`0,`0)">
+            <summary>
+            Compares x and y by projecting them to keys and then comparing the keys. 
+            Null values are not projected; they obey the
+            standard comparer contract such that two null values are equal; any null value is
+            less than any non-null value.
+            </summary>
+        </member>
+        <member name="T:MHTools.Common.QueryHelper">
+            <summary>
+            Provides helpers in querying objects.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.QueryHelper.ForEach``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
+            <summary>
+            Performs a specified action on each element of IEnumerable(<typeparamref name="T"/>).
+            This will end the query chain.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.QueryHelper.Each``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
+            <summary>
+            Attaches a specified action on each element of IEnumerable(<typeparamref name="T"/>).
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.QueryHelper.Execute``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Executes the whole query and continues a new query chain.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.QueryHelper.ToDictionary``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Creates a <see cref="T:System.Collections.Generic.Dictionary`2"/> from an 
+            <see cref="T:System.Collections.Generic.IEnumerable`1"/> where the key is the item itself
+            and the value is that item too.
+            </summary>
+        </member>
+        <member name="T:MHTools.Common.RandomHelper">
+            <summary>
+            Provides random functions.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.RandomHelper.Generate(System.Int32,System.Int32)">
+            <summary>
+            Returns a number with specified range.
+            </summary>
+            <param name="min"></param>
+            <param name="max"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MHTools.Common.RandomHelper.Generate(System.Double,System.Double)">
+            <summary>
+            Returns a number with specified range.
+            </summary>
+            <param name="min"></param>
+            <param name="max"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MHTools.Common.RandomHelper.Generate">
+            <summary>
+            Returns a double within 0.0 and 1.0.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:MHTools.Common.ReflectionHelper">
+            <summary>
+            Provides support methods for reflection operations.
+            </summary>
+            <author>ThangTran</author>
+            <history>
+            2011.02.18 - ThangTran: splited from ViewModelHelper.
+            2011.02.24 - ThangTran: added methods that support invoke events.
+            2011.07.28 - ThangTran: added CopyMemberValues().
+            2011.12.19 - ThangTran: updated Xml-doc.
+            2012.04.03 - ThangTran: sync'ed from DIoms source code.
+            </history>
+        </member>
+        <member name="M:MHTools.Common.ReflectionHelper.InvokeObjectMethod``1(System.Object,System.String,System.String,System.Object[])">
+            <summary>
+            Invokes an object by given property path and method name.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="rootObject">Starting object that the property path will be navigated in.</param>
+            <param name="propertyPath">
+            Property path that can be be single member name or multiple member names, seperated by dots.
+            This is an optional parameter.
+            </param>
+            <param name="methodName">Name of the method to to be invoked.</param>
+            <param name="args">Method arguments.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MHTools.Common.ReflectionHelper.HasMember(System.Object,System.String)">
+            <summary>
+            Indicates the given object has property path or not.
+            </summary>
+            <param name="rootObject">Starting object that the property path will be navigated in.</param>
+            <param name="propertyPath">Property path that can be be single member name or multiple member names, seperated by dots.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MHTools.Common.ReflectionHelper.GetMember(System.Object,System.String,System.Object@)">
+            <summary>
+            Gets member information of given property path.
+            </summary>
+            <param name="rootObject">Starting object that the property path will be navigated in.</param>
+            <param name="propertyPath">Property path that can be be single member name or multiple member names, seperated by dots.</param>
+            <param name="newRoot">Ending object that contains the last property in the property path.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MHTools.Common.ReflectionHelper.SetObjectValue(System.Object,System.String,System.Object)">
+            <summary>
+            Gets object value by given property path.
+            </summary>        
+            <param name="rootObject">Starting object that the property path will be navigated in.</param>
+            <param name="propertyPath">Property path that can be be single member name or multiple member names, seperated by dots.</param>
+            <param name="value">New value to be set.</param>
+        </member>
+        <member name="M:MHTools.Common.ReflectionHelper.GetObjectValue``1(System.Object,System.String)">
+            <summary>
+            Gets object value by given property path.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="rootObject">Starting object that the property path will be navigated in.</param>
+            <param name="propertyPath">Property path that can be be single member name or multiple member names, seperated by dots.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MHTools.Common.ReflectionHelper.GetEventInvoker(System.Object,System.String)">
+            <summary>
+            Gets method that will be invoked the event is raised.
+            </summary>
+            <param name="obj">Object that contains the event.</param>
+            <param name="eventName">Event Name.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MHTools.Common.ReflectionHelper.InvokeEvent(System.Object,System.String,System.Object[])">
+            <summary>
+            Invokes an event in given object with event arguments.
+            </summary>
+            <param name="obj">Object that contains the event.</param>
+            <param name="eventName">Event name.</param>
+            <param name="eventArgs">Event arguments.</param>
+        </member>
+        <member name="M:MHTools.Common.ReflectionHelper.GetPropertyName``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Gets the property name of the given property.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.ReflectionHelper.CopyMemberPublicValues(System.Object,System.Object,System.String)">
+            <summary>
+            Shallowly copies member values of source object to destination object.
+            </summary>
+            <param name="source">Reference to the source object.</param>
+            <param name="destination">Reference to the target object.</param>
+            <param name="propertyRegexPattern">Regular expression pattern to filter list of properties to copy.</param>
+        </member>
+        <member name="M:MHTools.Common.ReflectionHelper.CopyMemberValues(System.Object,System.Object,System.Boolean,System.Func{System.Reflection.MemberInfo,System.Boolean},System.Type[])">
+            <summary>
+            Shallowly copies member values of source object to destination object.
+            </summary>
+            <param name="source">Reference to the source object.</param>
+            <param name="destination">Reference to the target object.</param>
+            <param name="includeNonPublic">Incidates whether the non-public members should be included or not.</param>
+            <param name="predicate">Predicate to determine the member should be copied or not.</param>
+            <param name="excludedAttributes">Type of the attributes that the copy will be excluded.</param>
+        </member>
+        <member name="M:MHTools.Common.ReflectionHelper.ChangeType(System.Object,System.Type)">
+            <summary>
+            Converts source value to target property type.
+            This works slightly better than <see cref="M:System.Convert.ChangeType(System.Object,System.TypeCode)"/>
+            because it supports <see cref="T:System.Nullable"/> types.
+            </summary>
+            <param name="source">An System.Object that implements the System.IConvertible interface.</param>
+            <param name="targetPropertyType">Type of the target property, for example: Int32.</param>
+        </member>
+        <member name="M:MHTools.Common.ReflectionHelper.GetPropertyAccessor(System.Type,System.Reflection.PropertyInfo,System.Byte)">
+            <summary>
+            Gets the accessor of given property of the object.
+            </summary>
+            <param name="type">Type of the property container.</param>
+            <param name="propertyInfo">Property information in the <paramref name="type"/>.</param>
+            <param name="accessorType">Type of the property accessor to get. 0: GET, 1: SET.</param>
+        </member>
+        <member name="M:MHTools.Common.ReflectionHelper.MemberIsPublic(System.Reflection.MemberInfo,System.Boolean)">
+            <summary>
+            Indicates whether the given member is public or not.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.ReflectionHelper.MemberHasDefinedAttributes(System.Reflection.MemberInfo,System.Collections.Generic.Dictionary{System.Type,System.Type})">
+            <summary>
+            Indicates whether the member is defined with one of excludedAttributes. 
+            TRUE = no excluded attribute, FALSE = has at least 1 excluded attribute
+            </summary>
+        </member>
+        <member name="T:MHTools.Common.WinApiProvider">
+            <summary>
+            Provides Win API methods.
+            </summary>
+            <author>ThangTran</author>
+            <history>
+            2012.02.14 - ThangTran: rewritten from SelfRunner and adhered SOLID.
+            2012.02.24 - ThangTran: moved to DIoms.Utitlies.
+            </history>
+        </member>
+        <member name="M:MHTools.Common.WinApiProvider.MouseEvent(System.UInt32,System.Int32,System.Int32,System.UInt32,System.UInt32)">
+            <summary>
+            Performs a mouse event action.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.WinApiProvider.GetKeyState(System.Int32)">
+            <summary>
+            Gets state of given key code.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.WinApiProvider.GetConsoleWindow">
+            <summary>
+            Gets pointer to the console window.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MHTools.Common.WinApiProvider.SetWindowPos(System.IntPtr,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Sets window position.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.WinApiProvider.ShowWindow(System.IntPtr,System.Int32)">
+            <summary>
+            Shows window.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MHTools.Common.WinApiProvider.GetWindowLong(System.IntPtr,System.Int32)">
+            <summary>
+            Gets window long.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.WinApiProvider.SetWindowLong(System.IntPtr,System.Int32,System.Int32)">
+            <summary>
+            Sets window long.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.WinApiProvider.MaximizeWindow">
+            <summary>
+            Maximizes console window.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.WinApiProvider.CommandLineToArgvW(System.String,System.Int32@)">
+            <summary>
+            Splits command text to multiple parts.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.WinApiProvider.AllocConsole">
+            <summary>
+            Allocates console.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.WinApiProvider.FreeConsole">
+            <summary>
+            Frees current console
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.WinApiProvider.EnableMenuItem(System.IntPtr,System.UInt32,System.UInt32)">
+            <summary>
+            Enables a menu item.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.WinApiProvider.GetSystemMenu(System.IntPtr,System.Boolean)">
+            <summary>
+            Gets pointer to system menu.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.WinApiProvider.RemoveMenu(System.IntPtr,System.UInt32,System.UInt32)">
+            <summary>
+            Removes given menu.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.WinApiProvider.DisableConsoleCloseButton">
+            <summary>
+            Dissables close button of a window.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.WinApiProvider.GetKeyState(System.Windows.Forms.Keys)">
+            <summary>
+            Gets key state of given key.
+            Credit to: parsley72, http://stackoverflow.com/a/9356006/633428
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.WinApiProvider.IsKeyDown(System.Windows.Forms.Keys)">
+            <summary>
+            Tests whether given key is pressed.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.WinApiProvider.IsKeyToggled(System.Windows.Forms.Keys)">
+            <summary>
+            Tests whether given key is toggled.
+            </summary>
+        </member>
+        <member name="T:MHTools.Common.WinApiProvider.KeyStates">
+            <summary>
+            Represents key state.
+            </summary>
+        </member>
+        <member name="T:MHTools.Common.XmlSerializableObject`1">
+            <summary>
+            Provides base class to Xml Serializable objects which supports
+            convenient <see cref="M:MHTools.Common.XmlSerializableObject`1.SaveToFile(System.String)"/> and <see cref="M:MHTools.Common.XmlSerializableObject`1.LoadFromFile(System.String)"/> methods.
+            </summary>
+            <typeparam name="T">Reference back to the Xml Serializable object. Its purpose is to give syntactic sugar.</typeparam>
+        </member>
+        <member name="M:MHTools.Common.XmlSerializableObject`1.SaveToFile(System.String)">
+            <summary>
+            Saves current object instance into XML file.
+            To load object, use static method <see cref="M:MHTools.Common.XmlSerializableObject`1.LoadFromFile(System.String)"/>.
+            </summary>
+            <param name="filePath">Path of the XML file to save.</param>
+        </member>
+        <member name="M:MHTools.Common.XmlSerializableObject`1.LoadFromFile(System.String)">
+            <summary>
+            Saves current object instance into XML file.
+            </summary>
+            <param name="filePath">Path of the XML file to save.</param>
+        </member>
+        <member name="M:MHTools.Common.XmlSerializableObject`1.LoadFromString(System.String)">
+            <summary>
+            Parses a xml string to T object
+            </summary>
+            <param name="xmlString"> </param>
+        </member>
+        <member name="M:MHTools.Common.XmlSerializableObject`1.OnSerialized">
+            <summary>
+            Fired when the object is serialized.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.XmlSerializableObject`1.OnDeserialized">
+            <summary>
+            Fired when the object is deserialized.
+            </summary>
+        </member>
+    </members>
+</doc>

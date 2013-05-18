@@ -1,4 +1,4 @@
-﻿namespace SDM.Core.Data.Config
+﻿namespace SDM.Core.Config
 {
     /// <summary>
     /// Contains SQL-related configurations.
