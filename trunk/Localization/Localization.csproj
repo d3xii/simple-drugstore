@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A6C4A59C-8BF6-4D78-81D6-D022221AF8A7}</ProjectGuid>
+    <ProjectGuid>{2E6D8BB6-8C67-4AF1-9BFB-C80E9B938D53}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SDM.Core</RootNamespace>
-    <AssemblyName>SDM.Core</AssemblyName>
+    <RootNamespace>SDM.Localization</RootNamespace>
+    <AssemblyName>SDM.Localization</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,23 +30,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MHTools.Common">
-      <HintPath>..\__lib\MHTools.Common.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\ConfigManager.cs" />
-    <Compile Include="Configuration\IConfigContext.cs" />
-    <Compile Include="Configuration\RealContext.cs" />
-    <Compile Include="Context\IServerContext.cs" />
-    <Compile Include="Context\IContext.cs" />
-    <Compile Include="Configuration\Config.cs" />
-    <Compile Include="Configuration\SqlConfig.cs" />
-    <Compile Include="Context\ServerContext.cs" />
+    <Compile Include="Core\ILocalizable.cs" />
+    <Compile Include="Core\ILocalizationScope.cs" />
+    <Compile Include="Core\Localizable.cs" />
+    <Compile Include="Core\LocalizationManager.cs" />
+    <Compile Include="Core\LocalizationScopeBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SharedTexts\SharedTexts.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

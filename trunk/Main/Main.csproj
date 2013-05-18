@@ -69,9 +69,11 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminHomeControllerTexts.cs" />
     <Compile Include="Areas\Admin\Controllers\CustomAuthorizeAttribute.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminHomeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -79,6 +81,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Localization\LocalizationTextsRoot.cs" />
+    <Compile Include="Localization\WarehouseTexts.cs" />
     <Compile Include="Models\TempItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -98,7 +102,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
-    <Folder Include="modules\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -134,6 +137,10 @@
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{A6C4A59C-8BF6-4D78-81D6-D022221AF8A7}</Project>
       <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Localization\Localization.csproj">
+      <Project>{2E6D8BB6-8C67-4AF1-9BFB-C80E9B938D53}</Project>
+      <Name>Localization</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
