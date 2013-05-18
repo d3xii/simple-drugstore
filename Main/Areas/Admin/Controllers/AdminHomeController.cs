@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using SDM.Core.Configuration;
 using SDM.Core.Context;
+using SDM.Localization.Core;
 
 namespace SDM.Main.Areas.Admin.Controllers
 {
@@ -8,7 +9,7 @@ namespace SDM.Main.Areas.Admin.Controllers
     /// Represents the Home.
     /// </summary>
     [CustomAuthorize]
-    public class AdminHomeController : Controller
+    public class AdminHomeController : Controller, ILocalizable<AdminHomeControllerTexts>
     {
         public ActionResult Index()
         {
@@ -40,7 +41,7 @@ namespace SDM.Main.Areas.Admin.Controllers
             else
             {
                 // invalid password
-                return "Invalid password.";
+                return this.Localize(t => t.InvalidPassword);
             }
 
             return null;

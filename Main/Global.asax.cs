@@ -1,6 +1,8 @@
 ﻿using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
+using SDM.Localization.Core;
+using SDM.Main.Localization;
 
 namespace SDM.Main
 {
@@ -15,12 +17,14 @@ namespace SDM.Main
             RegisterWebApiConfig(GlobalConfiguration.Configuration);
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+
+            // enable localization
+            LocalizationManager.Initialize(new LocalizationTextsRoot());
         }
 
         private static void RegisterWebApiConfig(HttpConfiguration config)
         {
-            config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}", new {id = RouteParameter.Optional}
-                );
+            config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}", new {id = RouteParameter.Optional});
         }
 
         private static void RegisterGlobalFilters(GlobalFilterCollection filters)
