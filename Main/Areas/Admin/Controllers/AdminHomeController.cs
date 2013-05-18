@@ -6,7 +6,7 @@ using SDM.Localization.Core;
 namespace SDM.Main.Areas.Admin.Controllers
 {
     /// <summary>
-    /// Represents the Home.
+    /// Represents the Admin Home.
     /// </summary>
     [CustomAuthorize]
     public class AdminHomeController : Controller, ILocalizable<AdminHomeControllerTexts>
@@ -26,25 +26,30 @@ namespace SDM.Main.Areas.Admin.Controllers
         }
 
         [AllowAnonymous, HttpPost]
-        public string Login(string returningUrl, string password)
+        public ActionResult Login(string returningUrl, string password)
         {
-            // read from config
-            ConfigManager configManager = new ConfigManager();
-            Config config = configManager.Load(new ServerContext(this.Server));
-
-            // check same password
-            if (password == config.AdminPassword)
-            {
-                // ok
-                return "Login OK.";
-            }
-            else
+            // check empty password
+            if (string.IsNullOrEmpty(password))
             {
                 // invalid password
-                return this.Localize(t => t.InvalidPassword);
+                ViewBag.Error = this.Localize(t => t.Mandatory);
+                return View();
             }
 
-            return null;
+            // read from config
+            ConfigManager configManager = new ConfigManager();
+            Config config = configManager.Load(new ServerContext(this.Server));            
+
+            // check same password
+            if (password != config.AdminPassword)
+            {
+                // invalid password
+                ViewBag.Error = this.Localize(t => t.InvalidPassword);
+                return View();
+            }
+            
+            // ok, redirect to homepage
+            return this.RedirectToAction("Index", "Home");
         }
     }
 }

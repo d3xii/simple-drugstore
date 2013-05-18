@@ -10,7 +10,7 @@ namespace SDM.Core.Configuration
         /// <summary>
         /// Gets or sets SQL config.
         /// </summary>
-        public SqlConfig Sql = new SqlConfig();
+        public SqlConfig Sql { get; set; }
 
         /// <summary>
         /// Gets or sets admin password.
