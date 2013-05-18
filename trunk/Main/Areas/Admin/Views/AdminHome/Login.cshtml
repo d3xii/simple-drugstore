@@ -1,14 +1,19 @@
-﻿@using System.Web.Mvc.Html
-@{
+﻿@{
     ViewBag.Title = "Login";
 }
 
-@using (Html.BeginForm())
-{    
-    Html.Label("Password");
-    Html.Password("Password");
-    InputExtensions.Hidden(Html, "ReturningUrl", ViewBag.ReturningUrl);
-    <hr/>
-    <input type="submit" value="Login"/>
-    <input type="button" value="Cancel" onclick="window.location = '/';"/>
-}
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <form action="@Url.Action("Login")" method="POST">
+        <label>Password</label>
+        <input type="password" name="Password" />
+        <input type="hidden" value="@Html.Encode(ViewBag.ReturningUrl)"/>
+        <hr />
+        <input type="submit" value="Login" />
+        <input type="button" value="Cancel" onclick="window.location = '/';" />
+    </form>
+</body>
+</html>

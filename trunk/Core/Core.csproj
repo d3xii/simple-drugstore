@@ -35,18 +35,20 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\ConfigManager.cs" />
-    <Compile Include="Config\IConfigContext.cs" />
+    <Compile Include="Configuration\ConfigManager.cs" />
+    <Compile Include="Configuration\IConfigContext.cs" />
+    <Compile Include="Configuration\RealContext.cs" />
+    <Compile Include="Context\IServerContext.cs" />
     <Compile Include="Context\IContext.cs" />
-    <Compile Include="Config\Config.cs" />
-    <Compile Include="Config\SqlConfig.cs" />
+    <Compile Include="Configuration\Config.cs" />
+    <Compile Include="Configuration\SqlConfig.cs" />
+    <Compile Include="Context\ServerContext.cs" />
+    <Compile Include="Localization\ILocalizationContext.cs" />
+    <Compile Include="Localization\LocalizationKeysRoot.cs" />
+    <Compile Include="Localization\LocalizationManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

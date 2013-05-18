@@ -1,6 +1,6 @@
 ﻿using SDM.Core.Context;
 
-namespace SDM.Core.Config
+namespace SDM.Core.Configuration
 {
     /// <summary>
     /// Contains reference to the config.
@@ -16,13 +16,5 @@ namespace SDM.Core.Config
         /// Gets direct reference to the configuration inside the ConfigManager.
         /// </summary>
         Config Config { get; set; }
-    }
-
-    /// <summary>
-    /// Contains full context
-    /// </summary>
-    public class RealContext
-    {
-
     }
 }

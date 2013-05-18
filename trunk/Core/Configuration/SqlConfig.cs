@@ -1,4 +1,6 @@
-﻿namespace SDM.Core.Config
+﻿using System.ComponentModel;
+
+namespace SDM.Core.Configuration
 {
     /// <summary>
     /// Contains SQL-related configurations.
@@ -8,21 +10,23 @@
         /// <summary>
         /// Gets or sets server name.
         /// </summary>
-        public string ServerName;
+        [DefaultValue("localhost")]
+        public string ServerName { get; set; }
 
         /// <summary>
         /// Gets or sets SQL database name.
         /// </summary>
-        public string DatabaseName;
+        public string DatabaseName { get; set; }
 
         /// <summary>
         /// Gets or sets SQL Server user name.
         /// </summary>
-        public string UserName;
+        [DefaultValue("sa")]
+        public string UserName { get; set; }
 
         /// <summary>
         /// Gets or sets SQL Server password.
-        /// </summary>
-        public string Password;
+        /// </summary>        
+        public string Password { get; set; }
     }
 }
