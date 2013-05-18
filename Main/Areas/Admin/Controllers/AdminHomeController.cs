@@ -5,7 +5,7 @@ namespace SDM.Main.Areas.Admin.Controllers
     /// <summary>
     /// Represents the Home.
     /// </summary>
-    [AdminAuthorize]
+    [CustomAuthorize]
     public class AdminHomeController : Controller
     {
         public ActionResult Index()
@@ -14,9 +14,20 @@ namespace SDM.Main.Areas.Admin.Controllers
         }
         
         [AllowAnonymous]
-        public string Login(string returningUrl)
+        public ActionResult Login(string returningUrl)
         {
-            return "From " + returningUrl;
+            // assign view data
+            ViewBag.ReturningUrl = returningUrl;
+
+            return View();
+        }
+
+        [AllowAnonymous, HttpPost]
+        public ActionResult Login(string returningUrl, string password)
+        {
+            // read from config
+
+            return View();
         }
     }
 }

@@ -8,7 +8,7 @@ namespace SDM.Main.Areas.Admin.Controllers
     /// Authorizes a request and redirects to approritated login page.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-    internal class AdminAuthorizeAttribute : AuthorizeAttribute
+    internal class CustomAuthorizeAttribute : AuthorizeAttribute
     {
         //**************************************************
         //
@@ -42,7 +42,7 @@ namespace SDM.Main.Areas.Admin.Controllers
         /// <summary>
         /// Marks given controller as [Authorize] and redirects Unauthorized Access to Login action of given controller.
         /// </summary>
-        public AdminAuthorizeAttribute(string controller, string action)
+        public CustomAuthorizeAttribute(string controller, string action)
         {
             Controller = controller;
             Action = action;
@@ -51,14 +51,14 @@ namespace SDM.Main.Areas.Admin.Controllers
         /// <summary>
         /// Marks given controller as [Authorize] and redirects Unauthorized Access to given action of the same controller.
         /// </summary>
-        public AdminAuthorizeAttribute(string action) : this(null, action)
+        public CustomAuthorizeAttribute(string action) : this(null, action)
         {
         }
 
         /// <summary>
         /// Marks given controller as [Authorize] and redirects Unauthorized Access to Login action of the same controller.
         /// </summary>
-        public AdminAuthorizeAttribute() : this("Login")
+        public CustomAuthorizeAttribute() : this("Login")
         {
         }
 
