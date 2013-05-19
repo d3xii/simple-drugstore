@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using System.Web.Security;
 using SDM.Core.Configuration;
 using SDM.Core.Context;
 using SDM.Localization.Core;
@@ -48,8 +49,11 @@ namespace SDM.Main.Areas.Admin.Controllers
                 return View();
             }
             
+            // save to cookie
+            FormsAuthentication.SetAuthCookie("admin", false);
+
             // ok, redirect to homepage
-            return this.RedirectToAction("Index", "Home");
+            return this.RedirectToAction("Index", "AdminHome");
         }
     }
 }
