@@ -62,12 +62,26 @@ namespace SDM.Main.Areas.Admin.Controllers
             // read config
             Config systemConfig = this.ReadConfig();
 
+            // if the admin password is changed, force relogging
+            bool isAdminPasswordChanged = config.AdminPassword != systemConfig.AdminPassword;
+
             // copy submitted values to system config
             ConfigManager configManager = new ConfigManager();
-            config.CopyValues(systemConfig);
+            config.CopyValues(systemConfig);            
 
             // save to file
             configManager.Save(new ServerContext(this.Server), systemConfig);
+
+            // if the admin password is changed, force relogging
+            if (isAdminPasswordChanged)
+            {
+                // clear session
+                FormsAuthentication.SignOut();
+                return RedirectToAction("Index");
+            }
+
+            // save to view bag
+            ViewBag.Result = "Settings have been saved.";
 
             // return Index view
             return View("Index", config);
@@ -77,11 +91,11 @@ namespace SDM.Main.Areas.Admin.Controllers
         {
             // reset config
             ConfigManager configManager = new ConfigManager();
-            Config config = new Config();
+            Config config = new Config().ResetValues();
             configManager.Save(new ServerContext(this.Server), config);
 
             // save to view bag
-            ViewBag.Result = "Saved.";
+            ViewBag.Result = "Settings have been reset to default values.";
 
             // return current view
             return View("Index", config);

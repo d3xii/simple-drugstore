@@ -35,11 +35,13 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\ConfigManager.cs" />
+    <Compile Include="Configuration\DataContractObject.cs" />
     <Compile Include="Configuration\IConfigContext.cs" />
     <Compile Include="Configuration\RealContext.cs" />
     <Compile Include="Context\IServerContext.cs" />

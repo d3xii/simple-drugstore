@@ -41,15 +41,21 @@ namespace SDM.Core.Configuration
             string realFilePath = context.Server.MapPath(FilePath);
             //IOHelper.PrepareFolderContainsFile(realFilePath);
 
-            // exists?
-            if (!File.Exists(realFilePath))
+            // get file info
+            FileInfo fileInfo = new FileInfo(realFilePath);
+
+            // exists or empty file
+            if (!fileInfo.Exists || fileInfo.Length == 0)
             {
                 // use default config                
-                return new Config();
+                return new Config().ResetValues();
             }
 
             // read it            
-            return Config.LoadFromFile(realFilePath);
+            using (FileStream stream = fileInfo.OpenRead())
+            {
+                return Config.LoadFromStream(stream);
+            }
         }
 
         /// <summary>
