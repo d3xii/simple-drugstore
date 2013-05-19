@@ -2,15 +2,12 @@
     ViewBag.Title = "Login";
 }
 
-<html>
-<head>
-    <title>@ViewBag.Title</title>
-</head>
-<body>
+<fieldset>
+    <legend>Please enter password to enter the Admin Control Panel:</legend>
     <form action="@Url.Action("Login")" method="POST">
-        <input type="hidden" value="@Html.Encode(ViewBag.ReturningUrl)"/>        
+        <input type="hidden" value="@Html.Encode(ViewBag.ReturningUrl)"/>
         <label>Password</label>
-        <input type="password" name="Password" />        
+        <input type="password" name="Password" />
         @if (ViewBag.Error != null)
         {
             // show error message
@@ -18,7 +15,6 @@
         }
         <hr />
         <input type="submit" value="Login" />
-        <input type="button" value="Cancel" onclick="window.location = '/';" />
+        @Html.ActionLink("Cancel", "Index", "Home", new { area = "" }, null)
     </form>
-</body>
-</html>
+</fieldset>

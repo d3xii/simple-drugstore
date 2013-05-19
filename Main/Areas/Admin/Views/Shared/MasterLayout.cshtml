@@ -1,0 +1,24 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    
+    @Styles.Render("~/Styles/Standard.css")
+    @Styles.Render("~/Styles/Grid.css")
+</head>
+<body>
+    <header>
+        @Html.ActionLink("Home page", "Index", "Home", new { area = "" }, null)
+    </header>
+    <hr/>
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>

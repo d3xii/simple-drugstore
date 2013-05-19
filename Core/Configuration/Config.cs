@@ -6,7 +6,7 @@ namespace SDM.Core.Configuration
     /// <summary>
     /// Contains application config.
     /// </summary>
-    public class Config : XmlSerializableObject<Config>
+    public class Config : DataContractObject<Config>
     {
         /// <summary>
         /// Gets or sets SQL config.
@@ -15,7 +15,7 @@ namespace SDM.Core.Configuration
 
         /// <summary>
         /// Gets or sets admin password.
-        /// </summary>
+        // </summary>        
         [DisplayName("Admin Password"), DefaultValue("admin"), PasswordPropertyText(true)]
         public string AdminPassword { get; set; }
     }
