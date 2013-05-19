@@ -1,7 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.IO;
-using MHTools.Common;
+﻿using System.IO;
 using SDM.Core.Context;
 
 namespace SDM.Core.Configuration
@@ -47,60 +44,27 @@ namespace SDM.Core.Configuration
             // exists?
             if (!File.Exists(realFilePath))
             {
-                // use default config
-                var result = new Config();
-                this.SetDefaultValues(result);
-                return result;
+                // use default config                
+                return new Config();
             }
 
             // read it            
-            return IOHelper.DeserializeAsXml<Config>(realFilePath);
+            return Config.LoadFromFile(realFilePath);
         }
-
-        #endregion
-
-
-        //**************************************************
-        //
-        // Private methods
-        //
-        //**************************************************
-
-        #region Private methods
 
         /// <summary>
-        /// Sets default values for given objects and its chidlren.
-        /// This will Stackoverflow exception if there is circular dependency in the object.
+        /// Saves config to the server.
         /// </summary>
-        public void SetDefaultValues(object obj)
+        public void Save(IServerContext context, Config config)
         {
-            // for each property
-            foreach (PropertyDescriptor property in TypeDescriptor.GetProperties(obj))
-            {
-                // reset its value
-                property.ResetValue(obj);
+            // get real file path
+            string realFilePath = context.Server.MapPath(FilePath);
+            //IOHelper.PrepareFolderContainsFile(realFilePath);
 
-                // get its value
-                object value = property.GetValue(obj);
-
-                // if value is complex type
-                if (!(value is ValueType) && property.PropertyType != typeof(string))
-                {
-                    // if it is null
-                    if (value == null)
-                    {          
-                        // try to initialize it
-                        value = Activator.CreateInstance(property.PropertyType);
-                        property.SetValue(obj, value);
-                    }
-
-                    // move deeper
-                    SetDefaultValues(value);
-                }
-            }
+            // save it            
+            config.SaveToFile(realFilePath);
         }
 
         #endregion
-
     }
 }
