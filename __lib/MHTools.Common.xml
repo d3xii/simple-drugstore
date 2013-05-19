@@ -1028,6 +1028,11 @@
             </summary>
             <typeparam name="T">Reference back to the Xml Serializable object. Its purpose is to give syntactic sugar.</typeparam>
         </member>
+        <member name="M:MHTools.Common.XmlSerializableObject`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.Object"/> class.
+            </summary>
+        </member>
         <member name="M:MHTools.Common.XmlSerializableObject`1.SaveToFile(System.String)">
             <summary>
             Saves current object instance into XML file.
@@ -1047,6 +1052,19 @@
             </summary>
             <param name="xmlString"> </param>
         </member>
+        <member name="M:MHTools.Common.XmlSerializableObject`1.CopyValues(`0)">
+            <summary>
+            Copies plain values from source to target.
+            Processes deep copy.
+            Ignores if [PasswordPropertyText(true)] properties with NULL value in the source object.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.XmlSerializableObject`1.ResetValues">
+            <summary>
+            Sets default values for this object and its chidlren.
+            This will Stackoverflow exception if there is circular dependency in the object.
+            </summary>
+        </member>
         <member name="M:MHTools.Common.XmlSerializableObject`1.OnSerialized">
             <summary>
             Fired when the object is serialized.
@@ -1055,6 +1073,21 @@
         <member name="M:MHTools.Common.XmlSerializableObject`1.OnDeserialized">
             <summary>
             Fired when the object is deserialized.
+            </summary>
+        </member>
+        <member name="M:MHTools.Common.XmlSerializableObject`1.CopyValues(System.Object,System.Object)">
+            <summary>
+            Copies plain values from source to target.
+            Processes deep copy.
+            Ignores if [PasswordPropertyText(true)] properties with NULL value in the source object.
+            </summary>
+            <param name="source"></param>
+            <param name="target"></param>
+        </member>
+        <member name="M:MHTools.Common.XmlSerializableObject`1.ResetValues(System.Object)">
+            <summary>
+            Sets default values for given objects and its chidlren.
+            This will Stackoverflow exception if there is circular dependency in the object.
             </summary>
         </member>
     </members>

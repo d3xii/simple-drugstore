@@ -14,7 +14,8 @@ namespace SDM.Main.Areas.Admin.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            Config config = this.ReadConfig();
+            return View(config);
         }
         
         [AllowAnonymous]
@@ -38,8 +39,7 @@ namespace SDM.Main.Areas.Admin.Controllers
             }
 
             // read from config
-            ConfigManager configManager = new ConfigManager();
-            Config config = configManager.Load(new ServerContext(this.Server));            
+            Config config = this.ReadConfig();
 
             // check same password
             if (password != config.AdminPassword)
@@ -57,9 +57,55 @@ namespace SDM.Main.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public string SaveSettings(Config config)
+        public ActionResult SaveSettings(Config config)
         {
-            return "Saving password to: " + config.AdminPassword;
+            // read config
+            Config systemConfig = this.ReadConfig();
+
+            // copy submitted values to system config
+            ConfigManager configManager = new ConfigManager();
+            config.CopyValues(systemConfig);
+
+            // save to file
+            configManager.Save(new ServerContext(this.Server), systemConfig);
+
+            // return Index view
+            return View("Index", config);
         }
+
+        public ActionResult ResetSettings()
+        {
+            // reset config
+            ConfigManager configManager = new ConfigManager();
+            Config config = new Config();
+            configManager.Save(new ServerContext(this.Server), config);
+
+            // save to view bag
+            ViewBag.Result = "Saved.";
+
+            // return current view
+            return View("Index", config);
+        }
+
+        //**************************************************
+        //
+        // Private methods
+        //
+        //**************************************************
+
+        #region Private methods
+
+        /// <summary>
+        /// Reads server config.
+        /// </summary>
+        private Config ReadConfig()
+        {
+            // read from config
+            ConfigManager configManager = new ConfigManager();
+            return configManager.Load(new ServerContext(this.Server));         
+        }
+
+        #endregion
+
     }
 }

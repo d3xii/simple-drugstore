@@ -3,15 +3,34 @@
     ViewBag.Title = "Admin Control Panel";
 }
 
-<div><h1>Welcome admin.</h1></div>
-<fieldset>
-    <legend>Settings</legend>
-    @using (Html.BeginForm("SaveSettings", "AdminHome"))
+<div>
+    <h1>Welcome admin.</h1>
+</div>
+@using (Html.BeginForm("SaveSettings", "AdminHome"))
+{
+    if (ViewBag.Result != null)
     {
+    <span style="font-weight: bold">Result: @ViewBag.Result</span>
+    <hr />
+    }
+    <fieldset>
+        <legend>General Settings</legend>
         @Html.LabelFor(t => t.AdminPassword)
         @Html.PasswordFor(t => t.AdminPassword)
-        <hr />        
-        <input type="submit" value="Login" />
-        <input type="button" value="Cancel" onclick="window.location = '/';" />
-    }
-</fieldset>
+    </fieldset>
+    <fieldset>
+        <legend>Database Settings</legend>
+        @Html.LabelFor(t => t.Sql.ServerName)
+        @Html.TextBoxFor(t => t.Sql.ServerName)
+        @Html.LabelFor(t => t.Sql.DatabaseName)
+        @Html.TextBoxFor(t => t.Sql.DatabaseName)
+        @Html.LabelFor(t => t.Sql.UserName)
+        @Html.TextBoxFor(t => t.Sql.UserName)
+        @Html.LabelFor(t => t.Sql.Password)
+        @Html.PasswordFor(t => t.Sql.Password)
+    </fieldset>
+    <input type="submit" value="Save" />
+    @Html.ActionLink("Reset", "ResetSettings")
+    @:
+    @Html.ActionLink("Cancel", "Index", "Home", new { area = string.Empty }, null)
+}
