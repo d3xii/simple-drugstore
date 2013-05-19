@@ -1,5 +1,17 @@
-﻿@{
+﻿@model SDM.Core.Configuration.Config
+@{
     ViewBag.Title = "Admin Control Panel";
 }
 
-Welcome admin.
+<div><h1>Welcome admin.</h1></div>
+<fieldset>
+    <legend>Settings</legend>
+    @using (Html.BeginForm("SaveSettings", "AdminHome"))
+    {
+        @Html.LabelFor(t => t.AdminPassword)
+        @Html.PasswordFor(t => t.AdminPassword)
+        <hr />        
+        <input type="submit" value="Login" />
+        <input type="button" value="Cancel" onclick="window.location = '/';" />
+    }
+</fieldset>

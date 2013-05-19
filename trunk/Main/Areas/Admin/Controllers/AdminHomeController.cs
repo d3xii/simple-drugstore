@@ -55,5 +55,11 @@ namespace SDM.Main.Areas.Admin.Controllers
             // ok, redirect to homepage
             return this.RedirectToAction("Index", "AdminHome");
         }
+
+        [HttpPost]
+        public string SaveSettings(Config config)
+        {
+            return "Saving password to: " + config.AdminPassword;
+        }
     }
 }
