@@ -15,22 +15,33 @@
     }
     <fieldset>
         <legend>General Settings</legend>
-        @Html.LabelFor(t => t.AdminPassword)
-        @Html.PasswordFor(t => t.AdminPassword, new { placeholder="(not changed)" })
+        <ul>
+            <li>
+                @Html.LabelFor(t => t.AdminPassword)
+                @Html.PasswordFor(t => t.AdminPassword, new { placeholder = "(not changed)" })
+            </li>
+        </ul>
     </fieldset>
     <fieldset>
         <legend>Database Settings</legend>
-        @Html.LabelFor(t => t.Sql.ServerName)
-        @Html.TextBoxFor(t => t.Sql.ServerName)
-        <br/>
-        @Html.LabelFor(t => t.Sql.DatabaseName)
-        @Html.TextBoxFor(t => t.Sql.DatabaseName)
-        <br/>
-        @Html.LabelFor(t => t.Sql.UserName)
-        @Html.TextBoxFor(t => t.Sql.UserName)
-        <br/>
-        @Html.LabelFor(t => t.Sql.Password)
-        @Html.PasswordFor(t => t.Sql.Password, new { placeholder="(not changed)" })        
+        <ul>
+            <li>
+                @Html.LabelFor(t => t.Sql.ServerName)
+                @Html.TextBoxFor(t => t.Sql.ServerName)
+            </li>
+            <li>
+                @Html.LabelFor(t => t.Sql.DatabaseName)
+                @Html.TextBoxFor(t => t.Sql.DatabaseName)
+            </li>
+            <li>
+                @Html.LabelFor(t => t.Sql.UserName)
+                @Html.TextBoxFor(t => t.Sql.UserName)
+            </li>
+            <li>
+                @Html.LabelFor(t => t.Sql.Password)
+                @Html.PasswordFor(t => t.Sql.Password, new { placeholder = "(not changed)" })
+            </li>
+        </ul>
     </fieldset>
     <input type="submit" value="Save" />
     @Html.ActionLink("Reset to default values", "ResetSettings")

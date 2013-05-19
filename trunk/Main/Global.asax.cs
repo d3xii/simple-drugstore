@@ -1,5 +1,6 @@
 ﻿using System.Web.Http;
 using System.Web.Mvc;
+using System.Web.Optimization;
 using System.Web.Routing;
 using SDM.Localization.Core;
 using SDM.Main.Localization;
@@ -17,6 +18,7 @@ namespace SDM.Main
             RegisterWebApiConfig(GlobalConfiguration.Configuration);
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+            RegisterBundles(BundleTable.Bundles);
 
             // enable localization
             LocalizationManager.Initialize(new LocalizationTextsRoot());
@@ -40,6 +42,12 @@ namespace SDM.Main
                             new {controller = "Home", action = "Index", id = UrlParameter.Optional});
             //routes.MapRoute("Warehouse", "Warehouse/{controller}/{action}/{id}",
             //                new { action = "Index", id = UrlParameter.Optional });
+        }
+
+        private static void RegisterBundles(BundleCollection bundles)
+        {
+            bundles.Add(new StyleBundle("~/bundles/css").Include("~/styles/*.css"));
+            BundleTable.EnableOptimizations = true;
         }
     }
 }
