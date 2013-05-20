@@ -47,6 +47,7 @@ namespace SDM.Main
         private static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new StyleBundle("~/bundles/css").Include("~/styles/*.css"));
+            bundles.Add(new StyleBundle("~/bundles/js").Include("~/scripts/jquery-{version}.js"));
             BundleTable.EnableOptimizations = true;
         }
     }

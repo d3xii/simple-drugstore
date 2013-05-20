@@ -3,6 +3,31 @@
     ViewBag.Title = "Admin Control Panel";
 }
 
+<script type="text/javascript">
+    function OnTestDatabaseConnectionButtonClicked()
+    {
+        // get database information
+        var serverName = $("@Html.IdFor(t => t.Sql.ServerName)").val();
+        var databaseName = $("@Html.IdFor(t => t.Sql.DatabaseName)").val();
+        var userName = $("@Html.IdFor(t => t.Sql.UserName)").val();
+        var password = $("@Html.IdFor(t => t.Sql.Password)").val();
+        
+        // prepare ajax data
+        var data = {
+            serverName: serverName,
+            databaseName: databaseName,
+            userName: userName,
+            password: password
+        };
+
+        // query
+        $.post('@Url.Action("TestDatabaseConnection")', data, function(result)
+        {
+            alert(result);
+        });
+    }
+</script>
+
 <div>
     <h1>Admin Control Panel</h1>
 </div>
@@ -40,6 +65,10 @@
             <li>
                 @Html.LabelFor(t => t.Sql.Password)
                 @Html.PasswordFor(t => t.Sql.Password, new { placeholder = "(not changed)" })
+            </li>
+            <li>
+                <label>Test database connection</label>
+                <input type="button" value="Test" onclick="OnTestDatabaseConnectionButtonClicked()"/>
             </li>
         </ul>
     </fieldset>
