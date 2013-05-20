@@ -2,6 +2,7 @@
 using System.Web.Security;
 using SDM.Core.Configuration;
 using SDM.Core.Context;
+using SDM.Core.Database;
 using SDM.Localization.Core;
 
 namespace SDM.Main.Areas.Admin.Controllers
@@ -101,6 +102,18 @@ namespace SDM.Main.Areas.Admin.Controllers
             return View("Index", config);
         }
 
+        public string TestDatabaseConnection(SqlConfig sqlConfig)
+        {
+            // create manager
+            DatabaseManager databaseManager = new DatabaseManager();
+
+            // create context
+            DatabaseContext context = databaseManager.CreateContext(sqlConfig);
+            
+            // return result
+            return context != null ? this.Localize(t => t.ValidDatabaseConnection) : this.Localize(t => t.InvalidDatabaseConnection)
+        }
+
         //**************************************************
         //
         // Private methods
@@ -119,7 +132,6 @@ namespace SDM.Main.Areas.Admin.Controllers
             return configManager.Load(new ServerContext(this.Server));         
         }
 
-        #endregion
-
+        #endregion        
     }
 }
