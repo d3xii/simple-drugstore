@@ -6,7 +6,7 @@
     public class ConfigFactory
     {
         /// <summary>
-        /// Creates new <see cref="ConfigModel"/>
+        /// Creates new <see cref="ConfigModel"/>.
         /// </summary>
         public ConfigModel Create()
         {

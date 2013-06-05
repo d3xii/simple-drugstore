@@ -155,6 +155,18 @@
     <Content Include="Areas\Admin\Views\AdminHome\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ApplicationCore\ApplicationCore.csproj">
+      <Project>{EB477CF8-181A-4F01-B540-F9D1C2AA3054}</Project>
+      <Name>ApplicationCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ApplicationServices\ApplicationServices.csproj">
+      <Project>{E14189B9-D8BD-4C24-854D-695D72574BDC}</Project>
+      <Name>ApplicationServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{BFF75452-4312-431C-9214-75C77DB22B96}</Project>
+      <Name>Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Localization\Localization.csproj">
       <Project>{2E6D8BB6-8C67-4AF1-9BFB-C80E9B938D53}</Project>
       <Name>Localization</Name>
