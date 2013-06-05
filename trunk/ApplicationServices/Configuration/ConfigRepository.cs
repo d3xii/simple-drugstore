@@ -10,6 +10,22 @@ namespace SDM.ApplicationServices.Configuration
     {
         //**************************************************
         //
+        // Dependencies
+        //
+        //**************************************************
+
+        #region Dependencies
+
+        /// <summary>
+        /// Gets access provider used in this instance.
+        /// </summary>
+        private readonly IFileAccessProvider _accessProvider;
+
+        #endregion
+
+
+        //**************************************************
+        //
         // Constants
         //
         //**************************************************
@@ -23,13 +39,41 @@ namespace SDM.ApplicationServices.Configuration
 
         #endregion
 
+
+        //**************************************************
+        //
+        // Constructors
+        //
+        //**************************************************
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:System.Object"/> class.
+        /// </summary>
+        public ConfigRepository(IFileAccessProvider accessProvider)
+        {
+            _accessProvider = accessProvider;
+        }
+
+        #endregion
+
+
+        //**************************************************
+        //
+        // Public methods
+        //
+        //**************************************************
+
+        #region Public methods
+
         /// <summary>
         /// Loads config used by the server.
         /// </summary>
-        public ConfigModel Load(IFileAccessProvider fileAccessProvider)
+        public ConfigModel Load()
         {
             // read content of the file
-            Stream stream = fileAccessProvider.GetFileStream(FilePath);
+            Stream stream = _accessProvider.GetFileStream(FilePath);
 
             // create default if the file does not exist
             if (stream == null || stream.Length == 0)
@@ -45,13 +89,16 @@ namespace SDM.ApplicationServices.Configuration
         /// <summary>
         /// Saves config to the server.
         /// </summary>
-        public void Save(ConfigModel config, IFileAccessProvider fileAccessProvider)
+        public void Save(ConfigModel config)
         {
             // get file stream
-            Stream stream = fileAccessProvider.CreateNewFileStream(FilePath);
+            Stream stream = _accessProvider.CreateNewFileStream(FilePath);
 
             // save it            
             config.SaveToStream(stream);
         }
+
+        #endregion
+
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System.Web.Mvc;
 using System.Web.Security;
-using SDM.Core.Configuration;
-using SDM.Core.Context;
-using SDM.Core.Database;
+using SDM.ApplicationServices.Configuration;
+using SDM.Infrastructure.Database;
+using SDM.Infrastructure.Hdd;
 using SDM.Localization.Core;
 
 namespace SDM.Main.Areas.Admin.Controllers
@@ -15,7 +15,7 @@ namespace SDM.Main.Areas.Admin.Controllers
     {
         public ActionResult Index()
         {
-            Config config = this.ReadConfig();
+            ConfigModel config = this.ReadConfig();
             return View(config);
         }
         
@@ -40,7 +40,7 @@ namespace SDM.Main.Areas.Admin.Controllers
             }
 
             // read from config
-            Config config = this.ReadConfig();
+            ConfigModel config = this.ReadConfig();
 
             // check same password
             if (password != config.AdminPassword)
@@ -58,20 +58,22 @@ namespace SDM.Main.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult SaveSettings(Config config)
+        public ActionResult SaveSettings(ConfigModel config)
         {
             // read config
-            Config systemConfig = this.ReadConfig();
+            ConfigModel systemConfig = this.ReadConfig();
+
+            // prepare config services
+            ConfigServices configServices = new ConfigServices();
 
             // if the admin password is changed, force relogging
-            bool isAdminPasswordChanged = config.AdminPassword != systemConfig.AdminPassword;
+            bool isAdminPasswordChanged = configServices.IsAdminPasswordChanged(config, systemConfig);
 
             // copy submitted values to system config
-            ConfigManager configManager = new ConfigManager();
-            config.CopyValues(systemConfig);            
+            configServices.CopyValues(config, systemConfig);
 
             // save to file
-            configManager.Save(new ServerContext(this.Server), systemConfig);
+            new ConfigRepository(new FileAccessProvider(this.Server)).Save(systemConfig);
 
             // if the admin password is changed, force relogging
             if (isAdminPasswordChanged)
@@ -90,28 +92,24 @@ namespace SDM.Main.Areas.Admin.Controllers
 
         public ActionResult ResetSettings()
         {
-            // reset config
-            ConfigManager configManager = new ConfigManager();
-            Config config = new Config().ResetValues();
-            configManager.Save(new ServerContext(this.Server), config);
+            // just create new config instance and save back to data store            
+            ConfigModel newConfig = new ConfigFactory().Create();
+            new ConfigRepository(new FileAccessProvider(this.Server)).Save(newConfig);
 
             // save to view bag
             ViewBag.Result = "Settings have been reset to default values.";
 
             // return current view
-            return View("Index", config);
+            return View("Index", newConfig);
         }
 
-        public string TestDatabaseConnection(SqlConfig sqlConfig)
+        public string TestDatabaseConnection(SqlConfigModel sqlConfig)
         {
-            // create manager
-            DatabaseManager databaseManager = new DatabaseManager();
+            // try to create a database connect, if != null ==> success
+            DatabaseContext databaseContext = new DatabaseContextFactory().CreateContext(sqlConfig);
 
-            // create context
-            DatabaseContext context = databaseManager.CreateContext(sqlConfig);
-            
             // return result
-            return context != null ? this.Localize(t => t.ValidDatabaseConnection) : this.Localize(t => t.InvalidDatabaseConnection)
+            return databaseContext != null ? this.Localize(t => t.ValidDatabaseConnection) : this.Localize(t => t.InvalidDatabaseConnection);
         }
 
         //**************************************************
@@ -125,11 +123,11 @@ namespace SDM.Main.Areas.Admin.Controllers
         /// <summary>
         /// Reads server config.
         /// </summary>
-        private Config ReadConfig()
+        private ConfigModel ReadConfig()
         {
             // read from config
-            ConfigManager configManager = new ConfigManager();
-            return configManager.Load(new ServerContext(this.Server));         
+            ConfigRepository repository = new ConfigRepository(new FileAccessProvider(this.Server));
+            return repository.Load();
         }
 
         #endregion        
