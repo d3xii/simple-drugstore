@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Runtime.Serialization;
 using SDM.ApplicationCore;
 
 namespace SDM.ApplicationServices.Configuration
@@ -73,17 +75,25 @@ namespace SDM.ApplicationServices.Configuration
         public ConfigModel Load()
         {
             // read content of the file
-            Stream stream = _accessProvider.GetFileStream(FilePath);
-
-            // create default if the file does not exist
-            if (stream == null || stream.Length == 0)
+            using (Stream stream = _accessProvider.GetFileStream(FilePath))
             {
-                // use default config
-                return new ConfigFactory().Create();
-            }
+                if (stream == null || stream.Length == 0)
+                {
+                    // use default config
+                    return new ConfigFactory().Create();
+                }
 
-            // parse it
-            return ConfigModel.LoadFromStream(stream);
+                // parse it
+                try
+                {
+                    return ConfigModel.LoadFromStream(stream);
+                }
+                catch (SerializationException)
+                {
+                    // use default config
+                    return new ConfigFactory().Create();
+                }
+            }
         }
 
         /// <summary>
@@ -92,10 +102,10 @@ namespace SDM.ApplicationServices.Configuration
         public void Save(ConfigModel config)
         {
             // get file stream
-            Stream stream = _accessProvider.CreateNewFileStream(FilePath);
-
-            // save it            
-            config.SaveToStream(stream);
+            using (Stream stream = _accessProvider.CreateNewFileStream(FilePath))
+            {
+                config.SaveToStream(stream);
+            }
         }
 
         #endregion
