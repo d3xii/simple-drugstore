@@ -37,7 +37,7 @@ namespace SDM.Localization.Core
         /// <summary>
         /// Gets the root to all localization data.
         /// </summary>
-        public static ILocalizationScope TextsRoot { get; private set; }
+        private static ILocalizationScope TextsRoot { get; set; }
 
         #endregion
 
@@ -67,24 +67,22 @@ namespace SDM.Localization.Core
         /// <summary>
         /// Gets localized text from given key in limited scope.
         /// </summary>
-        public static string GetTextFromScope<TLocalizationScope>(ILocalizable<TLocalizationScope> localizableClass,
-                                                                  Expression<Func<TLocalizationScope, string>> key)
+        public static string GetTextFromScope<TLocalizationScope>(Expression<Func<TLocalizationScope, string>> key)
             where TLocalizationScope : ILocalizationScope
         {
-            // TODO: get from datasource
-            string result = key.Compile()((TLocalizationScope) _shortcuts[typeof(TLocalizationScope)]);
+            
+            // get type of the scope
+            var type = typeof (TLocalizationScope);
+
+            // check if the scope is register
+            if (!_shortcuts.ContainsKey(type))
+            {
+                throw new InvalidOperationException(string.Format("Unable to get localizable text: {0}. Localizable scope not found: {1}.", key, type));
+            }
+
+            string result = key.Compile()((TLocalizationScope) _shortcuts[type]);
             return result;
         }
-
-        ///// <summary>
-        ///// Gets localized text.
-        ///// </summary>
-        //public static string GetText(ILocalizable localizableClass, Expression<Func<LocalizationTextsRoot, string>> key)
-        //{
-        //    // TODO: get from datasource
-        //    string result = key.Compile()(TextsRoot);
-        //    return result;
-        //}
 
         #endregion
 

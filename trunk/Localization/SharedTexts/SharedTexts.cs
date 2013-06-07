@@ -6,6 +6,7 @@
     /// </summary>
     public class SharedTexts
     {
-        public string Ok = "OK";
+        public string OK = "OK";
+        public string Success = "Success";
     }
 }

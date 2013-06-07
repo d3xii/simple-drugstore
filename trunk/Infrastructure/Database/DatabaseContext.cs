@@ -21,6 +21,11 @@ namespace SDM.Infrastructure.Database
         /// </summary>
         public DbSet<ItemEntity> Items { get; set; }
 
+        /// <summary>
+        /// Gets list of accounts in the database.
+        /// </summary>
+        public DbSet<AccountEntity> Accounts { get; set; }
+
         #endregion
 
 

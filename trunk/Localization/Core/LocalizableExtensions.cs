@@ -7,7 +7,7 @@ namespace SDM.Localization.Core
     /// <summary>
     /// Contains extension methods for Localization.
     /// </summary>
-    public static class Localizable
+    public static class LocalizableExtensions
     {
         //**************************************************
         //
@@ -23,7 +23,7 @@ namespace SDM.Localization.Core
         public static string Localize<TLocalizationScope>(this ILocalizable<TLocalizationScope> localizableClass,
                                                           Expression<Func<TLocalizationScope, string>> key) where TLocalizationScope : ILocalizationScope
         {
-            return LocalizationManager.GetTextFromScope(localizableClass, key);
+            return LocalizationManager.GetTextFromScope(key);
         }
 
         #endregion

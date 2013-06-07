@@ -11,10 +11,10 @@
         @if (ViewBag.Error != null)
         {
             // show error message
-            <span style="color: red; font-weight: bold;">@ViewBag.Error</span>            
+            <span class="message-error">@ViewBag.Error</span>            
         }
         <hr />
         <input type="submit" value="Login" />
         @Html.ActionLink("Cancel", "Index", "Home", new { area = "" }, null)
-    </form>
+    </form>       
 </fieldset>

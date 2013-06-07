@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Web;
+using MHTools.Common;
 using SDM.ApplicationCore;
 
 namespace SDM.Infrastructure.Hdd
@@ -69,6 +70,7 @@ namespace SDM.Infrastructure.Hdd
             string path = this.MapServerPath(filePath);
 
             // return result
+            IOHelper.PrepareFolderContainsFile(path);
             return File.Create(path);
         }
 
