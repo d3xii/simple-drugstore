@@ -1,7 +1,12 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Linq;
+using System.Threading;
+using System.Web.Mvc;
 using System.Web.Security;
 using SDM.ApplicationServices.Configuration;
+using SDM.ApplicationServices.Database;
 using SDM.Infrastructure.Database;
+using SDM.Infrastructure.Database.Repositories;
 using SDM.Infrastructure.Hdd;
 using SDM.Localization.Core;
 
@@ -105,11 +110,57 @@ namespace SDM.Main.Areas.Admin.Controllers
 
         public string TestDatabaseConnection(SqlConfigModel sqlConfig)
         {
+            // get unsaved config
+            SqlConfigModel unsavedConfig = this.GetUnsavedConfig(sqlConfig);
+            string errorMessage = this.ValidateSqlConfig(unsavedConfig);
+
+            // return if there is any error
+            if (!string.IsNullOrEmpty(errorMessage))
+            {
+                return errorMessage;
+            }
+
             // try to create a database connect, if != null ==> success
-            DatabaseContext databaseContext = new DatabaseContextFactory().CreateContext(sqlConfig);
+            DatabaseContext databaseContext = new DatabaseContextFactory().CreateContext(unsavedConfig);
 
             // return result
             return databaseContext != null ? this.Localize(t => t.ValidDatabaseConnection) : this.Localize(t => t.InvalidDatabaseConnection);
+        }
+
+        public string SetupDatabase(SqlConfigModel sqlConfig)
+        {
+            // get unsaved config
+            SqlConfigModel unsavedConfig = this.GetUnsavedConfig(sqlConfig);
+            string errorMessage = this.ValidateSqlConfig(unsavedConfig);
+
+            // return if there is any error
+            if (!string.IsNullOrEmpty(errorMessage))
+            {
+                return errorMessage;
+            }
+
+            // try to create a database connect, if != null ==> success
+            DatabaseContext databaseContext = new DatabaseContextFactory().CreateContext(unsavedConfig);
+            if (databaseContext == null)
+            {
+                return this.Localize(t => t.InvalidDatabaseConnection);
+            }
+
+            // start service
+            new DatabaseSetupService().Setup(new AccountRepository(databaseContext));
+
+            // save to database
+            try
+            {
+                databaseContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return ex.ToString();
+            }            
+
+            // success
+            return this.Localize(t => t.Shared.Success);
         }
 
         //**************************************************
@@ -128,6 +179,51 @@ namespace SDM.Main.Areas.Admin.Controllers
             // read from config
             ConfigRepository repository = new ConfigRepository(new FileAccessProvider(this.Server));
             return repository.Load();
+        }
+
+        /// <summary>
+        /// Gets in-memory config. If the password wasnt filled, it will be taken from saved config.
+        /// </summary>
+        private SqlConfigModel GetUnsavedConfig(SqlConfigModel configModel)
+        {
+            // if the password is defined            
+            if (configModel.IsPasswordDefined())
+            {
+                // just take it
+                return configModel;
+            }
+
+            // read config
+            ConfigModel systemConfig = this.ReadConfig();
+
+            // clone it
+            return new SqlConfigModel
+                       {
+                           DatabaseName = configModel.DatabaseName,
+                           Password = systemConfig.Sql.Password,
+                           ServerName = configModel.ServerName,
+                           UserName = configModel.UserName
+                       };
+        }
+
+        /// <summary>
+        /// Validates SQL config and returns error messages, if any.
+        /// </summary>
+        private string ValidateSqlConfig(SqlConfigModel sqlConfig)
+        {
+            // try to validate it
+            this.ModelState.Clear();
+            this.TryValidateModel(sqlConfig);
+
+            // validate first
+            if (!ModelState.IsValid)
+            {
+                return string.Format(this.Localize(t => t.InvalidDatabaseConnection),
+                                     string.Join("\r", ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage)));
+            }
+
+            // no error
+            return null;
         }
 
         #endregion        

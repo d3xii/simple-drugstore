@@ -1,0 +1,30 @@
+﻿@using SDM.Localization.Core
+@using SDM.Main.Views.Home
+@inherits WebViewPage<HomeIndexViewModel>, ILocalizable<HomeIndexViewTexts>
+@{    
+    ViewBag.Title = "Home";
+}
+<div>
+    @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+    {
+        <div>
+            @Html.Label("username", this.Localize(t => t.UserName))
+            @Html.TextBox("username")
+        </div>
+        <div>
+            @Html.Label("password", this.Localize(t => t.Password))
+            @Html.TextBox("password")
+        </div>
+        if (Model != null && !string.IsNullOrEmpty(Model.LoginErrorMessage))
+        {
+        <div class="message-error">@Html.Encode(Model.LoginErrorMessage)</div>
+        }
+        <div>
+            <input type="submit" value="Submit" />
+        </div>
+    }
+</div>
+<div class="position-bottom" style="border-top: black 1px solid; width: 100%;">
+    Click @Html.ActionLink("here", "Index", "AdminHome", new { area = "Admin" }, null)
+    to access Admin Control Panel.
+</div>

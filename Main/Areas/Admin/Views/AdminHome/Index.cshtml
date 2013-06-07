@@ -2,34 +2,81 @@
 @{
     ViewBag.Title = "Admin Control Panel";
 }
-
 <script type="text/javascript">
-    function OnTestDatabaseConnectionButtonClicked()
+    function GetJsonModel(namePrefix)
     {
-        // get database information
-        var serverName = $("@Html.IdFor(t => t.Sql.ServerName)").val();
-        var databaseName = $("@Html.IdFor(t => t.Sql.DatabaseName)").val();
-        var userName = $("@Html.IdFor(t => t.Sql.UserName)").val();
-        var password = $("@Html.IdFor(t => t.Sql.Password)").val();
+        // if the name prefix doesnt ends with ".", append one
+        if (namePrefix.length > 0 && namePrefix[namePrefix.length - 1])
+        {
+            namePrefix += ".";
+        }
         
-        // prepare ajax data
-        var data = {
-            serverName: serverName,
-            databaseName: databaseName,
-            userName: userName,
-            password: password
-        };
+        // prepare result
+        var result = { };
 
-        // query
-        $.post('@Url.Action("TestDatabaseConnection")', data, function(result)
+        // get all inputs in this document
+        var inputs = $("input");
+        
+        // for each input
+        for (var i = 0; i < inputs.length; i++)
+        {
+            // get current input
+            var input = inputs[i];
+            
+            // if input doesnt start from given name           
+            if (input.name.substring(0, namePrefix.length) != namePrefix)
+            {
+                // skip it
+                continue;
+            }
+            
+            // take the remaining part
+            var propertyName = input.name.substring(namePrefix.length);
+            var propertyValue = input.value;
+            
+            // add to result
+            result[propertyName] = propertyValue;
+        }
+        
+        // return result
+        return result;
+    }
+
+    function GetSqlConfigModel()
+    {
+        return GetJsonModel("@Html.NameFor(t => t.Sql)");
+    }
+
+    function btnTestDatabaseConnection_Clicked()
+    {
+        $.post('@Url.Action("TestDatabaseConnection")', GetSqlConfigModel(), function (result)
         {
             alert(result);
         });
     }
-</script>
 
+    function btnSetupDatabase_Clicked()
+    {
+        $.post('@Url.Action("SetupDatabase")', GetSqlConfigModel(), function (result)
+        {
+            // save its original text
+            var button = $("#btnSetupDatabase");
+            var originalText = button.val();
+
+            // disable button and change the status
+            button.val("Processing...").attr("disabled", true);
+
+            // show result
+            alert(result);
+            
+            // enable it back
+            button.val(originalText).attr("disabled", false);
+        });
+    }   
+</script>
 <div>
-    <h1>Admin Control Panel</h1>
+    <h1>
+        Admin Control Panel</h1>
 </div>
 @using (Html.BeginForm("SaveSettings", "AdminHome"))
 {
@@ -67,13 +114,17 @@
                 @Html.PasswordFor(t => t.Sql.Password, new { placeholder = "(not changed)" })
             </li>
             <li>
-                <label>Test database connection</label>
-                <input type="button" value="Test" onclick="OnTestDatabaseConnectionButtonClicked()"/>
+                <label>Test</label>
+                <button type="button" onclick="btnTestDatabaseConnection_Clicked()">Test database connection</button>
+            </li>
+            <li>
+                <label>First-time use?</label>
+                <button id="btnSetupDatabase" type="button" onclick="btnSetupDatabase_Clicked()">Setup database</button>
             </li>
         </ul>
     </fieldset>
     <input type="submit" value="Save" />
     @Html.ActionLink("Reset to default values", "ResetSettings")
     @:
-    @Html.ActionLink("Return to homepage", "Index", "Home", new { area = string.Empty }, null)
+    @Html.ActionLink("Return to homepage", "Index", "Home", new { area = string.Empty }, null)    
 }

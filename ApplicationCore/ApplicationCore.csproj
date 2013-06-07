@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
@@ -42,7 +43,15 @@
   <ItemGroup>
     <Compile Include="DataContractObject.cs" />
     <Compile Include="IFileAccessProvider.cs" />
+    <Compile Include="ModelRepositories\IAccountRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validation\ModelValidationResult.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Domain.Models\Domain.Models.csproj">
+      <Project>{C1D77E27-0B32-4DBA-9ED7-203F4219237C}</Project>
+      <Name>Domain.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

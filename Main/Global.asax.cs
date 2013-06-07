@@ -46,9 +46,14 @@ namespace SDM.Main
 
         private static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new StyleBundle("~/bundles/css").Include("~/styles/*.css"));
-            bundles.Add(new StyleBundle("~/bundles/js").Include("~/scripts/jquery-{version}.js"));
-            BundleTable.EnableOptimizations = true;
+            bundles.Add(new StyleBundle("~/bundles/css").IncludeDirectory("~/styles/", "*.css", true));
+            //bundles.Add(new StyleBundle("~/bundles/js").Include("~/scripts/jquery-{version}.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/js")
+            //    .Include("~/scripts/3rd_party/jquery/jquery-2.0.0.min.js")
+            //    .IncludeDirectory("~/scripts/custom/", "*.js", true));
+            //bundles.Add(new ScriptBundle("~/bundles/js").Include("~/scripts/3rd_party/jquery/jquery-2.0.0.js"));
+            bundles.Add(new ScriptBundle("~/bundles/js").IncludeDirectory("~/scripts/", "*.js", true));
+            BundleTable.EnableOptimizations = false;
         }
     }
 }

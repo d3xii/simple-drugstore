@@ -2,6 +2,8 @@
 using SDM.Localization.Core;
 using SDM.Localization.SharedTexts;
 using SDM.Main.Areas.Admin.Controllers;
+using SDM.Main.Controllers;
+using SDM.Main.Views.Home;
 
 namespace SDM.Main.Localization
 {
@@ -37,8 +39,9 @@ namespace SDM.Main.Localization
 
         #region Specific messages
 
-        public AdminHomeControllerTexts Admin = new AdminHomeControllerTexts();
-        public WarehouseTexts Warehouse = new WarehouseTexts();
+        public AdminHomeControllerTexts AdminController = new AdminHomeControllerTexts();
+        public HomeIndexViewTexts HomeView = new HomeIndexViewTexts();
+        public HomeControllerTexts HomeController = new HomeControllerTexts();
 
         #endregion
 

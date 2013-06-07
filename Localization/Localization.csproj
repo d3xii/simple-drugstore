@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Include="Core\ILocalizable.cs" />
     <Compile Include="Core\ILocalizationScope.cs" />
-    <Compile Include="Core\Localizable.cs" />
+    <Compile Include="Core\LocalizableExtensions.cs" />
     <Compile Include="Core\LocalizationManager.cs" />
     <Compile Include="Core\LocalizationScopeBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

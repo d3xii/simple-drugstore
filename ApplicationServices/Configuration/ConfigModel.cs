@@ -19,25 +19,5 @@ namespace SDM.ApplicationServices.Configuration
         /// </summary>        
         [DisplayName("Admin Password"), DefaultValue("admin"), PasswordPropertyText(true)]
         public string AdminPassword { get; set; }
-
-
-        //**************************************************
-        //
-        // Constructors
-        //
-        //**************************************************
-
-        #region Constructors
-
-        /// <summary>
-        /// Initializes new instance of <see cref="ConfigModel"/>.
-        /// External projects should not use this constructor directly, it should use ConfigModel instead.
-        /// </summary>
-        protected internal ConfigModel()
-        {
-        }
-
-        #endregion
-
     }
 }

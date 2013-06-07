@@ -43,19 +43,18 @@
     <Reference Include="Antlr3.Runtime">
       <HintPath>..\packages\WebGrease.1.3.0\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="MHTools.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\MHTools.Common.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -100,23 +99,33 @@
     <Compile Include="Areas\Admin\Controllers\AdminHomeController.cs" />
     <Compile Include="Areas\Admin\Models\AdminSessionData.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HomeControllerTexts.cs" />
     <Compile Include="Controllers\Warehouse\WarehouseItemsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Extensions\SessionManager.cs" />
     <Compile Include="Localization\LocalizationTextsRoot.cs" />
-    <Compile Include="Localization\WarehouseTexts.cs" />
     <Compile Include="Models\TempItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\Home\HomeIndexViewModel.cs" />
+    <Compile Include="Views\Home\HomeIndex.cshtml.Texts.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <None Include="Scripts\jquery-2.0.0.intellisense.js" />
-    <Content Include="Scripts\jquery-2.0.0.js" />
-    <Content Include="Scripts\jquery-2.0.0.min.js" />
-    <Content Include="Styles\Form.css" />
-    <Content Include="Styles\Grid.css" />
+    <None Include="Scripts\3rd_party\jquery\jquery-2.0.0.intellisense.js" />
+    <Content Include="Scripts\3rd_party\jquery\jquery-2.0.0.js" />
+    <Content Include="Scripts\3rd_party\jquery\jquery-2.0.0.min.js" />
+    <Content Include="Scripts\custom\loading.js" />
+    <Content Include="Scripts\custom\cursor.js" />
+    <Content Include="Styles\Custom\loading.css" />
+    <Content Include="Styles\Custom\position.css" />
+    <Content Include="Styles\Custom\message.css" />
+    <Content Include="Styles\Tags\form.css" />
+    <Content Include="Styles\Custom\grid.css" />
+    <Content Include="Styles\Tags\label.css" />
+    <Content Include="Styles\Tags\td.css" />
+    <Content Include="Styles\Tags\table.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -125,7 +134,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Scripts\jquery-2.0.0.min.map" />
+    <Content Include="Scripts\3rd_party\jquery\jquery-2.0.0.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -134,7 +143,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\HomeIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\MasterLayout.cshtml" />
@@ -144,9 +153,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\_ViewStart.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Styles\Standard.css" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\WarehouseItems\Edit.cshtml" />

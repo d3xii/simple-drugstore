@@ -33,6 +33,9 @@
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="MHTools.Common">
+      <HintPath>..\__lib\MHTools.Common.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -47,7 +50,12 @@
   <ItemGroup>
     <Compile Include="Database\DatabaseContextFactory.cs" />
     <Compile Include="Database\DatabaseContext.cs" />
+    <Compile Include="Database\Entities\AccountEntity.cs" />
+    <Compile Include="Database\Entities\EntityBase.cs" />
+    <Compile Include="Database\Entities\IEntity.cs" />
     <Compile Include="Database\Entities\ItemEntity.cs" />
+    <Compile Include="Database\Repositories\AccountRepository.cs" />
+    <Compile Include="Database\Repositories\RepositoryBase.cs" />
     <Compile Include="Hdd\FileAccessProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -63,6 +71,10 @@
     <ProjectReference Include="..\ApplicationServices\ApplicationServices.csproj">
       <Project>{E14189B9-D8BD-4C24-854D-695D72574BDC}</Project>
       <Name>ApplicationServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.Models\Domain.Models.csproj">
+      <Project>{C1D77E27-0B32-4DBA-9ED7-203F4219237C}</Project>
+      <Name>Domain.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
