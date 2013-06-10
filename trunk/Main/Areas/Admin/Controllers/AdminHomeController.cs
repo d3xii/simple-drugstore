@@ -4,9 +4,7 @@ using System.Net;
 using System.Web.Mvc;
 using System.Web.Security;
 using SDM.ApplicationServices.Configuration;
-using SDM.ApplicationServices.Database;
 using SDM.Infrastructure.Database;
-using SDM.Infrastructure.Database.Repositories;
 using SDM.Infrastructure.Hdd;
 using SDM.Localization.Core;
 using SDM.Main.Helpers.Attributes;
@@ -24,7 +22,7 @@ namespace SDM.Main.Areas.Admin.Controllers
             ConfigModel config = this.ReadConfig();
             return View(config);
         }
-        
+
         [AllowAnonymous]
         public ActionResult Login(string returningUrl)
         {
@@ -55,7 +53,7 @@ namespace SDM.Main.Areas.Admin.Controllers
                 ViewBag.Error = this.Localize(t => t.InvalidPassword);
                 return View();
             }
-            
+
             // save to cookie
             FormsAuthentication.SetAuthCookie("admin", false);
 
@@ -122,13 +120,13 @@ namespace SDM.Main.Areas.Admin.Controllers
             }
 
             // try to create a database connect, if != null ==> success
-            string result = new DatabaseContextFactory().TestConnectionString(unsavedConfig);            
+            string result = new DatabaseContextFactory().TestConnectionString(unsavedConfig);
 
             // return result
             return result == null ? this.Localize(t => t.ValidDatabaseConnection) : string.Format(this.Localize(t => t.InvalidDatabaseConnection), result);
         }
 
-        //public string SetupDatabase(SqlConfigModel sqlConfig)
+        //public string FormatDatabase(SqlConfigModel sqlConfig)
         //{
         //    // get unsaved config
         //    SqlConfigModel unsavedConfig = this.GetUnsavedConfig(sqlConfig);
@@ -154,7 +152,7 @@ namespace SDM.Main.Areas.Admin.Controllers
         //}
 
         [HttpPost]
-        public void SetupDatabase(string dummy)
+        public void FormatDatabase(string dummy)
         {
             // get saved config
             SqlConfigModel config = this.ReadConfig().Sql;
@@ -162,34 +160,25 @@ namespace SDM.Main.Areas.Admin.Controllers
             // try to create a database connect, if != null ==> success
             DatabaseContext databaseContext = new DatabaseContextFactory().CreateContext(config);
 
-            // save to database
-            try
-            {
-                // start service
-                var service = new DatabaseSetupService()
-                                  {
-                                      Tag = databaseContext,
-                                      InputAccountRepository = new AccountRepository(databaseContext)
-                                  };
+            // start service
+            var service = new DatabaseFormatter(databaseContext)
+                              {
+                                  Tag = databaseContext
+                              };
 
-                // add to session
-                this.Session[typeof (DatabaseSetupService).Name] = service;
+            // add to session
+            this.Session[typeof(DatabaseFormatter).Name] = service;
 
-                // start session
-                service.Start();
-                databaseContext.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                this.HttpContext.Response.Write("ERROR: " + ex);
-            }
+            // start session
+            service.Start();
+            databaseContext.SaveChanges();
         }
 
         [HttpGet]
-        public ActionResult SetupDatabase()
+        public ActionResult FormatDatabase()
         {
             // get from session
-            DatabaseSetupService service = (DatabaseSetupService) this.Session[typeof (DatabaseSetupService).Name];
+            DatabaseFormatter service = (DatabaseFormatter)this.Session[typeof(DatabaseFormatter).Name];
 
             // not started
             if (service == null)
@@ -215,10 +204,10 @@ namespace SDM.Main.Areas.Admin.Controllers
             if (service.IsStopped)
             {
                 // clear session
-                this.Session.Remove(typeof (DatabaseSetupService).Name);
+                this.Session.Remove(typeof(DatabaseFormatter).Name);
 
                 // get back tag
-                DatabaseContext context = (DatabaseContext) service.Tag;
+                DatabaseContext context = (DatabaseContext)service.Tag;
 
                 // save if success
                 if (service.IsSuccess)
@@ -298,6 +287,6 @@ namespace SDM.Main.Areas.Admin.Controllers
             return null;
         }
 
-        #endregion        
+        #endregion
     }
 }

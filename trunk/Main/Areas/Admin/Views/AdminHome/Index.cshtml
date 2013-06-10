@@ -55,12 +55,12 @@
         });
     }
 
-    function btnSetupDatabase_Clicked()
+    function btnFormatDatabase_Clicked()
     {
-//        $.post('@Url.Action("SetupDatabase")', GetSqlConfigModel(), function (result)
+//        $.post('@Url.Action("FormatDatabase")', GetSqlConfigModel(), function (result)
 //        {
 //            // save its original text
-//            var button = $("#btnSetupDatabase");
+//            var button = $("#btnFormatDatabase");
 //            var originalText = button.val();
 
 //            // disable button and change the status
@@ -74,7 +74,7 @@
             // if the result is "REDIRECT", switch to special address
 //            if (result == "REDIRECT")
 //            {
-//                $("<form/>").attr("method", "post").attr("action", "@Url.Action("SetupDatabase")").submit();
+//                $("<form/>").attr("method", "post").attr("action", "@Url.Action("FormatDatabase")").submit();
 //            }
 //            // otherwise: show error
 //            else
@@ -82,8 +82,8 @@
 //                alert(result);
 //            }            
         //        });
-        //$("<form/>").attr("method", "post").attr("action", "@Url.Action("SetupDatabase")").submit();
-        runner.run("@Url.Action("SetupDatabase")");
+        //$("<form/>").attr("method", "post").attr("action", "@Url.Action("FormatDatabase")").submit();
+        runner.run("@Url.Action("FormatDatabase")");
     }   
 </script>
 <div>
@@ -134,8 +134,8 @@
             <li>
                 <label>
                     First-time use?</label>
-                <button id="btnSetupDatabase" type="button" onclick="btnSetupDatabase_Clicked()">
-                    Setup database</button>
+                <button type="button" onclick="btnFormatDatabase_Clicked()">
+                    Format database</button>
             </li>
         </ul>
     </fieldset>

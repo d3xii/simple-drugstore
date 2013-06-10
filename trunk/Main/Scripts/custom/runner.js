@@ -41,7 +41,11 @@ runner.pollMessages = function (url, container)
             {
                 // try to get next chunk
                 runner.pollMessages(url, container);
+                return;
             }
+
+            // no more message
+            $("<pre/>").text("Completed.").appendTo(container);
         });
     }, 1000);
 };

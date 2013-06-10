@@ -1,8 +1,11 @@
-﻿namespace SDM.Infrastructure.Database.Entities
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace SDM.Infrastructure.Database.Entities
 {
     /// <summary>
     /// Contains information of an item in the database.
     /// </summary>
+    [Table("Item")]
     public class ItemEntity : EntityBase
     {
         /// <summary>

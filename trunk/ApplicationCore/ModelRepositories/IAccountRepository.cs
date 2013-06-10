@@ -15,5 +15,11 @@ namespace SDM.ApplicationCore.ModelRepositories
         /// Adds given account into repository.
         /// </summary>
         void Add(AccountModel account);
+
+        /// <summary>
+        /// Gets account by given user name.
+        /// It is case-insensitive.
+        /// </summary>
+        AccountModel GetByName(string userName);
     }
 }

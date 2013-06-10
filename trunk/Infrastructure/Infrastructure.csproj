@@ -51,6 +51,7 @@
     <Compile Include="Database\DatabaseContextFactoryTexts.cs" />
     <Compile Include="Database\DatabaseContextFactory.cs" />
     <Compile Include="Database\DatabaseContext.cs" />
+    <Compile Include="Database\DatabaseFormatter.cs" />
     <Compile Include="Database\Entities\AccountEntity.cs" />
     <Compile Include="Database\Entities\EntityBase.cs" />
     <Compile Include="Database\Entities\IEntity.cs" />
@@ -72,6 +73,10 @@
     <ProjectReference Include="..\ApplicationServices\ApplicationServices.csproj">
       <Project>{E14189B9-D8BD-4C24-854D-695D72574BDC}</Project>
       <Name>ApplicationServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.Factories\Domain.Factories.csproj">
+      <Project>{BFAC8379-ABC6-4203-844C-52F5D8F05014}</Project>
+      <Name>Domain.Factories</Name>
     </ProjectReference>
     <ProjectReference Include="..\Domain.Models\Domain.Models.csproj">
       <Project>{C1D77E27-0B32-4DBA-9ED7-203F4219237C}</Project>
