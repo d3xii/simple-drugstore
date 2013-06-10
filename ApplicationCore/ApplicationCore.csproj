@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Console\ConsoleRunnerBase.cs" />
     <Compile Include="DataContractObject.cs" />
     <Compile Include="IFileAccessProvider.cs" />
     <Compile Include="ModelRepositories\IAccountRepository.cs" />

@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\ILocalizable.cs" />
+    <Compile Include="Core\ILocalizationRoot.cs" />
     <Compile Include="Core\ILocalizationScope.cs" />
     <Compile Include="Core\LocalizableExtensions.cs" />
     <Compile Include="Core\LocalizationManager.cs" />

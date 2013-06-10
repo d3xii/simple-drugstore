@@ -57,21 +57,33 @@
 
     function btnSetupDatabase_Clicked()
     {
-        $.post('@Url.Action("SetupDatabase")', GetSqlConfigModel(), function (result)
-        {
-            // save its original text
-            var button = $("#btnSetupDatabase");
-            var originalText = button.val();
+//        $.post('@Url.Action("SetupDatabase")', GetSqlConfigModel(), function (result)
+//        {
+//            // save its original text
+//            var button = $("#btnSetupDatabase");
+//            var originalText = button.val();
 
-            // disable button and change the status
-            button.val("Processing...").attr("disabled", true);
+//            // disable button and change the status
+//            button.val("Processing...").attr("disabled", true);
 
-            // show result
-            alert(result);
-            
-            // enable it back
-            button.val(originalText).attr("disabled", false);
-        });
+//            // show result
+//            alert(result);
+//            
+//            // enable it back
+            //            button.val(originalText).attr("disabled", false);
+            // if the result is "REDIRECT", switch to special address
+//            if (result == "REDIRECT")
+//            {
+//                $("<form/>").attr("method", "post").attr("action", "@Url.Action("SetupDatabase")").submit();
+//            }
+//            // otherwise: show error
+//            else
+//            {
+//                alert(result);
+//            }            
+        //        });
+        //$("<form/>").attr("method", "post").attr("action", "@Url.Action("SetupDatabase")").submit();
+        runner.run("@Url.Action("SetupDatabase")");
     }   
 </script>
 <div>
@@ -114,12 +126,16 @@
                 @Html.PasswordFor(t => t.Sql.Password, new { placeholder = "(not changed)" })
             </li>
             <li>
-                <label>Test</label>
-                <button type="button" onclick="btnTestDatabaseConnection_Clicked()">Test database connection</button>
+                <label>
+                    Test</label>
+                <button type="button" onclick="btnTestDatabaseConnection_Clicked()">
+                    Test database connection</button>
             </li>
             <li>
-                <label>First-time use?</label>
-                <button id="btnSetupDatabase" type="button" onclick="btnSetupDatabase_Clicked()">Setup database</button>
+                <label>
+                    First-time use?</label>
+                <button id="btnSetupDatabase" type="button" onclick="btnSetupDatabase_Clicked()">
+                    Setup database</button>
             </li>
         </ul>
     </fieldset>

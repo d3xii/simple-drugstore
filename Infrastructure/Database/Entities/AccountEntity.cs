@@ -1,8 +1,11 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace SDM.Infrastructure.Database.Entities
 {
     /// <summary>
     /// Contains information of an account in the database.
     /// </summary>
+    [Table("Account")]
     public class AccountEntity : EntityBase
     {
         /// <summary>

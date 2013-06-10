@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using System.Threading;
+using System.Net;
 using System.Web.Mvc;
 using System.Web.Security;
 using SDM.ApplicationServices.Configuration;
@@ -9,13 +9,14 @@ using SDM.Infrastructure.Database;
 using SDM.Infrastructure.Database.Repositories;
 using SDM.Infrastructure.Hdd;
 using SDM.Localization.Core;
+using SDM.Main.Helpers.Attributes;
 
 namespace SDM.Main.Areas.Admin.Controllers
 {
     /// <summary>
     /// Represents the Admin Home.
     /// </summary>
-    [CustomAuthorize]
+    [CustomAuthorize, CustomErrorHandle]
     public class AdminHomeController : Controller, ILocalizable<AdminHomeControllerTexts>
     {
         public ActionResult Index()
@@ -121,47 +122,118 @@ namespace SDM.Main.Areas.Admin.Controllers
             }
 
             // try to create a database connect, if != null ==> success
-            DatabaseContext databaseContext = new DatabaseContextFactory().CreateContext(unsavedConfig);
+            string result = new DatabaseContextFactory().TestConnectionString(unsavedConfig);            
 
             // return result
-            return databaseContext != null ? this.Localize(t => t.ValidDatabaseConnection) : this.Localize(t => t.InvalidDatabaseConnection);
+            return result == null ? this.Localize(t => t.ValidDatabaseConnection) : string.Format(this.Localize(t => t.InvalidDatabaseConnection), result);
         }
 
-        public string SetupDatabase(SqlConfigModel sqlConfig)
-        {
-            // get unsaved config
-            SqlConfigModel unsavedConfig = this.GetUnsavedConfig(sqlConfig);
-            string errorMessage = this.ValidateSqlConfig(unsavedConfig);
+        //public string SetupDatabase(SqlConfigModel sqlConfig)
+        //{
+        //    // get unsaved config
+        //    SqlConfigModel unsavedConfig = this.GetUnsavedConfig(sqlConfig);
+        //    string errorMessage = this.ValidateSqlConfig(unsavedConfig);
 
-            // return if there is any error
-            if (!string.IsNullOrEmpty(errorMessage))
-            {
-                return errorMessage;
-            }
+        //    // return if there is any error
+        //    if (!string.IsNullOrEmpty(errorMessage))
+        //    {
+        //        return errorMessage;
+        //    }
+
+        //    // try to create a database connect, if != null ==> success
+        //    using (DatabaseContext databaseContext = new DatabaseContextFactory().CreateContext(unsavedConfig))
+        //    {
+        //        if (databaseContext == null)
+        //        {
+        //            return this.Localize(t => t.InvalidDatabaseConnection);
+        //        }
+
+        //        // redirect to console
+        //        return "REDIRECT";
+        //    }
+        //}
+
+        [HttpPost]
+        public void SetupDatabase(string dummy)
+        {
+            // get saved config
+            SqlConfigModel config = this.ReadConfig().Sql;
 
             // try to create a database connect, if != null ==> success
-            DatabaseContext databaseContext = new DatabaseContextFactory().CreateContext(unsavedConfig);
-            if (databaseContext == null)
-            {
-                return this.Localize(t => t.InvalidDatabaseConnection);
-            }
-
-            // start service
-            new DatabaseSetupService().Setup(new AccountRepository(databaseContext));
+            DatabaseContext databaseContext = new DatabaseContextFactory().CreateContext(config);
 
             // save to database
             try
             {
+                // start service
+                var service = new DatabaseSetupService()
+                                  {
+                                      Tag = databaseContext,
+                                      InputAccountRepository = new AccountRepository(databaseContext)
+                                  };
+
+                // add to session
+                this.Session[typeof (DatabaseSetupService).Name] = service;
+
+                // start session
+                service.Start();
                 databaseContext.SaveChanges();
             }
             catch (Exception ex)
             {
-                return ex.ToString();
-            }            
-
-            // success
-            return this.Localize(t => t.Shared.Success);
+                this.HttpContext.Response.Write("ERROR: " + ex);
+            }
         }
+
+        [HttpGet]
+        public ActionResult SetupDatabase()
+        {
+            // get from session
+            DatabaseSetupService service = (DatabaseSetupService) this.Session[typeof (DatabaseSetupService).Name];
+
+            // not started
+            if (service == null)
+            {
+                // null
+                return null;
+            }
+
+            // try to get messages
+            string[] messages = service.GetAndClearPendingMessages();
+
+            // if has data
+            if (messages.Length > 0)
+            {
+                // return result
+                return new ContentResult
+                           {
+                               Content = string.Join(Environment.NewLine, messages)
+                           };
+            }
+
+            // ended?
+            if (service.IsStopped)
+            {
+                // clear session
+                this.Session.Remove(typeof (DatabaseSetupService).Name);
+
+                // get back tag
+                DatabaseContext context = (DatabaseContext) service.Tag;
+
+                // save if success
+                if (service.IsSuccess)
+                {
+                    context.SaveChanges();
+                }
+
+                // dispose it
+                context.Dispose();
+                return null;
+            }
+
+            return new HttpStatusCodeResult(HttpStatusCode.Continue);
+        }
+
 
         //**************************************************
         //
@@ -200,7 +272,7 @@ namespace SDM.Main.Areas.Admin.Controllers
             return new SqlConfigModel
                        {
                            DatabaseName = configModel.DatabaseName,
-                           Password = systemConfig.Sql.Password,
+                           Password = systemConfig.Sql.Password ?? string.Empty,
                            ServerName = configModel.ServerName,
                            UserName = configModel.UserName
                        };

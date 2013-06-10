@@ -95,7 +95,7 @@
   <ItemGroup>
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminHomeControllerTexts.cs" />
-    <Compile Include="Areas\Admin\Controllers\CustomAuthorizeAttribute.cs" />
+    <Compile Include="Helpers\Attributes\CustomAuthorizeAttribute.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminHomeController.cs" />
     <Compile Include="Areas\Admin\Models\AdminSessionData.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -104,6 +104,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Attributes\CustomErrorHandle.cs" />
     <Compile Include="Helpers\Extensions\SessionManager.cs" />
     <Compile Include="Localization\LocalizationTextsRoot.cs" />
     <Compile Include="Models\TempItem.cs" />
@@ -116,8 +117,12 @@
     <None Include="Scripts\3rd_party\jquery\jquery-2.0.0.intellisense.js" />
     <Content Include="Scripts\3rd_party\jquery\jquery-2.0.0.js" />
     <Content Include="Scripts\3rd_party\jquery\jquery-2.0.0.min.js" />
+    <Content Include="Scripts\custom\runner.js" />
+    <Content Include="Scripts\custom\debug.js" />
     <Content Include="Scripts\custom\loading.js" />
     <Content Include="Scripts\custom\cursor.js" />
+    <Content Include="Styles\Custom\runner.css" />
+    <Content Include="Styles\Custom\debug.css" />
     <Content Include="Styles\Custom\loading.css" />
     <Content Include="Styles\Custom\position.css" />
     <Content Include="Styles\Custom\message.css" />

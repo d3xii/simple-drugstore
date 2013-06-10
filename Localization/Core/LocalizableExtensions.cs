@@ -21,7 +21,7 @@ namespace SDM.Localization.Core
         /// Shorthand to <see cref="LocalizationManager.GetTextFromScope{TLocalizationScope}"/>.
         /// </summary>
         public static string Localize<TLocalizationScope>(this ILocalizable<TLocalizationScope> localizableClass,
-                                                          Expression<Func<TLocalizationScope, string>> key) where TLocalizationScope : ILocalizationScope
+                                                          Func<TLocalizationScope, string> key) where TLocalizationScope : ILocalizationScope
         {
             return LocalizationManager.GetTextFromScope(key);
         }

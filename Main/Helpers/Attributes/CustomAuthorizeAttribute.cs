@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace SDM.Main.Areas.Admin.Controllers
+namespace SDM.Main.Helpers.Attributes
 {
     /// <summary>
     /// Authorizes a request and redirects to approritated login page.
