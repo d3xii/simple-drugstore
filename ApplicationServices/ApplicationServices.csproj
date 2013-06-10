@@ -45,7 +45,6 @@
     <Compile Include="Configuration\ConfigRepository.cs" />
     <Compile Include="Configuration\ConfigServices.cs" />
     <Compile Include="Configuration\SqlConfigModel.cs" />
-    <Compile Include="Database\DatabaseSetupService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

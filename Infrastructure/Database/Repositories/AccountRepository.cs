@@ -1,4 +1,6 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.Linq;
+using System.Security.Cryptography;
 using SDM.ApplicationCore.ModelRepositories;
 using SDM.Domain.Models.Common;
 using SDM.Infrastructure.Database.Entities;
@@ -45,7 +47,16 @@ namespace SDM.Infrastructure.Database.Repositories
                                        };
 
             // add to database
-            this.Set.Attach(entity);
+            this.Set.Add(entity);
+        }
+
+        /// <summary>
+        /// Gets account by given user name.
+        /// It is case-insensitive.
+        /// </summary>
+        public AccountModel GetByName(string userName)
+        {
+            return this.ConvertToModel(this.Set.SingleOrDefault(t => t.UserName == userName));
         }
 
         #endregion
@@ -69,7 +80,20 @@ namespace SDM.Infrastructure.Database.Repositories
             MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
             byte[] data = System.Text.Encoding.ASCII.GetBytes(text);
             data = md5.ComputeHash(data);
-            return System.Text.Encoding.ASCII.GetString(data);
+            return Convert.ToBase64String(data);
+        }
+
+        /// <summary>
+        /// Converts entity to model.
+        /// </summary>
+        private AccountModel ConvertToModel(AccountEntity entity)
+        {
+            return new AccountModel
+                       {
+                           UserName = entity.UserName,
+                           Password = entity.Password,
+                           IsEnabled = entity.IsEnabled,
+                       };
         }
 
         #endregion
