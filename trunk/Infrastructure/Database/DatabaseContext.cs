@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.Data.SqlClient;
 using SDM.Infrastructure.Database.Entities;
 
 namespace SDM.Infrastructure.Database
@@ -38,12 +39,11 @@ namespace SDM.Infrastructure.Database
         #region Constructors
 
         /// <summary>
-        /// Constructs a new context instance using the given string as the name or connection string for the
-        ///                 database to which a connection will be made.
-        ///                 See the class remarks for how this is used to create a connection.
+        /// Initializes new instance of <see cref="DatabaseContext"/> as well as new SQL Connection 
+        /// based on given connetion string.
         /// </summary>
-        /// <param name="nameOrConnectionString">Either the database name or a connection string.</param>
-        public DatabaseContext(string nameOrConnectionString) : base(nameOrConnectionString)
+        public DatabaseContext(SqlConnection sqlConnection)
+            : base(sqlConnection, true)
         {
         }
 

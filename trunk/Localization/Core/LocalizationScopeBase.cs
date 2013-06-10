@@ -8,6 +8,18 @@
         /// <summary>
         /// Gets reference to shared texts.
         /// </summary>
-        public SharedTexts.SharedTexts Shared { get; internal set; }      
+        public SharedTexts.SharedTexts Shared { get; private set; }
+
+        #region Implementation of ILocalizationScope
+
+        /// <summary>
+        /// Sets reference to the shared texts.
+        /// </summary>
+        void ILocalizationScope.SetSharedTextsReference(object obj)
+        {
+            Shared = (SharedTexts.SharedTexts) obj;
+        }
+
+        #endregion
     }
 }

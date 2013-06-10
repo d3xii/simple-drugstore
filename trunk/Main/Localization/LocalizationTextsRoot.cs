@@ -1,9 +1,7 @@
-﻿using System.Xml.Serialization;
+﻿using System.Collections.Generic;
+using System.Xml.Serialization;
 using SDM.Localization.Core;
 using SDM.Localization.SharedTexts;
-using SDM.Main.Areas.Admin.Controllers;
-using SDM.Main.Controllers;
-using SDM.Main.Views.Home;
 
 namespace SDM.Main.Localization
 {
@@ -11,7 +9,7 @@ namespace SDM.Main.Localization
     /// Contains the root to localization keys & values.
     /// </summary>
     [XmlRoot("Localization")]
-    public class LocalizationTextsRoot : ILocalizationScope
+    public class LocalizationTextsRoot : ILocalizationRoot
     {
 
         //**************************************************
@@ -31,17 +29,58 @@ namespace SDM.Main.Localization
         #endregion        
 
 
+        ////**************************************************
+        ////
+        //// Specific messages
+        ////
+        ////**************************************************
+
+        //#region Specific messages
+
+        //public AdminHomeControllerTexts AdminController = new AdminHomeControllerTexts();
+        //public HomeIndexViewTexts HomeView = new HomeIndexViewTexts();
+        //public HomeControllerTexts HomeController = new HomeControllerTexts();
+
+        //#endregion
+
+
         //**************************************************
         //
-        // Specific messages
+        // Extended messages
         //
         //**************************************************
 
-        #region Specific messages
+        #region Extended messages
 
-        public AdminHomeControllerTexts AdminController = new AdminHomeControllerTexts();
-        public HomeIndexViewTexts HomeView = new HomeIndexViewTexts();
-        public HomeControllerTexts HomeController = new HomeControllerTexts();
+        /// <summary>
+        /// Gets reference to the shared text.
+        /// </summary>
+        object ILocalizationRoot.SharedText { get { return this.Shared; } }
+
+        /// <summary>
+        /// Gets available translatation scopes.
+        /// </summary>
+        public List<ILocalizationScope> Scopes { get; private set; }
+
+        #endregion
+
+
+        //**************************************************
+        //
+        // Constructors
+        //
+        //**************************************************
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:System.Object"/> class.
+        /// </summary>
+        public LocalizationTextsRoot()
+        {
+            this.Shared = new SharedTexts();
+            this.Scopes = new List<ILocalizationScope>();
+        }
 
         #endregion
 

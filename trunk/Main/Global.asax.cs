@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Reflection;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -21,7 +22,7 @@ namespace SDM.Main
             RegisterBundles(BundleTable.Bundles);
 
             // enable localization
-            LocalizationManager.Initialize(new LocalizationTextsRoot());
+            LocalizationManager.Initialize(this.GetType().Assembly, new LocalizationTextsRoot(), name => name.Name.StartsWith("SDM."));
         }
 
         private static void RegisterWebApiConfig(HttpConfiguration config)
@@ -55,5 +56,7 @@ namespace SDM.Main
             bundles.Add(new ScriptBundle("~/bundles/js").IncludeDirectory("~/scripts/", "*.js", true));
             BundleTable.EnableOptimizations = false;
         }
+
+
     }
 }

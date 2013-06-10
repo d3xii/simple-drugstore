@@ -21,7 +21,7 @@
         /// </summary>
         public bool IsAdminPasswordChanged(ConfigModel source, ConfigModel target)
         {
-            return source.AdminPassword != target.AdminPassword;
+            return source.AdminPassword != null && source.AdminPassword != target.AdminPassword;
         }
     }
 }

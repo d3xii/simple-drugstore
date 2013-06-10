@@ -1,0 +1,13 @@
+﻿.debug-dialog
+{
+    position: fixed;
+    background: lightyellow;
+    border: black 1px solid;
+    left: 50px;
+    top: 50px;
+    right: 50px;
+    bottom: 50px;
+    box-shadow: 5px 5px 5px gray;
+    overflow: scroll;
+    word-wrap: break-word;
+}

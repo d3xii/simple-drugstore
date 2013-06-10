@@ -1,4 +1,6 @@
-﻿using SDM.ApplicationCore.ModelRepositories;
+﻿using System;
+using SDM.ApplicationCore.Console;
+using SDM.ApplicationCore.ModelRepositories;
 using SDM.Domain.Factories.Common;
 
 namespace SDM.ApplicationServices.Database
@@ -6,22 +8,38 @@ namespace SDM.ApplicationServices.Database
     /// <summary>
     /// Provides methods to setup the database for first-use.
     /// </summary>
-    public class DatabaseSetupService
+    public class DatabaseSetupService : ConsoleRunnerBase
     {
         //**************************************************
         //
-        // Public methods
+        // Inputs
         //
         //**************************************************
 
-        #region Public methods
+        #region Inputs
 
         /// <summary>
-        /// Adds default data to given database.
+        /// Gets or sets input of this service.
         /// </summary>
-        public void Setup(IAccountRepository accountRepository)
-        {            
-            this.AddAccount(accountRepository, "admin", "admin");
+        public IAccountRepository InputAccountRepository;
+
+        /// <summary>
+        /// Gets or sets to of this instance.
+        /// </summary>
+        public object Tag { get; set; }
+
+        #endregion
+
+
+        #region Overrides of ConsoleRunnerBase
+
+        /// <summary>
+        /// Fired when the thread is running.
+        /// </summary>
+        protected override void OnExecute()
+        {
+            this.Write("Creating accounts...");
+            this.AddAccount(this.InputAccountRepository, "admin", "admin");
         }
 
         #endregion
