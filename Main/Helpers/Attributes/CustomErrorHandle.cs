@@ -49,17 +49,18 @@ namespace SDM.Main.Helpers.Attributes
             // because we cant write NewLine into status description, we must write one-line description and restore the NewLine in client
             // (at loading.js file)
             // and it shouldnt be more than 512 characters
-            string encodedDescription = filterContext.Exception.ToString().Replace(Environment.NewLine, "~~NL~~");
-            if (encodedDescription.Length > 512)
-            {
-                encodedDescription = encodedDescription.Substring(0, 490) + " (...truncated)";
-            }
+            //string encodedDescription = filterContext.Exception.ToString().Replace(Environment.NewLine, "~~NL~~");
+            //if (encodedDescription.Length > 512)
+            //{
+            //    encodedDescription = encodedDescription.Substring(0, 490) + " (...truncated)";
+            //}
 
             //filterContext.Result = new HttpStatusCodeResult(HttpStatusCode.InternalServerError, encodedDescription);            
-            filterContext.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-            //filterContext.HttpContext.Response.StatusDescription = encodedDescription;
+
+            // use "text/plain" to force Google Chrome show text with Courier New font
+            filterContext.HttpContext.Response.ContentType = "text/plain";
+            filterContext.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;            
             filterContext.HttpContext.Response.Write(filterContext.Exception);
-            //filterContext.HttpContext.Response.Flush();
         }
 
         #endregion

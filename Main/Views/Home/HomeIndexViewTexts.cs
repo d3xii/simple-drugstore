@@ -6,5 +6,6 @@ namespace SDM.Main.Views.Home
     {
         public string UserName = "User Name";
         public string Password = "Password";
+        public string RememberMe = "Remember Me";
     }
 }

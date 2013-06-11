@@ -1,10 +1,7 @@
-﻿using System.Data.Entity;
-using System.Reflection;
-using System.Web.Http;
+﻿using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using SDM.Infrastructure.Database;
 using SDM.Localization.Core;
 using SDM.Main.Localization;
 
