@@ -75,10 +75,12 @@ namespace SDM.Infrastructure.Database
             {
                 _context.Database.Connection.Open();
                 command.CommandText = @"
+begin transaction
 EXEC sp_msforeachtable 'ALTER TABLE ? NOCHECK CONSTRAINT all'
 EXEC sp_msforeachtable 'drop table ?'
-EXEC sp_msforeachtable 'drop table __MigrationHistory'
 EXEC sp_msforeachtable 'ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all'
+drop table __MigrationHistory
+commit transaction
 ";
                 command.ExecuteNonQuery();
                 _context.Database.Connection.Close();
