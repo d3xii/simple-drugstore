@@ -86,7 +86,7 @@ commit transaction
                 _context.Database.Connection.Close();
             }
 
-            this.Write("Creating accounts...");
+            this.Write("Creating default account (name: admin, password: admin)...");
             this.AddAccount(new AccountRepository(_context), "admin", "admin");
         }
 

@@ -59,6 +59,19 @@ namespace SDM.Infrastructure.Database.Repositories
             return this.ConvertToModel(this.Set.SingleOrDefault(t => t.UserName == userName));
         }
 
+        /// <summary>
+        /// Gets account by given user name and password.
+        /// The user name is case-insensitive.
+        /// </summary>
+        public AccountModel GetByNameAndPassword(string userName, string password)
+        {
+            // get encrypted password
+            string encryptedPassword = this.Encrypt(password);
+
+            // return result
+            return this.ConvertToModel(this.Set.SingleOrDefault(t => t.UserName == userName && t.Password == encryptedPassword));
+        }
+
         #endregion
 
 
@@ -88,6 +101,12 @@ namespace SDM.Infrastructure.Database.Repositories
         /// </summary>
         private AccountModel ConvertToModel(AccountEntity entity)
         {
+            // return null if input is null
+            if (entity == null)
+            {
+                return null;
+            }
+
             return new AccountModel
                        {
                            UserName = entity.UserName,

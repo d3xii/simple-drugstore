@@ -55,6 +55,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -121,16 +122,17 @@
     <Content Include="Scripts\custom\debug.js" />
     <Content Include="Scripts\custom\loading.js" />
     <Content Include="Scripts\custom\cursor.js" />
-    <Content Include="Styles\Custom\runner.css" />
-    <Content Include="Styles\Custom\debug.css" />
-    <Content Include="Styles\Custom\loading.css" />
-    <Content Include="Styles\Custom\position.css" />
-    <Content Include="Styles\Custom\message.css" />
-    <Content Include="Styles\Tags\form.css" />
-    <Content Include="Styles\Custom\grid.css" />
-    <Content Include="Styles\Tags\label.css" />
-    <Content Include="Styles\Tags\td.css" />
-    <Content Include="Styles\Tags\table.css" />
+    <Content Include="Styles\custom\runner.css" />
+    <Content Include="Styles\custom\debug.css" />
+    <Content Include="Styles\custom\loading.css" />
+    <Content Include="Styles\custom\position.css" />
+    <Content Include="Styles\custom\message.css" />
+    <Content Include="Styles\mvc\validation.css" />
+    <Content Include="Styles\tags\form.css" />
+    <Content Include="Styles\custom\grid.css" />
+    <Content Include="Styles\tags\label.css" />
+    <Content Include="Styles\tags\td.css" />
+    <Content Include="Styles\tags\table.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -179,6 +181,10 @@
     <ProjectReference Include="..\ApplicationServices\ApplicationServices.csproj">
       <Project>{E14189B9-D8BD-4C24-854D-695D72574BDC}</Project>
       <Name>ApplicationServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.Models\Domain.Models.csproj">
+      <Project>{C1D77E27-0B32-4DBA-9ED7-203F4219237C}</Project>
+      <Name>Domain.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
       <Project>{BFF75452-4312-431C-9214-75C77DB22B96}</Project>

@@ -1,24 +1,15 @@
 ﻿@{
     Layout = null;
 }
-
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-    
     @Styles.Render("~/bundles/css")
     @Scripts.Render("~/bundles/js")
 </head>
 <body>
-    <header>
-        @Html.ActionLink("Items", "Index", "WarehouseItems", new { id = (int?)null }, null)
-    </header>
-    <hr/>
-    <div>
-        @RenderBody()
-    </div>
+    @RenderBody()
 </body>
 </html>

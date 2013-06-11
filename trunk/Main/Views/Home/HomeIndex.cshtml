@@ -8,19 +8,25 @@
     @using (Html.BeginForm("Login", "Home", FormMethod.Post))
     {
         <div>
-            @Html.Label("username", this.Localize(t => t.UserName))
-            @Html.TextBox("username")
+            @Html.LabelFor(t => t.UserName, this.Localize(t => t.UserName))
+            @Html.TextBoxFor(t => t.UserName)
+            @Html.ValidationMessageFor(t => t.UserName)
         </div>
         <div>
-            @Html.Label("password", this.Localize(t => t.Password))
-            @Html.TextBox("password")
+            @Html.LabelFor(t => t.Password, this.Localize(t => t.Password))
+            @Html.PasswordFor(t => t.Password)
+            @Html.ValidationMessageFor(t => t.Password)
         </div>
         if (Model != null && !string.IsNullOrEmpty(Model.LoginErrorMessage))
         {
         <div class="message-error">@Html.Encode(Model.LoginErrorMessage)</div>
         }
         <div>
-            <input type="submit" value="Submit" />
+            @Html.CheckBoxFor(t => t.IsRememberMe)
+            @Html.LabelFor(t => t.IsRememberMe, this.Localize(t => t.RememberMe))
+        </div>
+        <div>
+            <button type="submit">Login</button>
         </div>
     }
 </div>
