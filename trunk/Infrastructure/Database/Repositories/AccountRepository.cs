@@ -97,7 +97,7 @@ namespace SDM.Infrastructure.Database.Repositories
             return new AccountModel
                        {
                            UserName = entity.UserName,
-                           Password = entity.Password,
+                           EncryptedPassword = entity.Password,
                            IsEnabled = entity.IsEnabled,
                            IsAdmin = entity.IsAdmin,
                        };
