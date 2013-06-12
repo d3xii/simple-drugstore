@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Security.Cryptography;
+﻿using System.Linq;
 using SDM.ApplicationCore.ModelRepositories;
 using SDM.Domain.Models.Common;
 using SDM.Infrastructure.Database.Entities;
@@ -36,14 +34,14 @@ namespace SDM.Infrastructure.Database.Repositories
         /// <summary>
         /// Adds given account into repository.
         /// </summary>
-        public void Add(AccountModel account)
+        public void Add(AccountModel model)
         {
             // convert to entity
             AccountEntity entity = new AccountEntity
                                        {
-                                           UserName = account.UserName,
-                                           Password = this.Encrypt(account.Password),
-                                           IsEnabled = account.IsEnabled
+                                           UserName = model.UserName,
+                                           Password = model.EncryptedPassword,
+                                           IsEnabled = model.IsEnabled
                                        };
 
             // add to database
@@ -66,7 +64,7 @@ namespace SDM.Infrastructure.Database.Repositories
         public AccountModel GetByNameAndPassword(string userName, string password)
         {
             // get encrypted password
-            string encryptedPassword = this.Encrypt(password);
+            string encryptedPassword = new AccountModel().Encrypt(password);
 
             // return result
             return this.ConvertToModel(this.Set.SingleOrDefault(t => t.UserName == userName && t.Password == encryptedPassword));
@@ -83,18 +81,7 @@ namespace SDM.Infrastructure.Database.Repositories
 
         #region Private methods
 
-        /// <summary>
-        /// Encrypts given text.
-        /// Very simple encryption.
-        /// </summary>        
-        private string Encrypt(string text)
-        {
-            // credit: Oli, http://stackoverflow.com/a/212526/633428
-            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
-            byte[] data = System.Text.Encoding.ASCII.GetBytes(text);
-            data = md5.ComputeHash(data);
-            return Convert.ToBase64String(data);
-        }
+        
 
         /// <summary>
         /// Converts entity to model.
@@ -112,6 +99,7 @@ namespace SDM.Infrastructure.Database.Repositories
                            UserName = entity.UserName,
                            Password = entity.Password,
                            IsEnabled = entity.IsEnabled,
+                           IsAdmin = entity.IsAdmin,
                        };
         }
 

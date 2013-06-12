@@ -2,6 +2,7 @@
 using SDM.ApplicationCore.Console;
 using SDM.ApplicationCore.ModelRepositories;
 using SDM.Domain.Factories.Common;
+using SDM.Domain.Models.Common;
 using SDM.Infrastructure.Database.Repositories;
 
 namespace SDM.Infrastructure.Database
@@ -106,7 +107,12 @@ commit transaction
         /// </summary>
         private void AddAccount(IAccountRepository accountRepository, string userName, string password)
         {
-            accountRepository.Add(new AccountFactory().Create(userName, password));
+            // create new entity
+            AccountModel model = new AccountFactory().Create(userName, password);
+            model.IsAdmin = true;
+
+            // add to repository
+            accountRepository.Add(model);
         }
 
         #endregion
