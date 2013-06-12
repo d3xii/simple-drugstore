@@ -6,8 +6,8 @@
     <legend>Please enter password to enter the Admin Control Panel:</legend>
     <form action="@Url.Action("Login")" method="POST">
         <input type="hidden" value="@Html.Encode(ViewBag.ReturningUrl)"/>
-        <label>Password</label>
-        <input type="password" name="Password" />
+        <label form="Password">Password</label>
+        <input type="password" name="Password" autofocus="true" />
         @if (ViewBag.Error != null)
         {
             // show error message

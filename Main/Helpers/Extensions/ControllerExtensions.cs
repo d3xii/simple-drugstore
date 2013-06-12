@@ -1,7 +1,6 @@
 ﻿using System.Web.Mvc;
-using SDM.ApplicationServices.Configuration;
+using SDM.Domain.Config;
 using SDM.Infrastructure.Database;
-using SDM.Infrastructure.Database.Repositories;
 using SDM.Infrastructure.Hdd;
 
 namespace SDM.Main.Helpers.Extensions
@@ -32,7 +31,6 @@ namespace SDM.Main.Helpers.Extensions
                        {
                            HttpContext = controller.HttpContext,
                            Database = databaseContext,
-                           AccountRepository = new AccountRepository(databaseContext)
                        };
         }
 

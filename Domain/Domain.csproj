@@ -1,14 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BFF75452-4312-431C-9214-75C77DB22B96}</ProjectGuid>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{29F22D75-6BBF-4867-874F-0F5046E3011C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SDM.Infrastructure</RootNamespace>
-    <AssemblyName>SDM.Infrastructure</AssemblyName>
+    <RootNamespace>SDM.Domain</RootNamespace>
+    <AssemblyName>SDM.Domain</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -33,40 +34,34 @@
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="MHTools.Common">
-      <HintPath>..\__lib\MHTools.Common.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.Entity" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Database\DatabaseContextFactory.cs" />
-    <Compile Include="Database\DatabaseContext.cs" />
-    <Compile Include="Database\RepositoryBase.cs" />
-    <Compile Include="Hdd\FileAccessProvider.cs" />
+    <Compile Include="Config\ConfigModel.cs" />
+    <Compile Include="Config\ConfigRepository.cs" />
+    <Compile Include="Config\ModelValidationResult.cs" />
+    <Compile Include="Config\SqlConfigModel.cs" />
+    <Compile Include="Models\AccountModel.cs" />
+    <Compile Include="Models\AccountRepository.cs" />
+    <Compile Include="Models\Base\ModelBase.cs" />
+    <Compile Include="Models\Base\IModel.cs" />
+    <Compile Include="Models\ItemModel.cs" />
+    <Compile Include="Models\RepositoryExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{2258B0D8-20BE-486C-AB9B-62BAA8FC6450}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Domain\Domain.csproj">
-      <Project>{29F22D75-6BBF-4867-874F-0F5046E3011C}</Project>
-      <Name>Domain</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Localization\Localization.csproj">
       <Project>{2E6D8BB6-8C67-4AF1-9BFB-C80E9B938D53}</Project>
       <Name>Localization</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -3,11 +3,13 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using System.Web.Security;
-using SDM.ApplicationServices.Configuration;
+using SDM.Domain.Config;
 using SDM.Infrastructure.Database;
 using SDM.Infrastructure.Hdd;
 using SDM.Localization.Core;
 using SDM.Main.Helpers.Attributes;
+using SDM.Main.Helpers.Extensions;
+using SDM.Services.Database;
 
 namespace SDM.Main.Areas.Admin.Controllers
 {
@@ -65,19 +67,16 @@ namespace SDM.Main.Areas.Admin.Controllers
         public ActionResult SaveSettings(ConfigModel config)
         {
             // read config
-            ConfigModel systemConfig = this.ReadConfig();
-
-            // prepare config services
-            ConfigServices configServices = new ConfigServices();
+            ConfigModel savedConfig = this.ReadConfig();
 
             // if the admin password is changed, force relogging
-            bool isAdminPasswordChanged = configServices.IsAdminPasswordChanged(config, systemConfig);
+            bool isAdminPasswordChanged = savedConfig.IsAdminPasswordChanged(config);
 
             // copy submitted values to system config
-            configServices.CopyValues(config, systemConfig);
+            config.CopyValues(savedConfig);
 
             // save to file
-            new ConfigRepository(new FileAccessProvider(this.Server)).Save(systemConfig);
+            new ConfigRepository(new FileAccessProvider(this.Server)).Save(savedConfig);
 
             // if the admin password is changed, force relogging
             if (isAdminPasswordChanged)
@@ -97,7 +96,7 @@ namespace SDM.Main.Areas.Admin.Controllers
         public ActionResult ResetSettings()
         {
             // just create new config instance and save back to data store            
-            ConfigModel newConfig = new ConfigFactory().Create();
+            ConfigModel newConfig = new ConfigModel();
             new ConfigRepository(new FileAccessProvider(this.Server)).Save(newConfig);
 
             // save to view bag
@@ -233,7 +232,7 @@ namespace SDM.Main.Areas.Admin.Controllers
             DatabaseContext databaseContext = new DatabaseContextFactory().CreateContext(config);
 
             // start service
-            var service = new DatabaseTester(databaseContext)
+            var service = new DatabaseTester(this.GetContext().Database)
             {
                 Tag = databaseContext
             };

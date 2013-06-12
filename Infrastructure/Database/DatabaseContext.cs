@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity;
 using System.Data.SqlClient;
-using SDM.Infrastructure.Database.Entities;
+using SDM.Domain.Models;
 
 namespace SDM.Infrastructure.Database
 {
@@ -20,12 +20,12 @@ namespace SDM.Infrastructure.Database
         /// <summary>
         /// Gets list of items in the database.
         /// </summary>
-        public DbSet<ItemEntity> Items { get; set; }
+        public DbSet<ItemModel> Items { get; set; }
 
         /// <summary>
         /// Gets list of accounts in the database.
         /// </summary>
-        public DbSet<AccountEntity> Accounts { get; set; }
+        public DbSet<AccountModel> Accounts { get; set; }
 
         #endregion
 

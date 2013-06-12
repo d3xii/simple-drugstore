@@ -2,12 +2,11 @@
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using SDM.Domain.Models.Common;
+using SDM.Domain.Models;
 using SDM.Localization.Core;
 using SDM.Main.Helpers.Attributes;
 using SDM.Main.Helpers.Extensions;
 using SDM.Main.Views.Home;
-using ControllerContext = SDM.Main.Helpers.Extensions.ControllerContext;
 
 namespace SDM.Main.Controllers
 {
@@ -44,10 +43,10 @@ namespace SDM.Main.Controllers
             }
 
             // prepare service
-            using (ControllerContext context = this.GetContext())
+            using (var context = this.GetContext())
             {
                 // get user name
-                AccountModel accountModel = context.AccountRepository.GetByNameAndPassword(viewModel.UserName, viewModel.Password);
+                AccountModel accountModel = context.Database.Accounts.GetByNameAndPassword(viewModel.UserName, viewModel.Password);
 
                 // found?
                 if (accountModel != null)

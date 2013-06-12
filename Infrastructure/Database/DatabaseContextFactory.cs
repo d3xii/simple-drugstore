@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Data.EntityClient;
 using System.Data.SqlClient;
-using SDM.ApplicationServices.Configuration;
+using SDM.Domain.Config;
 using SDM.Localization.Core;
 
 namespace SDM.Infrastructure.Database
@@ -9,7 +8,7 @@ namespace SDM.Infrastructure.Database
     /// <summary>
     /// Provides methods to generate <see cref="DatabaseContext"/>
     /// </summary>
-    public class DatabaseContextFactory : ILocalizable<DatabaseContextFactoryTexts>
+    public class DatabaseContextFactory : ILocalizable<DatabaseContextFactory.Texts>
     {
         //**************************************************
         //
@@ -24,13 +23,6 @@ namespace SDM.Infrastructure.Database
         /// </summary>
         public DatabaseContext CreateContext(SqlConfigModel sqlConfig)
         {
-            //EntityConnectionStringBuilder entityConnectionStringBuilder = new EntityConnectionStringBuilder
-            //                                                                  {
-            //                                                                      Provider = "System.Data.SqlClient",
-            //                                                                      ProviderConnectionString = connectionString,
-            //                                                                      //Metadata = "res://*/AdventureWorksModel.csdl"
-            //                                                                  };
-
             // create context
             DatabaseContext context = new DatabaseContext(this.GetSqlConnection(sqlConfig));
             return context;
@@ -93,5 +85,22 @@ namespace SDM.Infrastructure.Database
         }
 
         #endregion
+
+
+        //**************************************************
+        //
+        // Nested classes
+        //
+        //**************************************************
+
+        #region Nested classes
+
+        public class Texts : LocalizationScopeBase
+        {
+            public string DatabaseNotFound = "Database not found: {0}.";
+        }
+
+        #endregion
+
     }
 }
