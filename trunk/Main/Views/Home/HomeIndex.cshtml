@@ -10,7 +10,7 @@
     {
         <div>
             @Html.LabelFor(t => t.UserName, this.Localize(t => t.UserName))
-            @Html.TextBoxFor(t => t.UserName)
+            @Html.TextBoxFor(t => t.UserName, new { autofocus = true })
             @Html.ValidationMessageFor(t => t.UserName)
         </div>
         <div>

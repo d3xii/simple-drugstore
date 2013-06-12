@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Web;
 using MHTools.Common;
-using SDM.ApplicationCore;
+using SDM.Core;
 
 namespace SDM.Infrastructure.Hdd
 {

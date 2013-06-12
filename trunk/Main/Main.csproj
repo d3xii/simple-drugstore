@@ -40,9 +40,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Antlr3.Runtime">
-      <HintPath>..\packages\WebGrease.1.3.0\lib\Antlr3.Runtime.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
@@ -53,14 +50,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data.Entity" />
-    <Reference Include="System.Data.Linq" />
-    <Reference Include="System.Runtime.Caching" />
-    <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.Web.DynamicData" />
-    <Reference Include="System.Web.Entity" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Optimization">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
@@ -89,7 +78,6 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebGrease">
       <HintPath>..\packages\WebGrease.1.3.0\lib\WebGrease.dll</HintPath>
     </Reference>
@@ -194,17 +182,13 @@
     <Content Include="Areas\Admin\Views\AdminHome\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ApplicationCore\ApplicationCore.csproj">
-      <Project>{EB477CF8-181A-4F01-B540-F9D1C2AA3054}</Project>
-      <Name>ApplicationCore</Name>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{2258B0D8-20BE-486C-AB9B-62BAA8FC6450}</Project>
+      <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ApplicationServices\ApplicationServices.csproj">
-      <Project>{E14189B9-D8BD-4C24-854D-695D72574BDC}</Project>
-      <Name>ApplicationServices</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Domain.Models\Domain.Models.csproj">
-      <Project>{C1D77E27-0B32-4DBA-9ED7-203F4219237C}</Project>
-      <Name>Domain.Models</Name>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{29F22D75-6BBF-4867-874F-0F5046E3011C}</Project>
+      <Name>Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
       <Project>{BFF75452-4312-431C-9214-75C77DB22B96}</Project>
@@ -213,6 +197,10 @@
     <ProjectReference Include="..\Localization\Localization.csproj">
       <Project>{2E6D8BB6-8C67-4AF1-9BFB-C80E9B938D53}</Project>
       <Name>Localization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services\Services.csproj">
+      <Project>{C5265057-F042-46A3-A243-8DCCB820196E}</Project>
+      <Name>Services</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

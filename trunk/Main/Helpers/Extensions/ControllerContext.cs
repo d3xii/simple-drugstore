@@ -1,7 +1,6 @@
 using System;
 using System.Web;
-using SDM.ApplicationCore.ModelRepositories;
-using SDM.Domain.Models.Common;
+using SDM.Domain.Models;
 using SDM.Infrastructure.Database;
 
 namespace SDM.Main.Helpers.Extensions
@@ -30,11 +29,6 @@ namespace SDM.Main.Helpers.Extensions
         /// Gets database context.
         /// </summary>
         public DatabaseContext Database { get; internal set; }
-
-        /// <summary>
-        /// Gets the account repository.
-        /// </summary>
-        public IAccountRepository AccountRepository { get; internal set; }
 
         #endregion
 
@@ -102,7 +96,7 @@ namespace SDM.Main.Helpers.Extensions
             string name = HttpContext.User.Identity.Name;
 
             // search the name
-            AccountModel accountModel = this.AccountRepository.GetByName(name);
+            AccountModel accountModel = this.Database.Accounts.GetByName(name);
 
             // return result
             return accountModel;
