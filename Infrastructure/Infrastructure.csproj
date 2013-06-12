@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Database\DatabaseTester.cs" />
     <Compile Include="Database\DatabaseContextFactoryTexts.cs" />
     <Compile Include="Database\DatabaseContextFactory.cs" />
     <Compile Include="Database\DatabaseContext.cs" />

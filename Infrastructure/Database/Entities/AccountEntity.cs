@@ -22,5 +22,10 @@ namespace SDM.Infrastructure.Database.Entities
         /// Gets or sets a value indicates whether the account is enabled to use.
         /// </summary>
         public bool IsEnabled { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicates whether the account has admin permission.
+        /// </summary>
+        public bool IsAdmin { get; set; }
     }
 }

@@ -17,6 +17,7 @@ namespace SDM.Domain.Factories.Common
                            UserName = userName,
                            Password = password,                           
                            IsEnabled = true,
+                           IsAdmin = false,
                        };
         }
     }

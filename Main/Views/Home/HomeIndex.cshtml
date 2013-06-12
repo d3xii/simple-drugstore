@@ -1,7 +1,8 @@
 ﻿@using SDM.Localization.Core
 @using SDM.Main.Views.Home
 @inherits WebViewPage<HomeIndexViewModel>, ILocalizable<HomeIndexViewTexts>
-@{    
+@{
+    Layout = "~/Views/Shared/HomePageLayout.cshtml";
     ViewBag.Title = "Home";
 }
 <div>

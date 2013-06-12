@@ -2,18 +2,16 @@
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using SDM.ApplicationServices.Configuration;
 using SDM.Domain.Models.Common;
-using SDM.Infrastructure.Database;
-using SDM.Infrastructure.Database.Repositories;
-using SDM.Infrastructure.Hdd;
 using SDM.Localization.Core;
 using SDM.Main.Helpers.Attributes;
+using SDM.Main.Helpers.Extensions;
 using SDM.Main.Views.Home;
+using ControllerContext = SDM.Main.Helpers.Extensions.ControllerContext;
 
 namespace SDM.Main.Controllers
 {
-    [CustomErrorHandle, CustomAuthorize("Index")]
+    [CustomErrorHandle, CustomAuthorize]
     public class HomeController : Controller, ILocalizable<HomeControllerTexts>
     {
         [AllowAnonymous]
@@ -23,13 +21,20 @@ namespace SDM.Main.Controllers
             if (this.HttpContext.User.Identity.IsAuthenticated)
             {
                 // redirect to dashboard
-                return this.RedirectToAction("Dashboard");
+                return this.RedirectToAction("Index", "Dashboard");
             }
 
             return View("HomeIndex");
         }
+        
+        [AllowAnonymous]
+        public ActionResult Login()
+        {
+            // redirect to home page
+            return this.RedirectToAction("Index");
+        }
 
-        [HttpPost]
+        [HttpPost, AllowAnonymous]
         public ActionResult Login(HomeIndexViewModel viewModel)
         {
             // validate model
@@ -39,69 +44,49 @@ namespace SDM.Main.Controllers
             }
 
             // prepare service
-            AccountRepository accountRepository = new AccountRepository(this.CreateContext());
-
-            // get user name
-            AccountModel accountModel = accountRepository.GetByNameAndPassword(viewModel.UserName, viewModel.Password);
-
-            // found?
-            if (accountModel != null)
+            using (ControllerContext context = this.GetContext())
             {
-                // is enabled?
-                if (accountModel.IsEnabled)
+                // get user name
+                AccountModel accountModel = context.AccountRepository.GetByNameAndPassword(viewModel.UserName, viewModel.Password);
+
+                // found?
+                if (accountModel != null)
                 {
-                    // save to session
-                    var ticket = new FormsAuthenticationTicket(accountModel.UserName, viewModel.IsRememberMe, (int)TimeSpan.FromDays(7).TotalMinutes);
+                    // is enabled?
+                    if (accountModel.IsEnabled)
+                    {
+                        // save to session
+                        var ticket = new FormsAuthenticationTicket(accountModel.UserName, viewModel.IsRememberMe, (int)TimeSpan.FromDays(7).TotalMinutes);
 
-                    // encrypt the ticket and add it to a cookie
-                    HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(ticket));
-                    Response.Cookies.Add(cookie);
+                        // encrypt the ticket and add it to a cookie
+                        HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(ticket));
+                        Response.Cookies.Add(cookie);
 
-                    // redirect to Dashboard
-                    return this.RedirectToAction("Dashboard");
+                        // redirect to Dashboard
+                        return this.RedirectToAction("Index", "Dashboard");
+                    }
+
+                    // not enabled
+                    viewModel.LoginErrorMessage = this.Localize(t => t.DeactivatedAccount);
+                }
+                else
+                {
+                    // not found
+                    viewModel.LoginErrorMessage = this.Localize(t => t.InvalidUserNameOrPassword);
                 }
 
-                // not enabled
-                viewModel.LoginErrorMessage = this.Localize(t => t.DeactivatedAccount);
+                // stay at current page
+                return this.View("HomeIndex", viewModel);
             }
-            else
-            {
-                // not found
-                viewModel.LoginErrorMessage = this.Localize(t => t.InvalidUserNameOrPassword);
-            }
-
-            // stay at current page
-            return this.View("HomeIndex", viewModel);
         }
 
-        public ActionResult Dashboard()
+        public ActionResult Logout()
         {
-            return this.View();
+            // logout
+            FormsAuthentication.SignOut();
+
+            // redirect to home
+            return this.RedirectToAction("Index");
         }
-
-
-        //**************************************************
-        //
-        // Private methods
-        //
-        //**************************************************
-
-        #region Private methods
-
-        /// <summary>
-        /// Creates context used by this controller.
-        /// </summary>
-        private DatabaseContext CreateContext()
-        {
-            // read from config
-            ConfigRepository repository = new ConfigRepository(new FileAccessProvider(this.Server));
-            SqlConfigModel sqlConfigModel = repository.Load().Sql;
-
-            // create context
-            return new DatabaseContextFactory().CreateContext(sqlConfigModel);
-        }
-
-        #endregion
-
     }
 }

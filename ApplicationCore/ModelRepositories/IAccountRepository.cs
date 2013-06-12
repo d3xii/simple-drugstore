@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SDM.Domain.Models.Common;
+﻿using SDM.Domain.Models.Common;
 
 namespace SDM.ApplicationCore.ModelRepositories
 {
@@ -21,5 +17,11 @@ namespace SDM.ApplicationCore.ModelRepositories
         /// It is case-insensitive.
         /// </summary>
         AccountModel GetByName(string userName);
+
+        /// <summary>
+        /// Gets account by given user name and password.
+        /// The user name is case-insensitive.
+        /// </summary>
+        AccountModel GetByNameAndPassword(string userName, string password);
     }
 }

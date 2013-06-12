@@ -8,5 +8,7 @@
     {
         public string OK = "OK";
         public string Success = "Success";
+        public string Logout = "Logout";
+        public string Settings = "Settings";
     }
 }

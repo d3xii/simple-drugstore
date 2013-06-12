@@ -87,7 +87,7 @@ namespace SDM.Main.Helpers.Attributes
             // prepare parameter
             var routeValues = new RouteValueDictionary
                 {
-                    {"action", "Login"},
+                    {"action", this.Action},
                     {"ReturnUrl", filterContext.HttpContext.Request.RawUrl}
                 };
 

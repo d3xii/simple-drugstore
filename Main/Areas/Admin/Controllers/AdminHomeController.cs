@@ -223,6 +223,68 @@ namespace SDM.Main.Areas.Admin.Controllers
             return new HttpStatusCodeResult(HttpStatusCode.Continue);
         }
 
+        [HttpPost]
+        public void TestDatabase(string dummy)
+        {
+            // get saved config
+            SqlConfigModel config = this.ReadConfig().Sql;
+
+            // try to create a database connect, if != null ==> success
+            DatabaseContext databaseContext = new DatabaseContextFactory().CreateContext(config);
+
+            // start service
+            var service = new DatabaseTester(databaseContext)
+            {
+                Tag = databaseContext
+            };
+
+            // add to session
+            this.Session[typeof(DatabaseTester).Name] = service;
+
+            // start session
+            service.Start();
+            databaseContext.SaveChanges();
+        }
+
+        [HttpGet]
+        public ActionResult TestDatabase()
+        {
+            // get from session
+            DatabaseTester service = (DatabaseTester)this.Session[typeof(DatabaseTester).Name];
+
+            // not started
+            if (service == null)
+            {
+                // null
+                return null;
+            }
+
+            // try to get messages
+            string[] messages = service.GetAndClearPendingMessages();
+
+            // if has data
+            if (messages.Length > 0)
+            {
+                // return result
+                return new ContentResult
+                {
+                    Content = string.Join(Environment.NewLine, messages)
+                };
+            }
+
+            // ended?
+            if (service.IsStopped)
+            {
+                // clear session
+                this.Session.Remove(typeof(DatabaseTester).Name);
+
+                // get back tag and dispose it
+                service.Tag.Dispose();
+                return null;
+            }
+
+            return new HttpStatusCodeResult(HttpStatusCode.Continue);
+        }
 
         //**************************************************
         //

@@ -1,4 +1,7 @@
-﻿@{
+﻿@using SDM.Localization.Core
+@using SDM.Main.Views.Shared
+@inherits WebViewPage<dynamic>, ILocalizable<MasterLayoutTexts>
+@{
     Layout = null;
 }
 <!DOCTYPE html>
@@ -9,7 +12,21 @@
     @Styles.Render("~/bundles/css")
     @Scripts.Render("~/bundles/js")
 </head>
-<body>
-    @RenderBody()
+<body style="margin: 0px;">
+    <!-- top menu -->
+    <div style="width: 100%; background: lightyellow; overflow: auto;">
+        <!-- top-left menu -->
+        <div>
+        </div>
+        <!-- top-right menu -->
+        <div style="float: right;">
+            @Html.ActionLink(this.Localize(t => t.Shared.Settings), "Index", "Settings")
+            |
+            @Html.ActionLink(this.Localize(t => t.Shared.Logout), "Logout", "Home")
+        </div>
+    </div>
+    <div style="margin: 5px;">
+        @RenderBody()
+    </div>
 </body>
 </html>

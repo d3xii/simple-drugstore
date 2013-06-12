@@ -43,6 +43,12 @@
     <Compile Include="Warehouse\ItemModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Localization\Localization.csproj">
+      <Project>{2E6D8BB6-8C67-4AF1-9BFB-C80E9B938D53}</Project>
+      <Name>Localization</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

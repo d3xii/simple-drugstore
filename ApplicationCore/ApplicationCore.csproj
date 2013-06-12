@@ -53,6 +53,10 @@
       <Project>{C1D77E27-0B32-4DBA-9ED7-203F4219237C}</Project>
       <Name>Domain.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Localization\Localization.csproj">
+      <Project>{2E6D8BB6-8C67-4AF1-9BFB-C80E9B938D53}</Project>
+      <Name>Localization</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
