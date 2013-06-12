@@ -43,8 +43,11 @@ namespace SDM.Main.Controllers
                 }
                 else
                 {
+                    // save to database
+                    context.Database.SaveChanges();
+
                     // no error                                         
-                    viewModel.Message = new SuccessHtmlMessage(this.Localize(t => t.PasswordChangedSuccessfully));
+                    viewModel.Message = new SuccessHtmlMessage(this.Localize(t => t.PasswordChangedSuccessfully));                    
                 }
             }
 
