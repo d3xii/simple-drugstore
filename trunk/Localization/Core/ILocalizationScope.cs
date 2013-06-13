@@ -8,6 +8,6 @@
         /// <summary>
         /// Sets reference to the shared texts.
         /// </summary>
-        void SetSharedTextsReference(object obj);
+        void SetSharedTextsReference(ISharedTexts obj);
     }
 }

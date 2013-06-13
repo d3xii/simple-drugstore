@@ -1,11 +1,11 @@
 ﻿using System.Web.Mvc;
 
-namespace SDM.Main.Areas.Admin
+namespace SDM.Main.Areas.App
 {
     /// <summary>
-    /// Register area: "/admin".
+    /// Register area: "/user".
     /// </summary>
-    public class AdminAreaRegistration : AreaRegistration
+    public class AppAreaRegistration : AreaRegistration
     {
         /// <summary>
         /// Gets the name of the area to register.
@@ -15,7 +15,7 @@ namespace SDM.Main.Areas.Admin
         /// </returns>
         public override string AreaName
         {
-            get { return "Admin"; }
+            get { return "App"; }
         }
 
         /// <summary>
@@ -25,7 +25,8 @@ namespace SDM.Main.Areas.Admin
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
-                "Admin_default", "Admin/{controller}/{action}/{id}",
+                "App_default",
+                "App/{controller}/{action}/{id}",
                 new
                     {
                         controller = "Home",

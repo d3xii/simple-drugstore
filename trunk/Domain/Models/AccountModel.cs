@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Cryptography;
+using SDM.Core.Localization;
 using SDM.Domain.Models.Base;
 using SDM.Localization.Core;
 
@@ -117,7 +118,7 @@ namespace SDM.Domain.Models
 
         #region Nested classes
 
-        public class Texts : LocalizationScopeBase
+        public class Texts : CustomLocalizationScopeBase
         {
             public string CurrentPasswordNotMatched = "The current password you entered does not match saved password in database.";
             public string NewPasswordMustBeTheSame = "New password must be the same.";

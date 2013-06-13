@@ -84,15 +84,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\AdminHomeControllerTexts.cs" />
-    <Compile Include="Controllers\SettingsController.cs" />
-    <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Areas\App\Controllers\HomeController.cs" />
+    <Compile Include="Areas\App\AppAreaRegistration.cs" />
+    <Compile Include="Areas\App\Controllers\SettingsController.cs" />
+    <Compile Include="Areas\App\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\App\Views\Home\LoginTexts.cs" />
     <Compile Include="Helpers\Attributes\CustomAuthorizeAttribute.cs" />
-    <Compile Include="Areas\Admin\Controllers\AdminHomeController.cs" />
-    <Compile Include="Areas\Admin\Models\AdminSessionData.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\HomeControllerTexts.cs" />
-    <Compile Include="Controllers\Warehouse\WarehouseItemsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -106,19 +105,15 @@
     <Compile Include="Helpers\Extensions\CustomHtmlHelper\IHtmlControl.cs" />
     <Compile Include="Helpers\Extensions\CustomHtmlHelper\SuccessHtmlMessage.cs" />
     <Compile Include="Helpers\Extensions\SessionManager.cs" />
-    <Compile Include="Localization\LocalizationTextsRoot.cs" />
-    <Compile Include="Models\TempItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\Dashboard\IndexTexts.cs" />
+    <Compile Include="Areas\App\Views\Dashboard\IndexTexts.cs" />
     <Compile Include="Helpers\Extensions\CustomHtmlHelper\IHtmlMessage.cs" />
-    <Compile Include="Views\Settings\IndexTexts.cs" />
-    <Compile Include="Views\Settings\ChangePasswordViewModel.cs" />
-    <Compile Include="Views\Home\HomeIndexViewModel.cs" />
-    <Compile Include="Views\Home\HomeIndexViewTexts.cs" />
-    <Compile Include="Views\Shared\MasterLayoutTexts.cs" />
+    <Compile Include="Areas\App\Views\Settings\IndexTexts.cs" />
+    <Compile Include="Areas\App\Views\Settings\ChangePasswordViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Areas\App\Views\Home\Login.cshtml" />
     <None Include="Scripts\3rd_party\jquery\jquery-2.0.0.intellisense.js" />
     <Content Include="Scripts\3rd_party\jquery\jquery-2.0.0.js" />
     <Content Include="Scripts\3rd_party\jquery\jquery-2.0.0.min.js" />
@@ -144,12 +139,12 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Areas\App\Views\Web.config" />
     <Content Include="Scripts\3rd_party\jquery\jquery-2.0.0.min.map" />
-    <Content Include="Views\Dashboard\Index.cshtml" />
-    <Content Include="Views\Settings\Index.cshtml" />
-    <Content Include="Views\Shared\HomePageLayout.cshtml" />
-    <Content Include="Views\Settings\Index.ChangePassword.cshtml" />
+    <Content Include="Areas\App\Views\Dashboard\Index.cshtml" />
+    <Content Include="Areas\App\Views\Settings\Index.cshtml" />
+    <Content Include="Areas\App\Views\Shared\LoginLayout.cshtml" />
+    <Content Include="Areas\App\Views\Settings\Index.ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -158,28 +153,19 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\HomeIndex.cshtml" />
+    <Content Include="Areas\App\Views\Shared\MasterLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\MasterLayout.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\WarehouseItems\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\_ViewStart.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\WarehouseItems\Edit.cshtml" />
+    <Content Include="Areas\App\Views\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Admin\Views\AdminHome\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Admin\Views\AdminHome\Login.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">

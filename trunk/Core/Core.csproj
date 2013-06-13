@@ -39,7 +39,17 @@
   <ItemGroup>
     <Compile Include="DataContractObject.cs" />
     <Compile Include="IFileAccessProvider.cs" />
+    <Compile Include="Localization\CustomLocalizationScopeBase.cs" />
+    <Compile Include="Localization\LocalizationTextsRoot.cs" />
+    <Compile Include="Localization\NoTexts.cs" />
+    <Compile Include="Localization\SharedTexts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Localization\Localization.csproj">
+      <Project>{2E6D8BB6-8C67-4AF1-9BFB-C80E9B938D53}</Project>
+      <Name>Localization</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

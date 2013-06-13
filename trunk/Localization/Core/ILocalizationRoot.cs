@@ -10,7 +10,7 @@ namespace SDM.Localization.Core
         /// <summary>
         /// Gets reference to the shared text.
         /// </summary>
-        object SharedText { get; }
+        ISharedTexts SharedText { get; }
 
         /// <summary>
         /// Gets available translatation scopes in all assemblies.

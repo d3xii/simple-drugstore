@@ -17,7 +17,7 @@
     /// Defines a contract for a localizable class.
     /// The derived class does not to implement anything.
     /// </summary>
-    public interface  ILocalizable
+    public interface ILocalizable
     {
         
     }
