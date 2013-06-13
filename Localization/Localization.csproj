@@ -38,11 +38,11 @@
     <Compile Include="Core\ILocalizable.cs" />
     <Compile Include="Core\ILocalizationRoot.cs" />
     <Compile Include="Core\ILocalizationScope.cs" />
+    <Compile Include="Core\ISharedTexts.cs" />
     <Compile Include="Core\LocalizableExtensions.cs" />
     <Compile Include="Core\LocalizationManager.cs" />
     <Compile Include="Core\LocalizationScopeBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SharedTexts\SharedTexts.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,0 +1,5 @@
+﻿@using SDM.Localization.Core
+@inherits WebViewPage<dynamic>, ILocalizable<SDM.Main.Areas.App.Views.Dashboard.IndexTexts>
+@{
+    ViewBag.Title = this.Localize(t => t.Dashboard);
+}

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq.Expressions;
 
 // ReSharper disable CheckNamespace
 namespace SDM.Localization.Core

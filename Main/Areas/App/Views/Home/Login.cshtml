@@ -1,0 +1,36 @@
+﻿@inherits WebViewPage<SDM.Main.Areas.App.Controllers.HomeController.LoginViewModel>, ILocalizable<SDM.Main.Areas.App.Views.Home.LoginTexts>
+@{
+    Layout = "~/Areas/App/Views/Shared/LoginLayout.cshtml";
+    ViewBag.Title = "Home";
+}
+
+<div>
+    @using (Html.BeginForm("Login", null, FormMethod.Post))
+    {
+        <div>
+            @Html.LabelFor(t => t.UserName, this.Localize(t => t.UserName))
+            @Html.TextBoxFor(t => t.UserName, new { autofocus = true })
+            @Html.ValidationMessageFor(t => t.UserName)
+        </div>
+        <div>
+            @Html.LabelFor(t => t.Password, this.Localize(t => t.Password))
+            @Html.PasswordFor(t => t.Password)
+            @Html.ValidationMessageFor(t => t.Password)
+        </div>
+        if (Model != null && !string.IsNullOrEmpty(Model.LoginErrorMessage))
+        {
+        <div class="message-error">@Html.Encode(Model.LoginErrorMessage)</div>
+        }
+        <div>
+            @Html.CheckBoxFor(t => t.IsRememberMe)
+            @Html.LabelFor(t => t.IsRememberMe, this.Localize(t => t.RememberMe))
+        </div>
+        <div>
+            <button type="submit">@this.Localize(t => t.Login)</button>
+        </div>
+    }
+</div>
+<div class="position-bottom" style="border-top: black 1px solid; left: 0px; right: 0px;">
+    Click @Html.ActionLink("here", "Index", "Home", new { area = "Admin" }, null)
+    to access Admin Control Panel.
+</div>

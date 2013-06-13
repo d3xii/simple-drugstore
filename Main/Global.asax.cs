@@ -2,8 +2,9 @@
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using SDM.Core.Localization;
 using SDM.Localization.Core;
-using SDM.Main.Localization;
+using SDM.Main.Controllers;
 
 namespace SDM.Main
 {
@@ -13,7 +14,7 @@ namespace SDM.Main
     {
         protected void Application_Start()
         {
-            AreaRegistration.RegisterAllAreas();
+            AreaRegistration.RegisterAllAreas();            
 
             RegisterWebApiConfig(GlobalConfiguration.Configuration);
             RegisterGlobalFilters(GlobalFilters.Filters);
@@ -21,7 +22,9 @@ namespace SDM.Main
             RegisterBundles(BundleTable.Bundles);
 
             // enable localization
-            LocalizationManager.Initialize(this.GetType().Assembly, new LocalizationTextsRoot(), name => name.Name.StartsWith("SDM."));
+            //LocalizationManager.Initialize(this.GetType().Assembly, new LocalizationTextsRoot(),
+            //                               name => name.Name.StartsWith("SDM.") || name.Name.StartsWith("App_Web_"));
+            LocalizationManager.Initialize(this.GetType().Assembly, new LocalizationTextsRoot());
         }
 
         private static void RegisterWebApiConfig(HttpConfiguration config)
@@ -37,25 +40,23 @@ namespace SDM.Main
         private static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
-            routes.MapRoute("Default", "{controller}/{action}/{id}",
-                            new {controller = "Home", action = "Index", id = UrlParameter.Optional});
-            //routes.MapRoute("Warehouse", "Warehouse/{controller}/{action}/{id}",
-            //                new { action = "Index", id = UrlParameter.Optional });
+            //routes.MapRoute("Default", "{controller}/{action}/{id}",
+            //                new
+            //                    {
+            //                        controller = "Home",
+            //                        action = "Index",
+            //                        id = UrlParameter.Optional
+            //                    },
+            //                new[] {typeof (HomeController).Namespace});
+            //routes.MapRoute("Root", "", new { controller = "Home", action = "Index" }, new[] { "SDM.Main.Areas.User.Controllers" });
+            routes.MapRoute("Root", "", new { controller = "Home", action = "Index" }, new[] { typeof(HomeController).Namespace });
         }
 
         private static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new StyleBundle("~/bundles/css").IncludeDirectory("~/styles/", "*.css", true));
-            //bundles.Add(new StyleBundle("~/bundles/js").Include("~/scripts/jquery-{version}.js"));
-            //bundles.Add(new ScriptBundle("~/bundles/js")
-            //    .Include("~/scripts/3rd_party/jquery/jquery-2.0.0.min.js")
-            //    .IncludeDirectory("~/scripts/custom/", "*.js", true));
-            //bundles.Add(new ScriptBundle("~/bundles/js").Include("~/scripts/3rd_party/jquery/jquery-2.0.0.js"));
             bundles.Add(new ScriptBundle("~/bundles/js").IncludeDirectory("~/scripts/", "*.js", true));
             BundleTable.EnableOptimizations = false;
         }
-
-
     }
 }

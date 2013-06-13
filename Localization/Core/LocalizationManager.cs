@@ -56,13 +56,19 @@ namespace SDM.Localization.Core
         /// Initializes the localization engine and loads default language from given texts.
         /// This method does not access the HDD.
         /// </summary>
-        public static void Initialize(Assembly assembly, ILocalizationRoot root, Func<AssemblyName, bool> assemblyFilter)
+        public static void Initialize(Assembly assembly, ILocalizationRoot root, Func<AssemblyName, bool> assemblyFilter = null)
         {
             // load texts from compiled source code
             _textsRoot = root;
 
             // initialize shortcut
             _shortcuts = new Dictionary<Type, ILocalizationScope>();
+
+            // create default filter if not defined
+            if (assemblyFilter == null)
+            {
+                assemblyFilter = t => true;
+            }
 
             // scan all assemblies and get scopes
             HashSet<Assembly> scannedAssemblies = new HashSet<Assembly>();
@@ -81,7 +87,7 @@ namespace SDM.Localization.Core
             // check if the scope is register
             if (!_shortcuts.ContainsKey(type))
             {
-                throw new InvalidOperationException(string.Format("Unable to get localizable text: {0}. Localizable scope not found: {1}.", key, type));
+                throw new InvalidOperationException(string.Format("Unable to get localizable text: Localizable scope not found: {0}.", type));
             }
 
             string result = key((TLocalizationScope)_shortcuts[type]);
@@ -175,7 +181,6 @@ namespace SDM.Localization.Core
             }
         }
 
-        #endregion
-
+        #endregion       
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
+using SDM.Core.Localization;
 using SDM.Domain.Config;
 using SDM.Localization.Core;
 
@@ -95,7 +96,7 @@ namespace SDM.Infrastructure.Database
 
         #region Nested classes
 
-        public class Texts : LocalizationScopeBase
+        public class Texts : CustomLocalizationScopeBase
         {
             public string DatabaseNotFound = "Database not found: {0}.";
         }
