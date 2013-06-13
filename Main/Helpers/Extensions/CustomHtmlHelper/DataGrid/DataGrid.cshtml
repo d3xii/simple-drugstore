@@ -1,0 +1,10 @@
+﻿@inherits System.Web.Mvc.WebViewPage<SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid.RenderInfo>
+
+<table style="border: 1px solid black;">
+    <thead>
+        @foreach(var column in this.Model.Columns)
+        {
+            <th>@Html.Encode(column.DisplayName)</th>
+        }
+    </thead>
+</table>

@@ -10,7 +10,7 @@ namespace SDM.Main.Helpers.Extensions
     /// This class should be created by <see cref="ControllerExtensions.GetContext"/> method
     /// and put into using { } block so no variable declaration is needed.
     /// </summary>
-    internal class ControllerContext : IDisposable
+    public class CommonControllerContext : IDisposable
     {
         //**************************************************
         //

@@ -1,13 +1,12 @@
 ﻿using System.Web.Mvc;
-using SDM.Main.Helpers.Attributes;
+using SDM.Main.Helpers.Controllers;
 
 namespace SDM.Main.Areas.App.Controllers
-{
-    [CustomErrorHandle, CustomAuthorize("Home", "Index")]
-    public class DashboardController : Controller
+{    
+    public class DashboardController : CommonControllerBase
     {
         public ActionResult Index()
-        {
+        {            
             return View();
         }
     }

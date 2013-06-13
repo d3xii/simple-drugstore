@@ -6,7 +6,7 @@ namespace SDM.Main.Helpers.Extensions
     /// <summary>
     /// Provides entry point to custom helper.
     /// </summary>
-    public static class CustomHelperExtensions
+    public static class HtmlHelperExtensions
     {
         /// <summary>
         /// Uses custom-built helpers.

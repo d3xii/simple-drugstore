@@ -12,5 +12,7 @@ namespace SDM.Core.Localization
         public string Success = "Success";
         public string Logout = "Logout";
         public string Settings = "Settings";
+        public string Save = "Save";
+        public string System = "System";
     }
 }

@@ -89,31 +89,39 @@
     <Compile Include="Areas\App\Controllers\SettingsController.cs" />
     <Compile Include="Areas\App\Controllers\DashboardController.cs" />
     <Compile Include="Areas\App\Views\Home\LoginTexts.cs" />
+    <Compile Include="Helpers\Attributes\CommonContextAttribute.cs" />
     <Compile Include="Helpers\Attributes\CustomAuthorizeAttribute.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\Attributes\CustomErrorHandle.cs" />
-    <Compile Include="Helpers\Extensions\ControllerContext.cs" />
+    <Compile Include="Helpers\Attributes\CustomErrorHandleAttribute.cs" />
+    <Compile Include="Helpers\Controllers\CommonController.cs" />
+    <Compile Include="Helpers\Extensions\CommonControllerContext.cs" />
     <Compile Include="Helpers\Extensions\ControllerExtensions.cs" />
-    <Compile Include="Helpers\Extensions\CustomHelperExtensions.cs" />
+    <Compile Include="Helpers\Extensions\CustomHtmlHelper\DataGrid\DataGridControl.cs" />
+    <Compile Include="Helpers\Extensions\CustomHtmlHelper\DataGrid\HtmlControlBase.cs" />
+    <Compile Include="Helpers\Extensions\CustomHtmlHelper\DataGrid\RenderInfo.cs" />
+    <Compile Include="Helpers\Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Helpers\Extensions\CustomHtmlHelper\CustomHeper.cs" />
-    <Compile Include="Helpers\Extensions\CustomHtmlHelper\ErrorHtmlMessage.cs" />
-    <Compile Include="Helpers\Extensions\CustomHtmlHelper\HtmlMessageBase.cs" />
+    <Compile Include="Helpers\Extensions\CustomHtmlHelper\Message\ErrorHtmlMessage.cs" />
+    <Compile Include="Helpers\Extensions\CustomHtmlHelper\Message\HtmlMessageBase.cs" />
     <Compile Include="Helpers\Extensions\CustomHtmlHelper\IHtmlControl.cs" />
-    <Compile Include="Helpers\Extensions\CustomHtmlHelper\SuccessHtmlMessage.cs" />
+    <Compile Include="Helpers\Extensions\CustomHtmlHelper\Message\SuccessHtmlMessage.cs" />
     <Compile Include="Helpers\Extensions\SessionManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Areas\App\Views\Dashboard\IndexTexts.cs" />
-    <Compile Include="Helpers\Extensions\CustomHtmlHelper\IHtmlMessage.cs" />
-    <Compile Include="Areas\App\Views\Settings\IndexTexts.cs" />
+    <Compile Include="Helpers\Extensions\CustomHtmlHelper\Message\IHtmlMessage.cs" />
+    <Compile Include="Areas\App\Views\Settings\Texts.cs" />
     <Compile Include="Areas\App\Views\Settings\ChangePasswordViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Areas\App\Views\Home\Login.cshtml" />
+    <Content Include="Areas\App\Views\Settings\System.cshtml" />
+    <Content Include="Areas\App\Views\Settings\System.UsersManagement.cshtml" />
+    <Content Include="Helpers\Extensions\CustomHtmlHelper\DataGrid\DataGrid.cshtml" />
     <None Include="Scripts\3rd_party\jquery\jquery-2.0.0.intellisense.js" />
     <Content Include="Scripts\3rd_party\jquery\jquery-2.0.0.js" />
     <Content Include="Scripts\3rd_party\jquery\jquery-2.0.0.min.js" />

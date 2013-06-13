@@ -1,6 +1,5 @@
-﻿@using SDM.Localization.Core
-@inherits WebViewPage<dynamic>, ILocalizable<SDM.Core.Localization.NoTexts>
-@{
+﻿@inherits WebViewPage<dynamic>, ILocalizable<SDM.Main.Areas.App.Views.Settings.Texts>
+@{    
     Layout = null;
 }
 <!DOCTYPE html>
@@ -18,7 +17,16 @@
         <div>
         </div>
         <!-- top-right menu -->
-        <div style="float: right;">
+        <div style="float: right; margin-left: 10px; margin-right: 10px;">
+            @Html.Encode(this.Localize(t => t.Hi))
+            <b>@this.ViewBag.UserName</b>
+            |
+            @if(this.ViewBag.IsAdmin)
+            {
+                // show additional links
+                @Html.ActionLink(this.Localize(t => t.Shared.System), "System", "Settings")
+                @:|
+            }
             @Html.ActionLink(this.Localize(t => t.Shared.Settings), "Index", "Settings")
             |
             @Html.ActionLink(this.Localize(t => t.Shared.Logout), "Logout", "Home")

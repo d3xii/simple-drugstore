@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
+using SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid;
 
 namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper
 {
@@ -65,6 +67,14 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper
 
             // render control
             return selector(this._helper.ViewData.Model).Render(_helper);
+        }
+
+        /// <summary>
+        /// Renders a datagrid.
+        /// </summary>
+        public DataGridControl<T, TElement> Grid<TElement>(Func<T, ICollection<TElement>> dataSourceSelector)
+        {
+            return new DataGridControl<T, TElement>(this._helper).DataSource(dataSourceSelector(this._helper.ViewData.Model));
         }
 
         #endregion
