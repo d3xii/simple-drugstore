@@ -21,13 +21,13 @@ namespace SDM.Main.Helpers.Extensions
         /// <summary>
         /// Gets context can be used in common situation.
         /// </summary>
-        public static ControllerContext GetContext(this Controller controller)
+        public static CommonControllerContext GetContext(this Controller controller)
         {
             // get database context
             DatabaseContext databaseContext = GetDatabaseContext(controller);
 
             // return result
-            return new ControllerContext
+            return new CommonControllerContext
                        {
                            HttpContext = controller.HttpContext,
                            Database = databaseContext,

@@ -1,0 +1,9 @@
+﻿@inherits WebViewPage<dynamic>, ILocalizable<SDM.Main.Areas.App.Views.Settings.Texts>
+@{
+    ViewBag.Title = this.Localize(t => t.Shared.System);
+}
+
+<fieldset>
+    <legend>@Html.Encode(this.Localize(t => t.UsersManagement))</legend>
+    @Html.Partial("System.UsersManagement")
+</fieldset>

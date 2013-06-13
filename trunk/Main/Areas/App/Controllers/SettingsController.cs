@@ -1,27 +1,20 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using SDM.Core.Localization;
 using SDM.Localization.Core;
 using SDM.Main.Areas.App.Views.Settings;
 using SDM.Main.Helpers.Attributes;
-using SDM.Main.Helpers.Extensions;
-using SDM.Main.Helpers.Extensions.CustomHtmlHelper;
-using ControllerContext = SDM.Main.Helpers.Extensions.ControllerContext;
+using SDM.Main.Helpers.Controllers;
+using SDM.Main.Helpers.Extensions.CustomHtmlHelper.Message;
 
 namespace SDM.Main.Areas.App.Controllers
 {
     [CustomErrorHandle, CustomAuthorize]
-    public class SettingsController : Controller, ILocalizable<SettingsController.Texts>
+    public class SettingsController : CommonControllerBase, ILocalizable<SettingsController.Texts>
     {
         public ActionResult Index()
         {
             return View();
-        }
-
-        [AllowAnonymous]
-        public string TestRemove()
-        {
-            this.HttpContext.Cache.Remove("test");
-            return null;
         }
 
         public ActionResult ChangePassword(ChangePasswordViewModel viewModel)
@@ -32,37 +25,33 @@ namespace SDM.Main.Areas.App.Controllers
                 return this.View("Index");
             }
 
-            using (ControllerContext context = this.GetContext())
+            // try to change account password
+            string error = this.Data.CurrentAccount.ChangePassword(viewModel.CurrentPassword, viewModel.NewPassword, viewModel.NewPassword2);
+
+            // if any error
+            if (error != null)
             {
-                // try to change account password
-                string error = context.CurrentAccount.ChangePassword(viewModel.CurrentPassword, viewModel.NewPassword, viewModel.NewPassword2);
+                viewModel.Message = new ErrorHtmlMessage(error);
+            }
+            else
+            {
+                // save to database
+                this.Data.Database.SaveChanges();
 
-                // if any error
-                if (error != null)
-                {
-                    viewModel.Message = new ErrorHtmlMessage(error);
-                }
-                else
-                {
-                    // save to database
-                    context.Database.SaveChanges();
-
-                    // no error                                         
-                    viewModel.Message = new SuccessHtmlMessage(this.Localize(t => t.PasswordChangedSuccessfully));                    
-                }
+                // no error                                         
+                viewModel.Message = new SuccessHtmlMessage(this.Localize(t => t.PasswordChangedSuccessfully));
             }
 
             // return current view
             return this.View("Index", viewModel);
+        }
 
-            //// get account from database
-            //using (DatabaseContext context = this.GetContext())
-            //{
-            //    // find account
-            //    AccountRepository accountRepository = new AccountRepository(context);
-            //    AccountModel model = accountRepository.GetByName(this.HttpContext.User.Identity.Name);
+        public ActionResult System()
+        {
+            // get all accounts
+            var models = this.Data.Database.Accounts.ToArray();
 
-            //}                       
+            return this.View(models);
         }
 
 
@@ -80,6 +69,5 @@ namespace SDM.Main.Areas.App.Controllers
         }
 
         #endregion
-
     }
 }

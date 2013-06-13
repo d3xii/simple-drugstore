@@ -1,7 +1,7 @@
 using System.Web;
 using System.Web.Mvc;
 
-namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper
+namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.Message
 {
     /// <summary>
     /// Provides foundation for all HTML messages.
@@ -13,7 +13,7 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper
         /// <summary>
         /// Gets raw message.
         /// </summary>
-        public string Message { get; protected set; }
+        public string Message { get; private set; }
 
         /// <summary>
         /// Renders this html message to MVC stream.

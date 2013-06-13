@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Web;
+﻿using System.Net;
 using System.Web.Mvc;
 
 namespace SDM.Main.Helpers.Attributes
@@ -10,7 +6,7 @@ namespace SDM.Main.Helpers.Attributes
     /// <summary>
     /// Implements custom error handler for MVC controllers.
     /// </summary>
-    public class CustomErrorHandle : FilterAttribute, IExceptionFilter
+    public class CustomErrorHandleAttribute : FilterAttribute, IExceptionFilter
     {
         //#region Overrides of HandleErrorAttribute
 
