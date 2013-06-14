@@ -1,77 +1,42 @@
-﻿@inherits System.Web.Mvc.WebViewPage<SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid.RenderInfo>
-@*<table style="border: 1px solid black;">
-    <thead>
-        @foreach(var column in this.Model.Columns)
-        {
-            <th>@Html.Encode(column.DisplayText)</th>
-        }
-    </thead>
-</table>*@
+﻿@using System.Web.Mvc.Html
+@using SDM.Localization.Core
+@inherits System.Web.Mvc.WebViewPage<SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid.RenderInfo>, ILocalizable<SDM.Core.Localization.NoTexts>
 @{
     string gridName = Model.Name;
+    string gridTableName = string.Format("{0}_table", gridName);
 }
-<table id="@gridName">
-    <thead>
-        <tr>
-            @foreach (var column in this.Model.Columns)
-            {
-                <th id="@Html.Encode(column.Name)">@Html.Encode(column.DisplayText)
-                </th>
-            }
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var row in this.Model.DataSource)
+<div id="@gridName" style="border: 1px dotted black;">
+    <div>
+        @foreach(var button in Model.Buttons)
         {
+            @Html.ActionLink(button.DisplayText, button.ActionName, button.ControllerName)
+        }
+    </div>    
+    <table id="@gridTableName">
+        <thead>
             <tr>
                 @foreach (var column in this.Model.Columns)
                 {
-                    <td>@Html.Encode(column.PropertyValueSelector(row))
-                    </td>
+                    <th id="@Html.Encode(column.Name)">@Html.Encode(column.DisplayText)
+                    </th>
                 }
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var row in this.Model.DataSource)
+            {
+                <tr>
+                    @foreach (var column in this.Model.Columns)
+                    {
+                        <td>@Html.Encode(column.PropertyValueSelector(row))
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 <script type="text/javascript">
-
     // render grid
-    grid.render("@gridName", "@Model.Width", "@Model.Height");
-
-//    var grid;
-
-//    // define columns
-//    var columns =
-//        [
-//            { id: "title", name: "Title", field: "title" },
-//            { id: "duration", name: "Duration", field: "duration" },
-//            { id: "%", name: "% Complete", field: "percentComplete" },
-//            { id: "start", name: "Start", field: "start" },
-//            { id: "finish", name: "Finish", field: "finish" },
-//            { id: "effort-driven", name: "Effort Driven", field: "effortDriven" }
-//        ];
-
-//    var options = {
-//        enableCellNavigation: true,
-//        enableColumnReorder: false,
-//        forceFitColumns: true
-//    };
-
-//    $(function ()
-//    {
-//        var data = [];
-//        for (var i = 0; i < 500; i++)
-//        {
-//            data[i] = {
-//                title: "Task " + i,
-//                duration: "5 days",
-//                percentComplete: Math.round(Math.random() * 100),
-//                start: "01/01/2009",
-//                finish: "01/05/2009",
-//                effortDriven: (i % 5 == 0)
-//            };
-//        }
-
-//        //grid = new Slick.Grid("#datagrid", data, columns, options);
-//    });
+    grid.render("@gridTableName", "@Model.Width", "@Model.Height");
 </script>

@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using SDM.Core.Localization;
+using SDM.Domain.Models;
 using SDM.Localization.Core;
 using SDM.Main.Areas.App.Views.Settings;
 using SDM.Main.Helpers.Attributes;
@@ -52,6 +53,35 @@ namespace SDM.Main.Areas.App.Controllers
             var models = this.Data.Database.Accounts.ToArray();
 
             return this.View(models);
+        }
+
+        public ActionResult AddAccount()
+        {
+            return this.View();
+        }
+
+        [HttpPost]
+        public ActionResult AddAccount(AccountModel model, string password2)
+        {
+            // validate
+            if (!ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            // validate to create
+            var error = model.ValidateToCreate(password2, this.Data.Database.Accounts);
+            if (error != null)
+            {
+                this.ViewBag.ResultMessage = new ErrorHtmlMessage(error);
+                return this.View(model);
+            }
+
+            // add to database
+            this.Data.Database.Accounts.Add(model);
+            this.Data.Database.SaveChanges();
+
+            return this.RedirectToAction("System");
         }
 
 

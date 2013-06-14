@@ -97,11 +97,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Attributes\CustomErrorHandleAttribute.cs" />
+    <Compile Include="Helpers\Attributes\Resharper.cs" />
     <Compile Include="Helpers\Controllers\CommonController.cs" />
     <Compile Include="Helpers\Extensions\CommonControllerContext.cs" />
     <Compile Include="Helpers\Extensions\ControllerExtensions.cs" />
+    <Compile Include="Helpers\Extensions\CustomHtmlHelper\Button\ButtonControl.cs" />
+    <Compile Include="Helpers\Extensions\CustomHtmlHelper\Button\RenderInfo.cs" />
     <Compile Include="Helpers\Extensions\CustomHtmlHelper\DataGrid\DataGridControl.cs" />
-    <Compile Include="Helpers\Extensions\CustomHtmlHelper\DataGrid\HtmlControlBase.cs" />
+    <Compile Include="Helpers\Extensions\CustomHtmlHelper\Base\HtmlControlBase.cs" />
     <Compile Include="Helpers\Extensions\CustomHtmlHelper\DataGrid\RenderInfo.cs" />
     <Compile Include="Helpers\Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Helpers\Extensions\CustomHtmlHelper\CustomHeper.cs" />
@@ -132,6 +135,8 @@
     <Content Include="Areas\App\Views\Settings\System.cshtml" />
     <Content Include="Areas\App\Views\Settings\System.UsersManagement.cshtml" />
     <Content Include="Helpers\Extensions\CustomHtmlHelper\DataGrid\DataGrid.cshtml" />
+    <Content Include="Areas\App\Views\Settings\AddAccount.cshtml" />
+    <Content Include="Helpers\Extensions\CustomHtmlHelper\Button\Button.cshtml" />
     <None Include="Scripts\3rd_party\jquery\jquery-2.0.0.intellisense.js" />
     <Content Include="Scripts\3rd_party\jquery\jquery-2.0.0.js" />
     <Content Include="Scripts\3rd_party\jquery\jquery-2.0.0.min.js" />

@@ -1,15 +1,20 @@
 ﻿// define namespace
-var grid = {};
+var grid = {
+    controls: []
+};
 
-// define methods
+// ============================================================================
 grid.render = function (name, width, height)
 {
+    // get table name
+    var tableName = "#" + name + "_table";
+
     // get the grid and set its css
     //var grid = $("#" + name).css("width", width).css("height", height)[0];
-    var grid = $("#" + name)[0];
+    var grid = $(tableName)[0];
 
     // scan its structure for columns
-    var rawColumns = $("#" + name + ">thead>tr>th");
+    var rawColumns = $(tableName + ">thead>tr>th");
     var columns = [];
     for (var i = 0; i < rawColumns.length; i++)
     {
@@ -53,10 +58,21 @@ grid.render = function (name, width, height)
         };
 
     // clear the grid
-    grid.outerHTML = "<div id='" + name + "' />";
-    $("#" + name).width(width).height(height);
+    grid.outerHTML = "<div id='" + name + "_table" + "' />";
+    $(tableName).width(width).height(height);
 
     // render the grid
-    var slickGrid = new Slick.Grid("#" + name, rows, columns, options);
+    var slickGrid = new Slick.Grid(tableName, rows, columns, options);
+
+    // add grid to managed list
+    grid.controls.push(new { table: grid });
 };
+
+
+// ============================================================================
+grid.getControl = function (name)
+{
+    return grid.controls[name];
+};
+
 

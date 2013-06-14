@@ -1,0 +1,33 @@
+﻿@using SDM.Domain.Models
+@using SDM.Main.Areas.App.Views.Settings
+@using SDM.Main.Helpers.Extensions.CustomHtmlHelper
+@inherits WebViewPage<AccountModel>, ILocalizable<Texts>, ILocalizable<AccountModel.Texts>
+@{
+    ViewBag.Title = this.Localize<Texts>(t => t.AddAccount);
+}
+@using (Html.BeginForm())
+{
+    <div>
+        @Html.LabelFor(t => t.UserName, this.Localize<AccountModel.Texts>(t => t.UserName))
+        @Html.TextBoxFor(t => t.UserName)
+        @Html.ValidationMessageFor(t => t.UserName)
+    </div>
+    <div>
+        @Html.LabelFor(t => t.Password, this.Localize<AccountModel.Texts>(t => t.Password))
+        @Html.PasswordFor(t => t.Password)
+        @Html.ValidationMessageFor(t => t.Password)
+    </div>
+    <div>
+        <label></label>
+        <input type="password" name="password2"/>
+    </div>
+    <div>
+        @Html.LabelFor(t => t.IsAdmin, this.Localize<AccountModel.Texts>(t => t.IsAdmin))
+        @Html.CheckBoxFor(t => t.IsAdmin)        
+    </div>
+    <div>
+        @Html.Custom().Render((IHtmlControl) ViewBag.ResultMessage)
+    </div>
+    <button type="submit">@Html.Encode(this.Localize<Texts>(t => t.Shared.Add))</button>
+    @Html.Custom().Button(this.Localize<Texts>(t => t.Shared.Cancel), "System").Render()
+}

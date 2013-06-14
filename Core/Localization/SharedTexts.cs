@@ -9,10 +9,12 @@ namespace SDM.Core.Localization
     public class SharedTexts : ISharedTexts
     {
         public string OK = "OK";
+        public string Cancel = "Cancel";
         public string Success = "Success";
         public string Logout = "Logout";
         public string Settings = "Settings";
         public string Save = "Save";
         public string System = "System";
+        public string Add = "Add";
     }
 }

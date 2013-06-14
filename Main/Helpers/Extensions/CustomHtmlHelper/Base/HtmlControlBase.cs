@@ -2,7 +2,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 
-namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid
+namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.Base
 {
     /// <summary>
     /// Provides foundation for HTML control

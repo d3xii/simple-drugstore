@@ -1,5 +1,7 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 using System.Security.Cryptography;
 using SDM.Core.Localization;
 using SDM.Domain.Models.Base;
@@ -24,6 +26,7 @@ namespace SDM.Domain.Models
         /// <summary>
         /// Gets or sets user name of the account.
         /// </summary>
+        [Required]
         public string UserName { get; set; }
 
         /// <summary>
@@ -34,7 +37,7 @@ namespace SDM.Domain.Models
         /// <summary>
         /// Gets or sets in-memory password.
         /// </summary>
-        [NotMapped]
+        [NotMapped, Required]
         public string Password
         {
             get { return _password; }
@@ -58,7 +61,7 @@ namespace SDM.Domain.Models
 
         /// <summary>
         /// Gets or sets a value indicates whether the account has admin permission.
-        /// </summary>
+        /// </summary>        
         public bool IsAdmin { get; set; }
 
         #endregion
@@ -96,6 +99,40 @@ namespace SDM.Domain.Models
         }
 
         /// <summary>
+        /// Validates this model as newly created one.
+        /// This checks for existing account name.
+        /// </summary>
+        public string ValidateToCreate(string password2, IDbSet<AccountModel> accounts)
+        {
+            // not duplicated name
+            if (accounts.IsExisted(this.UserName))
+            {
+                // duplicated
+                return this.Localize(t => t.DuplicatedUserName);
+            }
+
+            // compare with confirm password
+            if (this.Password != password2)
+            {
+                return this.Localize(t => t.NewPasswordMustBeTheSame);
+            }
+
+            // ok
+            return null;
+        }
+
+        #endregion
+
+
+        //**************************************************
+        //
+        // Public static methods
+        //
+        //**************************************************
+
+        #region Public static methods
+
+        /// <summary>
         /// Gets encrypted BASE64 string given text.
         /// </summary>        
         public static string Encrypt(string text)
@@ -105,9 +142,10 @@ namespace SDM.Domain.Models
             byte[] data = System.Text.Encoding.ASCII.GetBytes(text);
             data = md5.ComputeHash(data);
             return Convert.ToBase64String(data);
-        }
+        }        
 
         #endregion
+
 
 
         //**************************************************
@@ -120,8 +158,13 @@ namespace SDM.Domain.Models
 
         public class Texts : CustomLocalizationScopeBase
         {
+            public string UserName = "User Name";
+            public string Password = "Password";
+            public string IsAdmin = "Is administrator?";
+
             public string CurrentPasswordNotMatched = "The current password you entered does not match saved password in database.";
             public string NewPasswordMustBeTheSame = "New password must be the same.";
+            public string DuplicatedUserName = "The user name has been used. Please choose another one.";
         }
 
         #endregion
