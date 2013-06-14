@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
+using JetBrains.Annotations;
+using SDM.Main.Helpers.Extensions.CustomHtmlHelper.Button;
 using SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid;
 
 namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper
@@ -66,7 +68,22 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper
             }
 
             // render control
-            return selector(this._helper.ViewData.Model).Render(_helper);
+            return this.Render(selector(this._helper.ViewData.Model));
+        }
+
+        /// <summary>
+        /// Renders a custom control.
+        /// </summary>
+        public HtmlString Render(IHtmlControl control)
+        {
+            // skip if null
+            if (control == null)
+            {
+                return null;
+            }
+
+            // render control
+            return control.Render(_helper);
         }
 
         /// <summary>
@@ -75,6 +92,14 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper
         public DataGridControl<T, TElement> Grid<TElement>(Func<T, ICollection<TElement>> dataSourceSelector, string width, string height)
         {
             return new DataGridControl<T, TElement>(this._helper, width, height).DataSource(dataSourceSelector(this._helper.ViewData.Model));
+        }
+
+        /// <summary>
+        /// Renders a button.
+        /// </summary>
+        public ButtonControl<T> Button(string displayText, [AspMvcAction] string actionName, [AspMvcController]string controllerName = null)
+        {
+            return new ButtonControl<T>(_helper, displayText, actionName, controllerName);
         }
 
         #endregion

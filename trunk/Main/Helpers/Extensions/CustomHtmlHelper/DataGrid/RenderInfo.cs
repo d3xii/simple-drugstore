@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 
 namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid
 {
@@ -43,6 +42,11 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid
         /// </summary>
         public readonly List<ColumnInfo> Columns = new List<ColumnInfo>();
 
+        /// <summary>
+        /// Gets or sets the buttons.
+        /// </summary>
+        public readonly List<ButtonInfo> Buttons = new List<ButtonInfo>();
+
         #endregion
 
 
@@ -62,6 +66,16 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid
             public string Name;
             public string DisplayText;
             public Func<object, object> PropertyValueSelector;
+        }
+
+        /// <summary>
+        /// Contains button information.
+        /// </summary>
+        public class ButtonInfo
+        {
+            public string DisplayText;
+            public string ActionName;
+            public string ControllerName;
         }
 
         #endregion

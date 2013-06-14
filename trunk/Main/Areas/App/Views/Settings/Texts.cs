@@ -10,6 +10,7 @@ namespace SDM.Main.Areas.App.Views.Settings
         public string NewPassword = "New Password";
         public string NewPassword2 = "Confirm Password";
 
-        public string UsersManagement = "Users Management";        
+        public string UsersManagement = "Users Management";
+        public string AddAccount = "Add new account";
     }
 }

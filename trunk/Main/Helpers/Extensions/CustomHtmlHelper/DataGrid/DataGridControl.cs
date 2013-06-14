@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
+using JetBrains.Annotations;
+using SDM.Main.Helpers.Extensions.CustomHtmlHelper.Base;
 
 namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid
 {
@@ -92,7 +94,21 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid
             return this;
         }
 
+        /// <summary>
+        /// Adds a button to the grid.
+        /// </summary>
+        public DataGridControl<TModel, TElement> AddButton(string text, [AspMvcAction] string actionName, [AspMvcController] string controllerName = null)
+        {
+            // add button render info
+            _renderInfo.Buttons.Add(new RenderInfo.ButtonInfo
+                                        {
+                                            DisplayText = text,
+                                            ActionName = actionName,
+                                            ControllerName = controllerName
+                                        });
+            return this;
+        }
+
         #endregion
-        
     }
 }

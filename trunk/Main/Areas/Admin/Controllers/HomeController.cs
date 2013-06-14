@@ -184,7 +184,7 @@ namespace SDM.Main.Areas.Admin.Controllers
             if (service == null)
             {
                 // null
-                return null;
+                throw new InvalidOperationException("Session not found.");
             }
 
             // try to get messages

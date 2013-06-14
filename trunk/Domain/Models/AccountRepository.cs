@@ -17,8 +17,18 @@ namespace SDM.Domain.Models
         #region Public methods
 
         /// <summary>
+        /// Checks whether given user name existed in the database.
+        /// The user name is case-insensitive.
+        /// This method has been optimized.
+        /// </summary>
+        public static bool IsExisted(this IDbSet<AccountModel> models, string userName)
+        {
+            return models.Any(t => t.UserName.ToLower() == userName.ToLower());
+        }
+
+        /// <summary>
         /// Gets account by given user name.
-        /// It is case-insensitive.
+        /// The user name is case-insensitive.
         /// </summary>
         public static AccountModel GetByName(this IDbSet<AccountModel> models, string userName)
         {
