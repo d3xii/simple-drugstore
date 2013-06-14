@@ -1,7 +1,7 @@
 ﻿@inherits WebViewPage<ICollection<SDM.Domain.Models.AccountModel>>
 @(Html
 .Custom()
-.Grid(t => t)
-.Column("Name", t => t.UserName)
-.Column("Admin?", t => t.IsAdmin)
+.Grid(t => t, "800px", "500px")
+.Column("UserName", "Name", t => t.UserName)
+.Column("IsAdmin", "Admin?", t => t.IsAdmin)
 .Render())

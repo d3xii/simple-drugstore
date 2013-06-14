@@ -22,7 +22,7 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid
         /// <summary>
         /// Gets or sets the internal render information that will be built up by using fluent interface.
         /// </summary>
-        private RenderInfo _renderInfo = new RenderInfo();
+        private readonly RenderInfo _renderInfo = new RenderInfo();
 
         #endregion
 
@@ -38,9 +38,11 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid
         /// <summary>
         /// Initializes a new instance of the <see cref="T:System.Object"/> class.
         /// </summary>
-        public DataGridControl(HtmlHelper<TModel> helper)
+        public DataGridControl(HtmlHelper<TModel> helper, string width, string height)
             : base(helper)
         {
+            _renderInfo.Width = width;
+            _renderInfo.Height = height;
         }
 
         #endregion
@@ -78,14 +80,15 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid
         /// <summary>
         /// Adds a column to the grid.
         /// </summary>
-        public DataGridControl<TModel, TElement> Column(string displayName, Func<TElement, object> valueSelector)
+        public DataGridControl<TModel, TElement> Column(string name, string displayText, Func<TElement, object> valueSelector)
         {
+            // add column render info
             _renderInfo.Columns.Add(new RenderInfo.ColumnInfo
-                             {
-                                 DisplayName = displayName,
-                                 ValueSelector = t => valueSelector((TElement) t),
-                                 IsVisible = true
-                             });
+                                        {
+                                            Name = name,
+                                            DisplayText = displayText,
+                                            PropertyValueSelector = t => valueSelector((TElement) t),
+                                        });
             return this;
         }
 

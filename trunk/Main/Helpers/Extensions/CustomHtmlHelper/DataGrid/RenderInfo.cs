@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid
 {
@@ -16,6 +17,21 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid
         //**************************************************
 
         #region Public variables
+
+        /// <summary>
+        /// Gets or sets name of the grid control.
+        /// </summary>
+        public string Name = "slickGrid";
+
+        /// <summary>
+        /// Gets or sets width of the grid.
+        /// </summary>
+        public string Width;
+
+        /// <summary>
+        /// Gets or sets width of the grid.
+        /// </summary>
+        public string Height;
 
         /// <summary>
         /// Gets or sets the data source.
@@ -43,9 +59,9 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid
         /// </summary>
         public class ColumnInfo
         {
-            public string DisplayName;
-            public Func<object, object> ValueSelector;
-            public bool IsVisible;
+            public string Name;
+            public string DisplayText;
+            public Func<object, object> PropertyValueSelector;
         }
 
         #endregion
