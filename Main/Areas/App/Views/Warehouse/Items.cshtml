@@ -1,0 +1,20 @@
+﻿@using SDM.Main.Areas.App.Views.Warehouse
+@using SDM.Domain.Models
+@using SDM.Main.Helpers.Extensions.CustomHtmlHelper.Button
+@inherits WebViewPage<ICollection<ItemModel>>, ILocalizable<Texts>, ILocalizable<ItemModel.Texts>
+@{
+    ViewBag.Title = this.Localize<Texts>(t => t.ItemsManagement);
+}
+@(Html.Custom()
+.Grid(t => t)
+.PropertyColumn(null, this.Localize<ItemModel.Texts>(t => t.Name), t => t.Name) 
+.DynamicColumn(null, null, t => Html.Custom()
+    .Button(this.Localize<Texts>(t2 => t2.Shared.Edit))
+    .Action("EditItem", routeValues: new { id = t.ID })
+    +
+    Html.Custom()
+    .Button(this.Localize<Texts>(t2 => t2.Shared.Delete))
+    .AsType(RenderInfo.ButtonType.Post)
+    .Action("DeleteItem", routeValues: new { id = t.ID })
+    .HasConfirmation(string.Format(this.Localize<Texts>(t2 => t2.Shared.AreYouSure))))
+.AddButton(this.Localize<Texts>(t => t.Shared.Add), "AddItem"))

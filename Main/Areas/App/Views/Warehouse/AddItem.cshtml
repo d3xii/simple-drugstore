@@ -1,0 +1,22 @@
+﻿@using SDM.Domain.Models
+@using SDM.Main.Areas.App.Views.Warehouse
+@using SDM.Main.Helpers.Extensions.CustomHtmlHelper
+@using SDM.Main.Helpers.Extensions.CustomHtmlHelper.Button
+@inherits WebViewPage<ItemModel>, ILocalizable<Texts>, ILocalizable<ItemModel.Texts>
+@{
+    var isAddMode = Model != null && Model.IsNew;
+    ViewBag.Title = this.Localize<Texts>(t => isAddMode ? t.AddItem : t.EditItem);
+}
+@using (Html.BeginForm())
+{
+    <div>
+        @Html.LabelFor(t => t.Name, this.Localize<ItemModel.Texts>(t => t.Name))
+        @Html.TextBoxFor(t => t.Name)
+        @Html.ValidationMessageFor(t => t.Name)
+    </div>
+    <div>
+        @Html.Custom().Render((IHtmlControl)ViewBag.ResultMessage)
+    </div>
+    @Html.Custom().Button(this.Localize<Texts>(t => isAddMode ? t.Shared.Add : t.Shared.Save)).AsType(RenderInfo.ButtonType.Submit)
+    @Html.Custom().Button(this.Localize<Texts>(t => t.Shared.Cancel)).Action("Items")
+}
