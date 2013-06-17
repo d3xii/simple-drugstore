@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Web;
 
 namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid
 {
@@ -26,11 +27,6 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid
         /// Gets or sets width of the grid.
         /// </summary>
         public string Width;
-
-        /// <summary>
-        /// Gets or sets width of the grid.
-        /// </summary>
-        public string Height;
 
         /// <summary>
         /// Gets or sets the data source.
@@ -66,6 +62,7 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid
             public string Name;
             public string DisplayText;
             public Func<object, object> PropertyValueSelector;
+            public Func<object, IHtmlString> HtmlRenderer;
         }
 
         /// <summary>

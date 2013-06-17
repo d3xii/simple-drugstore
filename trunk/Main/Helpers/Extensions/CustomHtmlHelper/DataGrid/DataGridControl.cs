@@ -40,23 +40,10 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid
         /// <summary>
         /// Initializes a new instance of the <see cref="T:System.Object"/> class.
         /// </summary>
-        public DataGridControl(HtmlHelper<TModel> helper, string width, string height)
+        public DataGridControl(HtmlHelper<TModel> helper, string width)
             : base(helper)
         {
             _renderInfo.Width = width;
-            _renderInfo.Height = height;
-        }
-
-        #endregion
-
-        #region Overrides of HtmlControlBase<T>
-
-        /// <summary>
-        /// Renders this control.
-        /// </summary>
-        public override HtmlString Render()
-        {
-            return this.RenderPartial("DataGrid", this._renderInfo);
         }
 
         #endregion
@@ -82,7 +69,7 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid
         /// <summary>
         /// Adds a column to the grid.
         /// </summary>
-        public DataGridControl<TModel, TElement> Column(string name, string displayText, Func<TElement, object> valueSelector)
+        public DataGridControl<TModel, TElement> PropertyColumn(string name, string displayText, Func<TElement, object> valueSelector)
         {
             // add column render info
             _renderInfo.Columns.Add(new RenderInfo.ColumnInfo
@@ -91,6 +78,21 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid
                                             DisplayText = displayText,
                                             PropertyValueSelector = t => valueSelector((TElement) t),
                                         });
+            return this;
+        }
+
+        /// <summary>
+        /// Adds a dynamic column to the grid.
+        /// </summary>
+        public DataGridControl<TModel, TElement> DynamicColumn(string name, string displayText, Func<TElement, IHtmlString> htmlRenderer)
+        {
+            // add column render info
+            _renderInfo.Columns.Add(new RenderInfo.ColumnInfo
+            {
+                Name = name,
+                DisplayText = displayText,
+                HtmlRenderer = t => htmlRenderer((TElement)t),
+            });
             return this;
         }
 
@@ -107,6 +109,21 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid
                                             ControllerName = controllerName
                                         });
             return this;
+        }
+
+        #endregion
+
+        #region Overrides of HtmlControlBase<TModel>
+
+        /// <summary>
+        /// Returns an HTML-encoded string.
+        /// </summary>
+        /// <returns>
+        /// An HTML-encoded string.
+        /// </returns>
+        public override string ToHtmlString()
+        {
+            return this.RenderPartial("DataGrid", this._renderInfo).ToHtmlString();
         }
 
         #endregion

@@ -89,17 +89,17 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper
         /// <summary>
         /// Renders a datagrid.
         /// </summary>
-        public DataGridControl<T, TElement> Grid<TElement>(Func<T, ICollection<TElement>> dataSourceSelector, string width, string height)
+        public DataGridControl<T, TElement> Grid<TElement>(Func<T, ICollection<TElement>> dataSourceSelector, string width = null, string height = null)
         {
-            return new DataGridControl<T, TElement>(this._helper, width, height).DataSource(dataSourceSelector(this._helper.ViewData.Model));
+            return new DataGridControl<T, TElement>(this._helper, width).DataSource(dataSourceSelector(this._helper.ViewData.Model));
         }
 
         /// <summary>
         /// Renders a button.
         /// </summary>
-        public ButtonControl<T> Button(string displayText, [AspMvcAction] string actionName, [AspMvcController]string controllerName = null)
+        public ButtonControl<T> Button(string displayText)
         {
-            return new ButtonControl<T>(_helper, displayText, actionName, controllerName);
+            return new ButtonControl<T>(_helper, displayText);
         }
 
         #endregion

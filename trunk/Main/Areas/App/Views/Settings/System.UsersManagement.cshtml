@@ -1,8 +1,9 @@
 ﻿@inherits WebViewPage<ICollection<SDM.Domain.Models.AccountModel>>
 @(Html
 .Custom()
-.Grid(t => t, "500px", "300px")
-.Column("UserName", "Name", t => t.UserName)
-.Column("IsAdmin", "Admin?", t => t.IsAdmin)
-.AddButton("Add", "AddAccount")
-.Render())
+.Grid(t => t)
+.PropertyColumn("UserName", "Name", t => t.UserName)
+.PropertyColumn("IsAdmin", "Admin?", t => t.IsAdmin)
+.PropertyColumn("IsEnabled", "Enabled?", t => t.IsEnabled)
+.DynamicColumn(null, "Actions", t => Html.Custom().Button("Edit").Action("EditAccount", routeValues: new { id = t.ID }))
+.AddButton("Add", "AddAccount"))

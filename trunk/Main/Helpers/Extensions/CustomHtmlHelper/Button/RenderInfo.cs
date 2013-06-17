@@ -5,8 +5,10 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.Button
     /// </summary>
     public class RenderInfo
     {
+        public bool IsSubmitButton;
         public string DisplayText;
         public string ActionName;
         public string ControllerName;
+        public object RouteValues;
     }
 }

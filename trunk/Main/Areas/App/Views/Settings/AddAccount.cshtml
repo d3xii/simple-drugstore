@@ -3,7 +3,8 @@
 @using SDM.Main.Helpers.Extensions.CustomHtmlHelper
 @inherits WebViewPage<AccountModel>, ILocalizable<Texts>, ILocalizable<AccountModel.Texts>
 @{
-    ViewBag.Title = this.Localize<Texts>(t => t.AddAccount);
+    var isAddMode = Model != null && Model.IsNew;
+    ViewBag.Title = this.Localize<Texts>(t => isAddMode ? t.AddAccount : t.EditAccount);
 }
 @using (Html.BeginForm())
 {
@@ -18,16 +19,21 @@
         @Html.ValidationMessageFor(t => t.Password)
     </div>
     <div>
-        <label></label>
-        <input type="password" name="password2"/>
+        <label>
+        </label>
+        <input type="password" name="password2" />
     </div>
     <div>
         @Html.LabelFor(t => t.IsAdmin, this.Localize<AccountModel.Texts>(t => t.IsAdmin))
-        @Html.CheckBoxFor(t => t.IsAdmin)        
+        @Html.CheckBoxFor(t => t.IsAdmin)
     </div>
     <div>
-        @Html.Custom().Render((IHtmlControl) ViewBag.ResultMessage)
+        @Html.LabelFor(t => t.IsEnabled, this.Localize<AccountModel.Texts>(t => t.IsEnabled))
+        @Html.CheckBoxFor(t => t.IsEnabled)
     </div>
-    <button type="submit">@Html.Encode(this.Localize<Texts>(t => t.Shared.Add))</button>
-    @Html.Custom().Button(this.Localize<Texts>(t => t.Shared.Cancel), "System").Render()
+    <div>
+        @Html.Custom().Render((IHtmlControl)ViewBag.ResultMessage)
+    </div>
+    @Html.Custom().Button(this.Localize<Texts>(t => isAddMode ? t.Shared.Add : t.Shared.Save)).AsSubmitButton()
+    @Html.Custom().Button(this.Localize<Texts>(t => t.Shared.Cancel)).Action("System")
 }

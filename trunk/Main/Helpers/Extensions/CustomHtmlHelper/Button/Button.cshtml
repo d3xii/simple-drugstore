@@ -1,2 +1,9 @@
 ﻿@inherits System.Web.Mvc.WebViewPage<SDM.Main.Helpers.Extensions.CustomHtmlHelper.Button.RenderInfo>
-<button onclick="javascript:location.href = '@Url.Action(Model.ActionName, Model.ControllerName)'">@Html.Encode(Model.DisplayText)</button>
+@if (Model.IsSubmitButton)
+{
+    <button type="submit">@Model.DisplayText</button>
+}
+else
+{
+    <button type="button" onclick="javascript:location.href = '@Url.Action(Model.ActionName, Model.ControllerName, Model.RouteValues)'; ">@Model.DisplayText</button>
+}

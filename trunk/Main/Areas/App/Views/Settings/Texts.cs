@@ -12,5 +12,6 @@ namespace SDM.Main.Areas.App.Views.Settings
 
         public string UsersManagement = "Users Management";
         public string AddAccount = "Add new account";
+        public string EditAccount = "Edit account";
     }
 }
