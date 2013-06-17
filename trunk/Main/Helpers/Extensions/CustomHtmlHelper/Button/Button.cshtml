@@ -1,9 +1,25 @@
-﻿@inherits System.Web.Mvc.WebViewPage<SDM.Main.Helpers.Extensions.CustomHtmlHelper.Button.RenderInfo>
-@if (Model.IsSubmitButton)
-{
-    <button type="submit">@Model.DisplayText</button>
+﻿@using SDM.Main.Helpers.Extensions.CustomHtmlHelper.Button
+@inherits System.Web.Mvc.WebViewPage<RenderInfo>
+@{
+    // define confirmation code, if needed
+    string confirmationCode = Model.ConfirmationText != null ? string.Format("if (!confirm('{0}')) return", Model.ConfirmationText) : null;
 }
-else
+
+@switch (Model.Type)
 {
-    <button type="button" onclick="javascript:location.href = '@Url.Action(Model.ActionName, Model.ControllerName, Model.RouteValues)'; ">@Model.DisplayText</button>
+    case RenderInfo.ButtonType.Submit:
+    <button type="submit" onclick="@confirmationCode">
+        @Model.DisplayText
+    </button>
+   break;
+    case RenderInfo.ButtonType.Post:
+    <button type="button" onclick="@confirmationCode; $('<form/>').attr('action', '@Url.Action(Model.ActionName, Model.ControllerName, Model.RouteValues)').attr('method', 'post').submit();">
+        @Model.DisplayText
+    </button>
+   break;
+    default: 
+    <button type="button" onclick="@confirmationCode; location.href = '@Url.Action(Model.ActionName, Model.ControllerName, Model.RouteValues)'; ">
+        @Model.DisplayText
+    </button>
+   break;
 }

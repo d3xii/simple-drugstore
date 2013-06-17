@@ -54,11 +54,11 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.Button
         #region Public methods
 
         /// <summary>
-        /// Marks this button as submit button.
+        /// Sets type for this button.
         /// </summary>
-        public ButtonControl<TModel> AsSubmitButton()
+        public ButtonControl<TModel> AsType(RenderInfo.ButtonType type)
         {
-            _renderInfo.IsSubmitButton = true;
+            _renderInfo.Type = type;
             return this;
         }
 
@@ -70,6 +70,15 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.Button
             _renderInfo.ActionName = actionName;
             _renderInfo.ControllerName = controllerName;
             _renderInfo.RouteValues = routeValues;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets that the button will show a conformation dialog before performing given action.
+        /// </summary>
+        public ButtonControl<TModel> HasConfirmation(string text)
+        {
+            _renderInfo.ConfirmationText = text;
             return this;
         }
 

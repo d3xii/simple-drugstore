@@ -70,6 +70,27 @@ namespace SDM.Domain.Models
 
         #endregion
 
+
+        //**************************************************
+        //
+        // Constructors
+        //
+        //**************************************************
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:System.Object"/> class.
+        /// </summary>
+        public AccountModel()
+        {
+            this.IsAdmin = true;
+            this.IsEnabled = true;
+        }
+
+        #endregion
+
+
         //**************************************************
         //
         // Public methods

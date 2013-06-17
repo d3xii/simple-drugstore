@@ -1,6 +1,7 @@
 ﻿@using SDM.Domain.Models
 @using SDM.Main.Areas.App.Views.Settings
 @using SDM.Main.Helpers.Extensions.CustomHtmlHelper
+@using SDM.Main.Helpers.Extensions.CustomHtmlHelper.Button
 @inherits WebViewPage<AccountModel>, ILocalizable<Texts>, ILocalizable<AccountModel.Texts>
 @{
     var isAddMode = Model != null && Model.IsNew;
@@ -34,6 +35,6 @@
     <div>
         @Html.Custom().Render((IHtmlControl)ViewBag.ResultMessage)
     </div>
-    @Html.Custom().Button(this.Localize<Texts>(t => isAddMode ? t.Shared.Add : t.Shared.Save)).AsSubmitButton()
+    @Html.Custom().Button(this.Localize<Texts>(t => isAddMode ? t.Shared.Add : t.Shared.Save)).AsType(RenderInfo.ButtonType.Submit)
     @Html.Custom().Button(this.Localize<Texts>(t => t.Shared.Cancel)).Action("System")
 }

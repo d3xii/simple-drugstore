@@ -11,6 +11,6 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper
         /// <summary>
         /// Renders this html message to MVC stream.
         /// </summary>
-        HtmlString Render(HtmlHelper helper);
+        HtmlString Render(HtmlHelper helper);        
     }
 }

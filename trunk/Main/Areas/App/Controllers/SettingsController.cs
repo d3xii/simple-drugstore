@@ -114,6 +114,18 @@ namespace SDM.Main.Areas.App.Controllers
             // add to database
             this.Data.Database.SaveChanges();
 
+            // refresh
+            return this.RedirectToAction("System");
+        }
+
+        [HttpPost]
+        public ActionResult DeleteAccount(int id)
+        {
+            // delete given account
+            this.Data.Database.Accounts.Remove(id);
+            this.Data.Database.SaveChanges();
+
+            // refresh
             return this.RedirectToAction("System");
         }
 
@@ -131,6 +143,6 @@ namespace SDM.Main.Areas.App.Controllers
             public string PasswordChangedSuccessfully = "Password has been changed successfully.";
         }
 
-        #endregion
+        #endregion        
     }
 }
