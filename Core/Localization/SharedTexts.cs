@@ -16,5 +16,8 @@ namespace SDM.Core.Localization
         public string Save = "Save";
         public string System = "System";
         public string Add = "Add";
+        public string Edit = "Edit";
+        public string Delete = "Delete";
+        public string AreYouSure = "Are you sure?";
     }
 }

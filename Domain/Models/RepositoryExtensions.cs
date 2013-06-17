@@ -37,5 +37,26 @@ namespace SDM.Domain.Models
             // return result
             return result;
         }
+
+        /// <summary>
+        /// Deletes given id in the database.
+        /// Be noticed that the entity will be get from the database before marking it as deleted.
+        /// </summary>
+        public static void Remove<T>(this IDbSet<T> models, int id)
+            where T : class, IModel
+        {
+            // try to find it
+            var result = models.Find(id);
+
+            // not found
+            if (result == null)
+            {
+                // dothing
+                return;
+            }
+
+            // delete it
+            models.Remove(result);
+        }
     }
 }

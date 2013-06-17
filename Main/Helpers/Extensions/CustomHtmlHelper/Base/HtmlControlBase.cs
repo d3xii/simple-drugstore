@@ -46,6 +46,26 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.Base
 
         //**************************************************
         //
+        // Public methods
+        //
+        //**************************************************
+
+        #region Public methods
+
+        /// <summary>
+        /// Joins the HTML string of 2 controls.
+        /// </summary>
+        public static IHtmlString operator +(HtmlControlBase<T> c1, IHtmlString c2)
+        {
+            return new HtmlString(c1.ToHtmlString().TrimEnd() + c2.ToHtmlString().TrimStart());
+        }
+
+        #endregion
+
+
+
+        //**************************************************
+        //
         // Protected methods
         //
         //**************************************************
