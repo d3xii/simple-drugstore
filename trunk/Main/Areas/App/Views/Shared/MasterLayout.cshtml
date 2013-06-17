@@ -1,4 +1,6 @@
-﻿@inherits WebViewPage<dynamic>, ILocalizable<SDM.Main.Areas.App.Views.Settings.Texts>
+﻿@using SettingsTexts = SDM.Main.Areas.App.Views.Settings.Texts
+@using WarehouseTexts = SDM.Main.Areas.App.Views.Warehouse.Texts
+@inherits WebViewPage<dynamic>, ILocalizable<SettingsTexts>, ILocalizable<WarehouseTexts>
 @{    
     Layout = null;
 }
@@ -14,22 +16,23 @@
     <!-- top menu -->
     <div style="width: 100%; background: lightyellow; overflow: auto;">
         <!-- top-left menu -->
-        <div>
+        <div style="float: left; margin-left: 10px; margin-right: 10px;">
+            @Html.ActionLink(this.Localize<WarehouseTexts>(t => t.ItemsManagement), "Items", "Warehouse")
         </div>
         <!-- top-right menu -->
         <div style="float: right; margin-left: 10px; margin-right: 10px;">
-            @Html.Encode(this.Localize(t => t.Hi))
+            @Html.Encode(this.Localize<SettingsTexts>(t => t.Hi))
             <b>@this.ViewBag.UserName</b>
             |
             @if(this.ViewBag.IsAdmin)
             {
                 // show additional links
-                @Html.ActionLink(this.Localize(t => t.Shared.System), "System", "Settings")
+                @Html.ActionLink(this.Localize<SettingsTexts>(t => t.Shared.System), "System", "Settings")
                 @:|
             }
-            @Html.ActionLink(this.Localize(t => t.Shared.Settings), "Index", "Settings")
+            @Html.ActionLink(this.Localize<SettingsTexts>(t => t.Shared.Settings), "Index", "Settings")
             |
-            @Html.ActionLink(this.Localize(t => t.Shared.Logout), "Logout", "Home")
+            @Html.ActionLink(this.Localize<SettingsTexts>(t => t.Shared.Logout), "Logout", "Home")
         </div>
     </div>
     <div style="margin: 5px;">

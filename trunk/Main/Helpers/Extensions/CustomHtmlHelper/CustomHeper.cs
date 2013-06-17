@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
-using JetBrains.Annotations;
 using SDM.Main.Helpers.Extensions.CustomHtmlHelper.Button;
 using SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid;
 
@@ -88,8 +87,9 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper
 
         /// <summary>
         /// Renders a datagrid.
+        /// If the width is null, "auto" will be used.
         /// </summary>
-        public DataGridControl<T, TElement> Grid<TElement>(Func<T, ICollection<TElement>> dataSourceSelector, string width = null, string height = null)
+        public DataGridControl<T, TElement> Grid<TElement>(Func<T, ICollection<TElement>> dataSourceSelector, string width = null)
         {
             return new DataGridControl<T, TElement>(this._helper, width).DataSource(dataSourceSelector(this._helper.ViewData.Model));
         }
