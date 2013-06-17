@@ -70,15 +70,48 @@ namespace SDM.Main.Areas.App.Controllers
             }
 
             // validate to create
-            var error = model.ValidateToCreate(password2, this.Data.Database.Accounts);
+            var error = model.Create(password2, this.Data.Database.Accounts);
             if (error != null)
             {
                 this.ViewBag.ResultMessage = new ErrorHtmlMessage(error);
                 return this.View(model);
             }
 
+            // save
+            this.Data.Database.SaveChanges();
+
+            return this.RedirectToAction("System");
+        }
+
+        public ActionResult EditAccount(int id)
+        {
+            // get account
+            var accountModel = this.Data.Database.Accounts.GetById(id);
+
+            return this.View("AddAccount", accountModel);
+        }
+
+        [HttpPost]
+        public ActionResult EditAccount(AccountModel model, string password2)
+        {
+            // validate
+            if (!ModelState.IsValid)
+            {
+                return this.View("AddAccount", model);
+            }
+
+            // find the existed one the database
+            var accountModel = this.Data.Database.Accounts.GetByIdOrThrowException(model.ID);
+
+            // validate to update
+            var error = accountModel.Update(model, password2);
+            if (error != null)
+            {
+                this.ViewBag.ResultMessage = new ErrorHtmlMessage(error);
+                return this.View("AddAccount", model);
+            }
+
             // add to database
-            this.Data.Database.Accounts.Add(model);
             this.Data.Database.SaveChanges();
 
             return this.RedirectToAction("System");

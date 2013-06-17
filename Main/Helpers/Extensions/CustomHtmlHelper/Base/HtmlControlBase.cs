@@ -7,7 +7,7 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.Base
     /// <summary>
     /// Provides foundation for HTML control
     /// </summary>
-    public abstract class HtmlControlBase<T>
+    public abstract class HtmlControlBase<T> : IHtmlString
     {
         //**************************************************
         //
@@ -53,25 +53,9 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.Base
         #region Protected methods
 
         /// <summary>
-        /// Renders this control.
-        /// </summary>
-        public abstract HtmlString Render();
-
-        #endregion
-
-
-        //**************************************************
-        //
-        // Protected methods
-        //
-        //**************************************************
-
-        #region Protected methods
-
-        /// <summary>
         /// Renders given partial view within the same folder of the control.
         /// </summary>
-        protected HtmlString RenderPartial(string name, object model)
+        protected IHtmlString RenderPartial(string name, object model)
         {
             // get absolute path
             // ReSharper disable PossibleNullReferenceException
@@ -84,5 +68,17 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.Base
 
         #endregion
 
+
+        #region Implementation of IHtmlString
+
+        /// <summary>
+        /// Returns an HTML-encoded string.
+        /// </summary>
+        /// <returns>
+        /// An HTML-encoded string.
+        /// </returns>
+        public abstract string ToHtmlString();
+
+        #endregion
     }
 }

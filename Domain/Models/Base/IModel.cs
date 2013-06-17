@@ -9,5 +9,10 @@ namespace SDM.Domain.Models.Base
         /// Gets ID of the item.
         /// </summary>
         int ID { get; set; }
+
+        /// <summary>
+        /// Gets a value indicates whether this model is newly created.
+        /// </summary>
+        bool IsNew { get; }
     }
 }

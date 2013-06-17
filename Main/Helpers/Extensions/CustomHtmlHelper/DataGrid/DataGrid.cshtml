@@ -1,5 +1,5 @@
-﻿@using System.Web.Mvc.Html
-@using SDM.Localization.Core
+﻿@using SDM.Localization.Core
+@using SDM.Main.Helpers.Extensions
 @inherits System.Web.Mvc.WebViewPage<SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid.RenderInfo>, ILocalizable<SDM.Core.Localization.NoTexts>
 @{
     string gridName = Model.Name;
@@ -7,12 +7,13 @@
 }
 <div id="@gridName" style="border: 1px dotted black;">
     <div>
-        @foreach(var button in Model.Buttons)
+        @foreach (var button in Model.Buttons)
         {
-            @Html.ActionLink(button.DisplayText, button.ActionName, button.ControllerName)
+@*@Html.ActionLink(button.DisplayText, button.ActionName, button.ControllerName)*@
+            @Html.Custom().Button(button.DisplayText).Action(button.ActionName, button.ControllerName)
         }
-    </div>    
-    <table id="@gridTableName">
+    </div>
+    <table id="@gridTableName" width="@Model.Width">
         <thead>
             <tr>
                 @foreach (var column in this.Model.Columns)
@@ -28,15 +29,24 @@
                 <tr>
                     @foreach (var column in this.Model.Columns)
                     {
+                        if (column.PropertyValueSelector != null)
+                        {
                         <td>@Html.Encode(column.PropertyValueSelector(row))
                         </td>
+                        }
+                        else
+                        {
+                        <td>@column.HtmlRenderer(row)
+                        </td>
+                        }
                     }
                 </tr>
             }
         </tbody>
     </table>
 </div>
-<script type="text/javascript">
+@*<script type="text/javascript">
     // render grid
     grid.render("@gridTableName", "@Model.Width", "@Model.Height");
 </script>
+*@
