@@ -1,6 +1,7 @@
 ﻿@using SettingsTexts = SDM.Main.Areas.App.Views.Settings.Texts
 @using WarehouseTexts = SDM.Main.Areas.App.Views.Warehouse.Texts
-@inherits WebViewPage<dynamic>, ILocalizable<SettingsTexts>, ILocalizable<WarehouseTexts>
+@using PurchaseTexts = SDM.Main.Areas.App.Views.Purchase.Texts
+@inherits WebViewPage<dynamic>, ILocalizable<SettingsTexts>, ILocalizable<WarehouseTexts>, ILocalizable<PurchaseTexts>
 @{    
     Layout = null;
 }
@@ -17,6 +18,7 @@
     <div style="width: 100%; background: lightyellow; overflow: auto;">
         <!-- top-left menu -->
         <div style="float: left; margin-left: 10px; margin-right: 10px;">
+            @Html.ActionLink(this.Localize<PurchaseTexts>(t => t.PurchasesManagement), "Transactions", "Purchase")
             @Html.ActionLink(this.Localize<WarehouseTexts>(t => t.ItemsManagement), "Items", "Warehouse")
         </div>
         <!-- top-right menu -->

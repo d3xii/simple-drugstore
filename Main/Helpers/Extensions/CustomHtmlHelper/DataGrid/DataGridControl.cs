@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Diagnostics.Contracts;
 using System.Web;
 using System.Web.Mvc;
 using JetBrains.Annotations;
@@ -11,24 +13,8 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid
     /// <summary>
     /// Provides methods to render a datagrid.
     /// </summary>
-    public class DataGridControl<TModel, TElement> : HtmlControlBase<TModel>
+    public class DataGridControl<TModel, TElement> : HtmlControlBase<TModel, RenderInfo>
     {
-        //**************************************************
-        //
-        // Private variables
-        //
-        //**************************************************
-
-        #region Private variables
-
-        /// <summary>
-        /// Gets or sets the internal render information that will be built up by using fluent interface.
-        /// </summary>
-        private readonly RenderInfo _renderInfo = new RenderInfo();
-
-        #endregion
-
-
         //**************************************************
         //
         // Constructors
@@ -43,7 +29,7 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid
         public DataGridControl(HtmlHelper<TModel> helper, string width)
             : base(helper)
         {
-            _renderInfo.Width = width;
+            RenderInfo.Width = width;
         }
 
         #endregion
@@ -62,7 +48,7 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid
         /// </summary>
         public DataGridControl<TModel, TElement> DataSource(ICollection<TElement> dataSource)
         {
-            this._renderInfo.DataSource = (ICollection) dataSource;
+            this.RenderInfo.DataSource = (ICollection)dataSource;
             return this;
         }
 
@@ -72,7 +58,7 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid
         public DataGridControl<TModel, TElement> PropertyColumn(string name, string displayText, Func<TElement, object> valueSelector)
         {
             // add column render info
-            _renderInfo.Columns.Add(new RenderInfo.ColumnInfo
+            RenderInfo.Columns.Add(new RenderInfo.ColumnInfo
                                         {
                                             Name = name,
                                             DisplayText = displayText,
@@ -87,7 +73,7 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid
         public DataGridControl<TModel, TElement> DynamicColumn(string name, string displayText, Func<TElement, IHtmlString> htmlRenderer)
         {
             // add column render info
-            _renderInfo.Columns.Add(new RenderInfo.ColumnInfo
+            RenderInfo.Columns.Add(new RenderInfo.ColumnInfo
             {
                 Name = name,
                 DisplayText = displayText,
@@ -102,7 +88,7 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid
         public DataGridControl<TModel, TElement> AddButton(string text, [AspMvcAction] string actionName, [AspMvcController] string controllerName = null)
         {
             // add button render info
-            _renderInfo.Buttons.Add(new RenderInfo.ButtonInfo
+            RenderInfo.Buttons.Add(new RenderInfo.ButtonInfo
                                         {
                                             DisplayText = text,
                                             ActionName = actionName,
@@ -123,7 +109,8 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid
         /// </returns>
         public override string ToHtmlString()
         {
-            return this.RenderPartial("DataGrid", this._renderInfo).ToHtmlString();
+            Debug.Assert(this.RenderInfo.DataSource != null);
+            return this.RenderPartial("DataGrid", this.RenderInfo).ToHtmlString();
         }
 
         #endregion

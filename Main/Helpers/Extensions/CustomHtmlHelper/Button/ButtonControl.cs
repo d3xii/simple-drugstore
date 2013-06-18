@@ -7,24 +7,8 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.Button
     /// <summary>
     /// Provides methods to render a datagrid.
     /// </summary>
-    public class ButtonControl<TModel> : HtmlControlBase<TModel>
+    public class ButtonControl<TModel> : HtmlControlBase<TModel, RenderInfo>
     {
-        //**************************************************
-        //
-        // Private variables
-        //
-        //**************************************************
-
-        #region Private variables
-
-        /// <summary>
-        /// Gets or sets the internal render information that will be built up by using fluent interface.
-        /// </summary>
-        private readonly RenderInfo _renderInfo = new RenderInfo();
-
-        #endregion
-
-
         //**************************************************
         //
         // Constructors
@@ -39,7 +23,7 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.Button
         public ButtonControl(HtmlHelper<TModel> helper, string displayText)
             : base(helper)
         {
-            _renderInfo.DisplayText = displayText;            
+            RenderInfo.DisplayText = displayText;            
         }
 
         #endregion
@@ -58,7 +42,7 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.Button
         /// </summary>
         public ButtonControl<TModel> AsType(RenderInfo.ButtonType type)
         {
-            _renderInfo.Type = type;
+            RenderInfo.Type = type;
             return this;
         }
 
@@ -67,9 +51,9 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.Button
         /// </summary>
         public ButtonControl<TModel> Action([AspMvcAction] string actionName, [AspMvcController]string controllerName = null, object routeValues = null)
         {
-            _renderInfo.ActionName = actionName;
-            _renderInfo.ControllerName = controllerName;
-            _renderInfo.RouteValues = routeValues;
+            RenderInfo.ActionName = actionName;
+            RenderInfo.ControllerName = controllerName;
+            RenderInfo.RouteValues = routeValues;
             return this;
         }
 
@@ -78,7 +62,7 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.Button
         /// </summary>
         public ButtonControl<TModel> HasConfirmation(string text)
         {
-            _renderInfo.ConfirmationText = text;
+            RenderInfo.ConfirmationText = text;
             return this;
         }
 
@@ -95,7 +79,7 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.Button
         /// </returns>
         public override string ToHtmlString()
         {
-            return this.RenderPartial("Button", _renderInfo).ToHtmlString();
+            return this.RenderPartial("Button", RenderInfo).ToHtmlString();
         }
 
         #endregion

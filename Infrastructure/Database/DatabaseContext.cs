@@ -27,6 +27,11 @@ namespace SDM.Infrastructure.Database
         /// </summary>
         public DbSet<AccountModel> Accounts { get; set; }
 
+        /// <summary>
+        /// Gets list of purchase transactions in the database.
+        /// </summary>
+        public DbSet<PurchaseTransactionModel> PurchaseTransactions { get; set; }
+
         #endregion
 
 

@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
@@ -7,7 +10,8 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.Base
     /// <summary>
     /// Provides foundation for HTML control
     /// </summary>
-    public abstract class HtmlControlBase<T> : IHtmlString
+    public abstract class HtmlControlBase<TModel, TRenderInfo> : IHtmlString
+        where TRenderInfo : new()
     {
         //**************************************************
         //
@@ -20,7 +24,12 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.Base
         /// <summary>
         /// Gets the HTML helper associated with this instance.
         /// </summary>
-        protected HtmlHelper<T> Helper { get; private set; }
+        protected HtmlHelper<TModel> Helper { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the internal render information that will be built up by using fluent interface.
+        /// </summary>
+        protected readonly TRenderInfo RenderInfo = new TRenderInfo();
 
         #endregion
 
@@ -36,7 +45,7 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.Base
         /// <summary>
         /// Initializes a new instance of the <see cref="T:System.Object"/> class.
         /// </summary>
-        protected HtmlControlBase(HtmlHelper<T> helper)
+        protected HtmlControlBase(HtmlHelper<TModel> helper)
         {
             Helper = helper;
         }
@@ -55,7 +64,7 @@ namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.Base
         /// <summary>
         /// Joins the HTML string of 2 controls.
         /// </summary>
-        public static IHtmlString operator +(HtmlControlBase<T> c1, IHtmlString c2)
+        public static IHtmlString operator +(HtmlControlBase<TModel, TRenderInfo> c1, IHtmlString c2)
         {
             return new HtmlString(c1.ToHtmlString().TrimEnd() + c2.ToHtmlString().TrimStart());
         }

@@ -1,0 +1,25 @@
+﻿@using SDM.Domain.Models
+@using SDM.Main.Helpers.Extensions.CustomHtmlHelper
+@using SDM.Main.Helpers.Extensions.CustomHtmlHelper.Button
+@using ViewTexts = SDM.Main.Areas.App.Views.Purchase.Texts;
+@using ModelTexts = SDM.Domain.Models.PurchaseTransactionModel.Texts;
+@inherits WebViewPage<PurchaseTransactionModel>, ILocalizable<ViewTexts>, ILocalizable<ModelTexts>
+@{
+    var isAddMode = Model != null && Model.IsNew;
+    ViewBag.Title = this.Localize<ViewTexts>(t => isAddMode ? t.AddTransaction : t.EditTransaction);
+}
+@using (Html.BeginForm())
+{
+    <div>        
+        @Html.LabelFor(t => t.Time, this.Localize<ModelTexts>(t => t.Time))
+        @Html.TextBoxFor(t => t.Time)
+        @Html.LabelFor(t => t.Supplier, this.Localize<ModelTexts>(t => t.Supplier))
+        @Html.TextBoxFor(t => t.Supplier)
+    </div>
+    <div>
+        @Html.ValidationSummary()
+        @Html.Custom().Render((IHtmlControl)ViewBag.ResultMessage)
+    </div>
+    @Html.Custom().Button(this.Localize<ViewTexts>(t => isAddMode ? t.Shared.Add : t.Shared.Save)).AsType(RenderInfo.ButtonType.Submit)
+    @Html.Custom().Button(this.Localize<ViewTexts>(t => t.Shared.Cancel)).Action("Transactions")
+}
