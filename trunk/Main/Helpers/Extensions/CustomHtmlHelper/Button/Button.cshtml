@@ -17,9 +17,11 @@
         @Model.DisplayText
     </button>
    break;
-    default: 
+   case RenderInfo.ButtonType.Default:    
     <button type="button" onclick="@confirmationCode; location.href = '@Url.Action(Model.ActionName, Model.ControllerName, Model.RouteValues)'; ">
         @Model.DisplayText
     </button>
    break;
+   default:
+   throw new NotImplementedException();
 }

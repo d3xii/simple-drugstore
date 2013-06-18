@@ -86,10 +86,12 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\App\Controllers\HomeController.cs" />
     <Compile Include="Areas\App\AppAreaRegistration.cs" />
+    <Compile Include="Areas\App\Controllers\PurchaseController.cs" />
     <Compile Include="Areas\App\Controllers\SettingsController.cs" />
     <Compile Include="Areas\App\Controllers\DashboardController.cs" />
     <Compile Include="Areas\App\Controllers\WarehouseController.cs" />
     <Compile Include="Areas\App\Views\Home\LoginTexts.cs" />
+    <Compile Include="Areas\App\Views\Purchase\Texts.cs" />
     <Compile Include="Areas\App\Views\Warehouse\Texts.cs" />
     <Compile Include="Helpers\Attributes\CommonContextAttribute.cs" />
     <Compile Include="Helpers\Attributes\CustomAuthorizeAttribute.cs" />
@@ -141,6 +143,8 @@
     <Content Include="Helpers\Extensions\CustomHtmlHelper\Button\Button.cshtml" />
     <Content Include="Areas\App\Views\Warehouse\Items.cshtml" />
     <Content Include="Areas\App\Views\Warehouse\AddItem.cshtml" />
+    <Content Include="Areas\App\Views\Purchase\Transactions.cshtml" />
+    <Content Include="Areas\App\Views\Purchase\AddTransaction.cshtml" />
     <None Include="Scripts\3rd_party\jquery\jquery-2.0.0.intellisense.js" />
     <Content Include="Scripts\3rd_party\jquery\jquery-2.0.0.js" />
     <Content Include="Scripts\3rd_party\jquery\jquery-2.0.0.min.js" />

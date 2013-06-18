@@ -50,7 +50,7 @@ namespace SDM.Domain.Models
                 return this.Localize(t => t.DuplicatedName);
             }
 
-            // just add, no validation
+            // add to database
             items.Add(this);
             return null;
         }

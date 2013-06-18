@@ -1,0 +1,23 @@
+﻿@using SDM.Domain.Models
+@using SDM.Main.Helpers.Extensions.CustomHtmlHelper.Button
+@using ViewTexts = SDM.Main.Areas.App.Views.Purchase.Texts;
+@using ModelTexts = SDM.Domain.Models.PurchaseTransactionModel.Texts;
+@inherits WebViewPage<ICollection<PurchaseTransactionModel>>, ILocalizable<ViewTexts>, ILocalizable<ModelTexts>
+@{
+    ViewBag.Title = this.Localize<ViewTexts>(t => t.PurchasesManagement);
+}
+@(Html.Custom()
+.Grid(t => t)
+.PropertyColumn(null, this.Localize<ModelTexts>(t => t.Time), t => t.Time) 
+.PropertyColumn(null, this.Localize<ModelTexts>(t => t.Supplier), t => t.Supplier) 
+.DynamicColumn(null, null, t => Html.Custom()
+    .Button(this.Localize<ViewTexts>(t2 => t2.Shared.Edit))
+    .Action("EditTransaction", routeValues: new { id = t.ID })
+    +
+    Html.Custom()
+        .Button(this.Localize<ViewTexts>(t2 => t2.Shared.Delete))
+    .AsType(RenderInfo.ButtonType.Post)
+    .Action("DeleteTransaction", routeValues: new { id = t.ID })
+        .HasConfirmation(string.Format(this.Localize<ViewTexts>(t2 => t2.Shared.AreYouSure)))
+)
+    .AddButton(this.Localize<ViewTexts>(t => t.Shared.Add), "AddTransaction"))
