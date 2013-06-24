@@ -2,13 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
-using System.Web;
-using System.Web.Mvc;
-using JetBrains.Annotations;
-using SDM.Main.Helpers.Extensions.CustomHtmlHelper.Base;
+using MvcControls.CustomHtmlHelper.Base;
 
-namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid
+namespace MvcControls.CustomHtmlHelper.DataGrid
 {
     /// <summary>
     /// Provides methods to render a datagrid.

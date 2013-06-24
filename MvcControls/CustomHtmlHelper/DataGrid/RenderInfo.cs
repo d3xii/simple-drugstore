@@ -1,9 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Web;
 
-namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid
+namespace MvcControls.CustomHtmlHelper.DataGrid
 {
     /// <summary>
     /// Contains information necessary to render the data grid.

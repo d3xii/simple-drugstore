@@ -1,7 +1,4 @@
-using System.Web;
-using System.Web.Mvc;
-
-namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.Message
+namespace MvcControls.CustomHtmlHelper.Message
 {
     /// <summary>
     /// Renders an success html message.
