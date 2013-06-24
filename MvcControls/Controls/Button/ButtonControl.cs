@@ -37,7 +37,7 @@ namespace MvcControls.Controls.Button
         /// </returns>
         public override string ToHtmlString()
         {
-            return this.RenderPartial("Button", RenderInfo).ToHtmlString();
+            return this.RenderPartial(string.Format("Button.{0}", this.RenderInfo.Type), RenderInfo).ToHtmlString();
         }
 
         #endregion
