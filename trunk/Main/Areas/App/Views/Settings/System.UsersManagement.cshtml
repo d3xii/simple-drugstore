@@ -10,20 +10,20 @@
 .DynamicColumn(null, null, t => Html.Custom()
     .Button().Settings(s =>
                            {
-                               s.DisplayText = this.Localize(t2 => t2.Shared.Edit);
+                               s.Text = this.Localize(t2 => t2.Shared.Edit);
                                s.Action = new ActionParameter("EditAccount", routeValues: new { id = t.ID });
                            })
     +
     Html.Custom()
     .Button().Settings(s =>
                            {
-                               s.DisplayText = this.Localize(t2 => t2.Shared.Delete);
+                               s.Text = this.Localize(t2 => t2.Shared.Delete);
                                s.Type = RenderInfo.ButtonType.Post;
                                s.Action = new ActionParameter("DeleteAccount", routeValues: new { id = t.ID });
                                s.ConfirmationText = this.Localize(t2 => t2.Shared.AreYouSure);
                            }))
 .AddToPanel(Html.Custom().Button().Settings(s =>
                                                 {
-                                                    s.DisplayText = this.Localize(t => t.Shared.Add);
+                                                    s.Text = this.Localize(t => t.Shared.Add);
                                                     s.Action = new ActionParameter("AddAccount");
                                                 })))

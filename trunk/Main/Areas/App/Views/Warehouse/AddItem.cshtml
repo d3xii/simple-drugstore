@@ -21,12 +21,12 @@
     </div>
     @Html.Custom().Button().Settings(s =>
                                          {
-                                             s.DisplayText = this.Localize<Texts>(t => isAddMode ? t.Shared.Add : t.Shared.Save);
+                                             s.Text = this.Localize<Texts>(t => isAddMode ? t.Shared.Add : t.Shared.Save);
                                              s.Type = RenderInfo.ButtonType.Submit;
                                          })
     @Html.Custom().Button().Settings(s =>
                                          {
-                                             s.DisplayText = this.Localize<Texts>(t => t.Shared.Cancel);
+                                             s.Text = this.Localize<Texts>(t => t.Shared.Cancel);
                                              s.Action = new ActionParameter("Items");
                                          })
 }

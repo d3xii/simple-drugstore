@@ -7,11 +7,39 @@ namespace MvcControls.Controls.Button
     /// </summary>
     public class RenderInfo
     {
+        /// <summary>
+        /// Gets or sets button type. Default value is <see cref="ButtonType.Default"/>.
+        /// </summary>
         public ButtonType Type;
-        public string DisplayText;
+
+        /// <summary>
+        /// Gets or sets text of the button.
+        /// </summary>
+        public string Text;
+        
+        /// <summary>
+        /// Gets or sets action of the button.
+        /// </summary>
         public ActionParameter Action;
+
+        /// <summary>
+        /// Gets or sets the confirmation text will be shown when the user clicks the button.
+        /// If NULL, no confirmation is shown.
+        /// </summary>
         public string ConfirmationText;
 
+
+        //**************************************************
+        //
+        // Nested classes
+        //
+        //**************************************************
+
+        #region Nested classes
+
+        /// <summary>
+        /// Defines type of a button.
+        /// </summary>
         public enum ButtonType
         {
             /// <summary>
@@ -29,5 +57,8 @@ namespace MvcControls.Controls.Button
             /// </summary>
             Post
         }
+
+        #endregion
+
     }
 }
