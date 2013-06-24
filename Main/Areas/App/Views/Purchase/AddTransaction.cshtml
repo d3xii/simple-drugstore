@@ -1,12 +1,14 @@
-﻿@using SDM.Domain.Models
-@using SDM.Main.Helpers.Extensions.CustomHtmlHelper
-@using SDM.Main.Helpers.Extensions.CustomHtmlHelper.Button
+﻿@using MvcControls
+@using MvcControls.Controls.Base
+@using MvcControls.Controls.Button
+@using MvcControls.Controls.Parameters
+@using SDM.Domain.Models
 @using ViewTexts = SDM.Main.Areas.App.Views.Purchase.Texts;
 @using ModelTexts = SDM.Domain.Models.PurchaseTransactionModel.Texts;
 @inherits WebViewPage<PurchaseTransactionModel>, ILocalizable<ViewTexts>, ILocalizable<ModelTexts>
 @{
     var isAddMode = Model != null && Model.IsNew;
-    ViewBag.Title = this.Localize<ViewTexts>(t => isAddMode ? t.AddTransaction : t.EditTransaction);
+    ViewBag.Title = isAddMode ? this.Localize<ViewTexts>(t => t.AddTransaction) : this.Localize<ViewTexts>(t => t.EditTransaction);
 }
 @using (Html.BeginForm())
 {
@@ -20,6 +22,14 @@
         @Html.ValidationSummary()
         @Html.Custom().Render((IHtmlControl)ViewBag.ResultMessage)
     </div>
-    @Html.Custom().Button(this.Localize<ViewTexts>(t => isAddMode ? t.Shared.Add : t.Shared.Save)).AsType(RenderInfo.ButtonType.Submit)
-    @Html.Custom().Button(this.Localize<ViewTexts>(t => t.Shared.Cancel)).Action("Transactions")
+    @Html.Custom().Button().Settings(s =>
+                                         {
+                                             s.DisplayText = this.Localize<ViewTexts>(t => isAddMode ? t.Shared.Add : t.Shared.Save);
+                                             s.Type = RenderInfo.ButtonType.Submit;
+                                         })
+    @Html.Custom().Button().Settings(s =>
+                                         {
+                                             s.DisplayText = this.Localize<ViewTexts>(t => t.Shared.Cancel);
+                                             s.Action = new ActionParameter("Transactions");
+                                         })
 }

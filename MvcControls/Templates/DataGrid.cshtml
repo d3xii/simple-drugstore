@@ -1,17 +1,18 @@
-﻿@using SDM.Localization.Core
-@using SDM.Main.Helpers.Extensions
-@inherits System.Web.Mvc.WebViewPage<CustomHtmlHelper.DataGrid.RenderInfo>, ILocalizable<SDM.Core.Localization.NoTexts>
+﻿@* ReSharper disable RedundantNameQualifier *@
+@inherits System.Web.Mvc.WebViewPage<MvcControls.Controls.DataGrid.RenderInfo>
+@* ReSharper restore RedundantNameQualifier *@
 @{
     string gridName = Model.Name;
     string gridTableName = string.Format("{0}_table", gridName);
 }
 <div id="@gridName" style="border: 1px dotted black;">
     <div>
-        @foreach (var button in Model.Buttons)
+        @* ReSharper disable AccessToForEachVariableInClosure *@
+        @foreach (var button in Model.PanelControls)
         {
-@*@Html.ActionLink(button.DisplayText, button.ActionName, button.ControllerName)*@
-            @Html.Custom().Button(button.DisplayText).Action(button.ActionName, button.ControllerName)
+            @button
         }
+        @* ReSharper restore AccessToForEachVariableInClosure *@
     </div>
     <table id="@gridTableName" width="@Model.Width">
         <thead>

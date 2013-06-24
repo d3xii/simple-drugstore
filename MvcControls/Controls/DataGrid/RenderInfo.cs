@@ -1,8 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Web;
 
-namespace MvcControls.CustomHtmlHelper.DataGrid
+namespace MvcControls.Controls.DataGrid
 {
     /// <summary>
     /// Contains information necessary to render the data grid.
@@ -38,9 +39,9 @@ namespace MvcControls.CustomHtmlHelper.DataGrid
         public readonly List<ColumnInfo> Columns = new List<ColumnInfo>();
 
         /// <summary>
-        /// Gets or sets the buttons.
+        /// Gets or sets list of html controls on the grid panel.
         /// </summary>
-        public readonly List<ButtonInfo> Buttons = new List<ButtonInfo>();
+        public readonly List<IHtmlString> PanelControls = new List<IHtmlString>();
 
         #endregion
 
@@ -62,16 +63,6 @@ namespace MvcControls.CustomHtmlHelper.DataGrid
             public string DisplayText;
             public Func<object, object> PropertyValueSelector;
             public Func<object, IHtmlString> HtmlRenderer;
-        }
-
-        /// <summary>
-        /// Contains button information.
-        /// </summary>
-        public class ButtonInfo
-        {
-            public string DisplayText;
-            public string ActionName;
-            public string ControllerName;
         }
 
         #endregion

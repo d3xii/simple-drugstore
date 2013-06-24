@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics;
-using MvcControls.CustomHtmlHelper.Base;
+using System.Web;
+using System.Web.Mvc;
+using JetBrains.Annotations;
+using MvcControls.Controls.Base;
 
-namespace MvcControls.CustomHtmlHelper.DataGrid
+namespace MvcControls.Controls.DataGrid
 {
     /// <summary>
     /// Provides methods to render a datagrid.
@@ -22,10 +24,10 @@ namespace MvcControls.CustomHtmlHelper.DataGrid
         /// <summary>
         /// Initializes a new instance of the <see cref="T:System.Object"/> class.
         /// </summary>
-        public DataGridControl(HtmlHelper<TModel> helper, string width)
+        public DataGridControl(HtmlHelper<TModel> helper, ICollection dataSource)
             : base(helper)
         {
-            RenderInfo.Width = width;
+            this.RenderInfo.DataSource = dataSource;
         }
 
         #endregion
@@ -37,16 +39,7 @@ namespace MvcControls.CustomHtmlHelper.DataGrid
         //
         //**************************************************
 
-        #region Public methods
-
-        /// <summary>
-        /// Sets the datasource of the grid.
-        /// </summary>
-        public DataGridControl<TModel, TElement> DataSource(ICollection<TElement> dataSource)
-        {
-            this.RenderInfo.DataSource = (ICollection)dataSource;
-            return this;
-        }
+        #region Public methods        
 
         /// <summary>
         /// Adds a column to the grid.
@@ -79,17 +72,11 @@ namespace MvcControls.CustomHtmlHelper.DataGrid
         }
 
         /// <summary>
-        /// Adds a button to the grid.
+        /// Adds an html control to grid panel.
         /// </summary>
-        public DataGridControl<TModel, TElement> AddButton(string text, [AspMvcAction] string actionName, [AspMvcController] string controllerName = null)
+        public DataGridControl<TModel, TElement> AddToPanel(IHtmlString control)
         {
-            // add button render info
-            RenderInfo.Buttons.Add(new RenderInfo.ButtonInfo
-                                        {
-                                            DisplayText = text,
-                                            ActionName = actionName,
-                                            ControllerName = controllerName
-                                        });
+            RenderInfo.PanelControls.Add(control);
             return this;
         }
 
@@ -109,6 +96,6 @@ namespace MvcControls.CustomHtmlHelper.DataGrid
             return this.RenderPartial("DataGrid", this.RenderInfo).ToHtmlString();
         }
 
-        #endregion
+        #endregion        
     }
 }

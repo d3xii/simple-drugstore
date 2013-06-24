@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
+using MvcControls.Controls.Message;
 using SDM.Domain.Models;
 using SDM.Main.Helpers.Attributes;
 using SDM.Main.Helpers.Controllers;
-using SDM.Main.Helpers.Extensions.CustomHtmlHelper.Message;
 
 namespace SDM.Main.Areas.App.Controllers
 {

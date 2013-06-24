@@ -1,9 +1,13 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using MvcControls.CustomHtmlHelper.Button;
-using MvcControls.CustomHtmlHelper.DataGrid;
+using System.Web;
+using System.Web.Mvc;
+using MvcControls.Controls.Base;
+using MvcControls.Controls.Button;
+using MvcControls.Controls.DataGrid;
 
-namespace MvcControls.CustomHtmlHelper
+namespace MvcControls.Controls
 {
     /// <summary>
     /// Provides custom helper methods.
@@ -56,7 +60,7 @@ namespace MvcControls.CustomHtmlHelper
         /// <summary>
         /// Renders a custom control.
         /// </summary>
-        public HtmlString Render(Func<T, IHtmlControl> selector)
+        public IHtmlString Render(Func<T, IHtmlControl> selector)
         {
             // skip if the model is NULL
             if (this._helper.ViewData.Model == null)
@@ -71,7 +75,7 @@ namespace MvcControls.CustomHtmlHelper
         /// <summary>
         /// Renders a custom control.
         /// </summary>
-        public HtmlString Render(IHtmlControl control)
+        public IHtmlString Render(IHtmlControl control)
         {
             // skip if null
             if (control == null)
@@ -87,17 +91,17 @@ namespace MvcControls.CustomHtmlHelper
         /// Renders a datagrid.
         /// If the width is null, "auto" will be used.
         /// </summary>
-        public DataGridControl<T, TElement> Grid<TElement>(Func<T, ICollection<TElement>> dataSourceSelector, string width = null)
+        public DataGridControl<T, TElement> Grid<TElement>(Func<T, ICollection<TElement>> dataSourceSelector)
         {
-            return new DataGridControl<T, TElement>(this._helper, width).DataSource(dataSourceSelector(this._helper.ViewData.Model));
+            return new DataGridControl<T, TElement>(this._helper, (ICollection) dataSourceSelector(_helper.ViewData.Model));
         }
 
         /// <summary>
         /// Renders a button.
         /// </summary>
-        public ButtonControl<T> Button(string displayText)
+        public ButtonControl<T> Button()
         {
-            return new ButtonControl<T>(_helper, displayText);
+            return new ButtonControl<T>(_helper);
         }
 
         #endregion

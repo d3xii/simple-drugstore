@@ -1,4 +1,6 @@
-namespace MvcControls.CustomHtmlHelper.Button
+using MvcControls.Controls.Parameters;
+
+namespace MvcControls.Controls.Button
 {
     /// <summary>
     /// Contains information necessary to render the button.
@@ -7,10 +9,8 @@ namespace MvcControls.CustomHtmlHelper.Button
     {
         public ButtonType Type;
         public string DisplayText;
-        public string ActionName;
-        public string ControllerName;
+        public ActionParameter Action;
         public string ConfirmationText;
-        public object RouteValues;
 
         public enum ButtonType
         {

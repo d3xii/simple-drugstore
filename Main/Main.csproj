@@ -101,7 +101,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Attributes\CustomErrorHandleAttribute.cs" />
-    <Compile Include="Helpers\Attributes\Resharper.cs" />
     <Compile Include="Helpers\Controllers\CommonController.cs" />
     <Compile Include="Helpers\Extensions\CommonControllerContext.cs" />
     <Compile Include="Helpers\Extensions\ControllerExtensions.cs" />
@@ -222,6 +221,10 @@
     <ProjectReference Include="..\Localization\Localization.csproj">
       <Project>{2E6D8BB6-8C67-4AF1-9BFB-C80E9B938D53}</Project>
       <Name>Localization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MvcControls\MvcControls.csproj">
+      <Project>{8162755F-7516-4A43-A5C8-13544F87B75F}</Project>
+      <Name>MvcControls</Name>
     </ProjectReference>
     <ProjectReference Include="..\Services\Services.csproj">
       <Project>{C5265057-F042-46A3-A243-8DCCB820196E}</Project>
