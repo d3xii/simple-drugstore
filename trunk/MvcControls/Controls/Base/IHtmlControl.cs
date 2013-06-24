@@ -1,4 +1,7 @@
-namespace MvcControls.CustomHtmlHelper
+using System.Web;
+using System.Web.Mvc;
+
+namespace MvcControls.Controls.Base
 {
     /// <summary>
     /// Defines a flexible HTML control.
@@ -8,6 +11,6 @@ namespace MvcControls.CustomHtmlHelper
         /// <summary>
         /// Renders this html message to MVC stream.
         /// </summary>
-        HtmlString Render(HtmlHelper helper);        
+        IHtmlString Render(HtmlHelper helper);        
     }
 }

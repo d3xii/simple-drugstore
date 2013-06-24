@@ -1,4 +1,9 @@
-namespace MvcControls.CustomHtmlHelper.Base
+using System;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Mvc.Html;
+
+namespace MvcControls.Controls.Base
 {
     /// <summary>
     /// Provides foundation for HTML control
@@ -61,6 +66,15 @@ namespace MvcControls.CustomHtmlHelper.Base
         {
             return new HtmlString(c1.ToHtmlString().TrimEnd() + c2.ToHtmlString().TrimStart());
         }
+        
+        /// <summary>
+        /// Sets render information.
+        /// </summary>
+        public HtmlControlBase<TModel, TRenderInfo> Settings(Action<TRenderInfo> renderInfoSetter)
+        {
+            renderInfoSetter(this.RenderInfo);
+            return this;
+        }
 
         #endregion
 
@@ -81,7 +95,8 @@ namespace MvcControls.CustomHtmlHelper.Base
         {
             // get absolute path
             // ReSharper disable PossibleNullReferenceException
-            string path = string.Format("~/{0}/{1}.cshtml", this.GetType().Namespace.Replace("SDM.Main.", string.Empty).Replace('.', '/'), name);
+            //string path = string.Format("~/{0}/{1}.cshtml", this.GetType().Namespace.Replace("SDM.Main.", string.Empty).Replace('.', '/'), name);
+            string path = string.Format("~/bin/Templates/{0}.cshtml", name);
             // ReSharper restore PossibleNullReferenceException
 
             // render

@@ -33,6 +33,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,25 +43,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomHtmlHelper\Base\HtmlControlBase.cs" />
-    <Compile Include="CustomHtmlHelper\Button\ButtonControl.cs" />
-    <Compile Include="CustomHtmlHelper\Button\RenderInfo.cs" />
-    <Compile Include="CustomHtmlHelper\CustomHeper.cs" />
-    <Compile Include="CustomHtmlHelper\DataGrid\DataGridControl.cs" />
-    <Compile Include="CustomHtmlHelper\DataGrid\RenderInfo.cs" />
-    <Compile Include="CustomHtmlHelper\IHtmlControl.cs" />
-    <Compile Include="CustomHtmlHelper\Message\ErrorHtmlMessage.cs" />
-    <Compile Include="CustomHtmlHelper\Message\HtmlMessageBase.cs" />
-    <Compile Include="CustomHtmlHelper\Message\IHtmlMessage.cs" />
-    <Compile Include="CustomHtmlHelper\Message\SuccessHtmlMessage.cs" />
+    <Compile Include="Controls\Base\HtmlControlBase.cs" />
+    <Compile Include="Controls\Button\ButtonControl.cs" />
+    <Compile Include="Controls\Button\RenderInfo.cs" />
+    <Compile Include="Controls\CustomHeper.cs" />
+    <Compile Include="Controls\DataGrid\DataGridControl.cs" />
+    <Compile Include="Controls\DataGrid\RenderInfo.cs" />
+    <Compile Include="Controls\Base\IHtmlControl.cs" />
+    <Compile Include="Controls\Message\ErrorHtmlMessage.cs" />
+    <Compile Include="Controls\Message\HtmlMessageBase.cs" />
+    <Compile Include="Controls\Message\IHtmlMessage.cs" />
+    <Compile Include="Controls\Message\SuccessHtmlMessage.cs" />
+    <Compile Include="Controls\Parameters\ActionParameter.cs" />
     <Compile Include="HtmlHelperExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResharperAttributes.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Templates\Button.cshtml" />
+    <Content Include="Templates\Button.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Templates\DataGrid.cshtml" />
+    <Content Include="Templates\DataGrid.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

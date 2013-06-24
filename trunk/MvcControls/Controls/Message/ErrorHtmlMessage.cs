@@ -1,9 +1,12 @@
-namespace MvcControls.CustomHtmlHelper.Message
+using System.Web;
+using System.Web.Mvc;
+
+namespace MvcControls.Controls.Message
 {
     /// <summary>
-    /// Renders an success html message.
+    /// Renders an error html message.
     /// </summary>
-    internal class SuccessHtmlMessage : HtmlMessageBase
+    public class ErrorHtmlMessage : HtmlMessageBase
     {
         //**************************************************
         //
@@ -16,8 +19,7 @@ namespace MvcControls.CustomHtmlHelper.Message
         /// <summary>
         /// Initializes a new instance of the <see cref="T:System.Object"/> class.
         /// </summary>
-        public SuccessHtmlMessage(string message)
-            : base(message)
+        public ErrorHtmlMessage(string message) : base(message)
         {
         }
 
@@ -29,9 +31,9 @@ namespace MvcControls.CustomHtmlHelper.Message
         /// <summary>
         /// Renders this html message to MVC stream.
         /// </summary>
-        public override HtmlString Render(HtmlHelper helper)
+        public override IHtmlString Render(HtmlHelper helper)
         {
-            return new HtmlString(string.Format("<span class='message-success'>{0}</span>", helper.Encode(this.Message)));
+            return new HtmlString(string.Format("<span class='message-error'>{0}</span>", helper.Encode(this.Message)));
         }
 
         #endregion

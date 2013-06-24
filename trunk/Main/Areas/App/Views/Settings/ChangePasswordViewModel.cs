@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using SDM.Main.Helpers.Extensions.CustomHtmlHelper;
-using SDM.Main.Helpers.Extensions.CustomHtmlHelper.Message;
+using MvcControls.Controls.Message;
 
 namespace SDM.Main.Areas.App.Views.Settings
 {

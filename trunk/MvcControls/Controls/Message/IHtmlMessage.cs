@@ -1,4 +1,6 @@
-namespace MvcControls.CustomHtmlHelper.Message
+using MvcControls.Controls.Base;
+
+namespace MvcControls.Controls.Message
 {
     /// <summary>
     /// Defines a flexible HTML in-line message.

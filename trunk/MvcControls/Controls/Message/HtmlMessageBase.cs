@@ -1,9 +1,12 @@
-namespace MvcControls.CustomHtmlHelper.Message
+using System.Web;
+using System.Web.Mvc;
+
+namespace MvcControls.Controls.Message
 {
     /// <summary>
     /// Provides foundation for all HTML messages.
     /// </summary>
-    internal abstract class HtmlMessageBase : IHtmlMessage
+    public abstract class HtmlMessageBase : IHtmlMessage
     {
         #region Implementation of IHtmlMessage
 
@@ -15,7 +18,7 @@ namespace MvcControls.CustomHtmlHelper.Message
         /// <summary>
         /// Renders this html message to MVC stream.
         /// </summary>
-        public abstract HtmlString Render(HtmlHelper helper);
+        public abstract IHtmlString Render(HtmlHelper helper);
 
         #endregion
 

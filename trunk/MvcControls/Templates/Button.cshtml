@@ -1,6 +1,7 @@
-﻿@using CustomHtmlHelper.Button
-@using SDM.Main.Helpers.Extensions.CustomHtmlHelper.Button
-@inherits System.Web.Mvc.WebViewPage<CustomHtmlHelper.Button.RenderInfo>
+﻿@* ReSharper disable RedundantNameQualifier *@
+@using MvcControls.Controls.Button
+@inherits System.Web.Mvc.WebViewPage<MvcControls.Controls.Button.RenderInfo>
+@* ReSharper restore RedundantNameQualifier *@
 @{
     // define confirmation code, if needed
     string confirmationCode = Model.ConfirmationText != null ? string.Format("if (!confirm('{0}')) return", Model.ConfirmationText) : null;
@@ -14,12 +15,12 @@
     </button>
    break;
     case RenderInfo.ButtonType.Post:
-    <button type="button" onclick="@confirmationCode; $('<form/>').attr('action', '@Url.Action(Model.ActionName, Model.ControllerName, Model.RouteValues)').attr('method', 'post').submit();">
+    <button type="button" onclick="@confirmationCode; $('<form/>').attr('action', '@Url.Action(Model.Action.ActionName, Model.Action.ControllerName, Model.Action.RouteValues)').attr('method', 'post').submit();">
         @Model.DisplayText
     </button>
    break;
    case RenderInfo.ButtonType.Default:    
-    <button type="button" onclick="@confirmationCode; location.href = '@Url.Action(Model.ActionName, Model.ControllerName, Model.RouteValues)'; ">
+    <button type="button" onclick="@confirmationCode; location.href = '@Url.Action(Model.Action.ActionName, Model.Action.ControllerName, Model.Action.RouteValues)'; ">
         @Model.DisplayText
     </button>
    break;
