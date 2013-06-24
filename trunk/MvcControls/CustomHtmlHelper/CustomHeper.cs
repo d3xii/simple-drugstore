@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Web;
-using System.Web.Mvc;
-using SDM.Main.Helpers.Extensions.CustomHtmlHelper.Button;
-using SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid;
+using MvcControls.CustomHtmlHelper.Button;
+using MvcControls.CustomHtmlHelper.DataGrid;
 
-namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper
+namespace MvcControls.CustomHtmlHelper
 {
     /// <summary>
     /// Provides custom helper methods.

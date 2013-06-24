@@ -1,7 +1,4 @@
-using System.Web;
-using System.Web.Mvc;
-
-namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper
+namespace MvcControls.CustomHtmlHelper
 {
     /// <summary>
     /// Defines a flexible HTML control.

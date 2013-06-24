@@ -1,5 +1,6 @@
-﻿@using SDM.Main.Helpers.Extensions.CustomHtmlHelper.Button
-@inherits System.Web.Mvc.WebViewPage<RenderInfo>
+﻿@using CustomHtmlHelper.Button
+@using SDM.Main.Helpers.Extensions.CustomHtmlHelper.Button
+@inherits System.Web.Mvc.WebViewPage<CustomHtmlHelper.Button.RenderInfo>
 @{
     // define confirmation code, if needed
     string confirmationCode = Model.ConfirmationText != null ? string.Format("if (!confirm('{0}')) return", Model.ConfirmationText) : null;

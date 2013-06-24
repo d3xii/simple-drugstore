@@ -1,4 +1,4 @@
-namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.Message
+namespace MvcControls.CustomHtmlHelper.Message
 {
     /// <summary>
     /// Defines a flexible HTML in-line message.

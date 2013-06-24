@@ -1,7 +1,6 @@
-﻿using System.Web.Mvc;
-using SDM.Main.Helpers.Extensions.CustomHtmlHelper;
+﻿using MvcControls.CustomHtmlHelper;
 
-namespace SDM.Main.Helpers.Extensions
+namespace MvcControls
 {
     /// <summary>
     /// Provides entry point to custom helper.

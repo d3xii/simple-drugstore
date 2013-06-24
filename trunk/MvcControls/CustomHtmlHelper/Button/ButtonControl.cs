@@ -1,8 +1,6 @@
-﻿using System.Web.Mvc;
-using JetBrains.Annotations;
-using SDM.Main.Helpers.Extensions.CustomHtmlHelper.Base;
+﻿using MvcControls.CustomHtmlHelper.Base;
 
-namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.Button
+namespace MvcControls.CustomHtmlHelper.Button
 {
     /// <summary>
     /// Provides methods to render a datagrid.

@@ -1,4 +1,4 @@
-namespace SDM.Main.Helpers.Extensions.CustomHtmlHelper.Button
+namespace MvcControls.CustomHtmlHelper.Button
 {
     /// <summary>
     /// Contains information necessary to render the button.

@@ -1,6 +1,6 @@
 ﻿@using SDM.Localization.Core
 @using SDM.Main.Helpers.Extensions
-@inherits System.Web.Mvc.WebViewPage<SDM.Main.Helpers.Extensions.CustomHtmlHelper.DataGrid.RenderInfo>, ILocalizable<SDM.Core.Localization.NoTexts>
+@inherits System.Web.Mvc.WebViewPage<CustomHtmlHelper.DataGrid.RenderInfo>, ILocalizable<SDM.Core.Localization.NoTexts>
 @{
     string gridName = Model.Name;
     string gridTableName = string.Format("{0}_table", gridName);
