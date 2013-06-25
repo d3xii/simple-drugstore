@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using SDM.Core.Localization;
@@ -9,10 +8,10 @@ using SDM.Localization.Core;
 namespace SDM.Domain.Models
 {
     /// <summary>
-    /// Contains information of an purchase transaction in the database.
+    /// Contains detail information of an purchase transaction in the database.
     /// </summary>
-    [Table("PurchaseTransaction")]
-    public class PurchaseTransactionModel : ModelBase, ILocalizable<PurchaseTransactionModel.Texts>
+    [Table("PurchaseTransactionDetail")]
+    public class PurchaseTransactionDetailModel : ModelBase, ILocalizable<PurchaseTransactionDetailModel.Texts>
     {
         //**************************************************
         //
@@ -23,19 +22,19 @@ namespace SDM.Domain.Models
         #region Public properties
 
         /// <summary>
-        /// Gets or sets time this transaction was done.
+        /// Gets or sets the header of this detail.
         /// </summary>
-        public DateTime Time { get; set; }
+        public PurchaseTransactionModel Header { get; set; }
 
         /// <summary>
-        /// Gets or sets name of the supplier.
+        /// Gets or sets name of the item.
         /// </summary>
-        public string Supplier { get; set; }
+        public string ItemName { get; set; }
 
         /// <summary>
-        /// Gets or sets details of this transaction.
+        /// Gets or sets quantity of the item.
         /// </summary>
-        public ICollection<PurchaseTransactionDetailModel> Details { get; set; }
+        public int Quantity { get; set; }
 
         #endregion
 
@@ -51,10 +50,8 @@ namespace SDM.Domain.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="T:System.Object"/> class.
         /// </summary>
-        public PurchaseTransactionModel()
+        public PurchaseTransactionDetailModel()
         {
-            this.Time = DateTime.Now;
-            this.Details = new List<PurchaseTransactionDetailModel>();
         }
 
         #endregion
@@ -68,29 +65,29 @@ namespace SDM.Domain.Models
 
         #region Public methods
 
-        /// <summary>
-        /// Validates and creates new item.
-        /// </summary>
-        public string Create(IDbSet<PurchaseTransactionModel> items)
-        {
-            // just add, no validation
-            items.Add(this);
-            return null;
-        }
+        ///// <summary>
+        ///// Validates and creates new item.
+        ///// </summary>
+        //public string Create(IDbSet<PurchaseTransactionModel> items)
+        //{
+        //    // just add, no validation
+        //    items.Add(this);
+        //    return null;
+        //}
 
-        /// <summary>
-        /// Updates this model with information contained in the dummy model.
-        /// </summary>
-        public string Update(PurchaseTransactionModel model)
-        {
-            // update other information
-            // TODO: use structure mapping?
-            this.Time = model.Time;
-            this.Supplier = model.Supplier;
+        ///// <summary>
+        ///// Updates this model with information contained in the dummy model.
+        ///// </summary>
+        //public string Update(PurchaseTransactionModel model)
+        //{
+        //    // update other information
+        //    // TODO: use structure mapping?
+        //    this.Time = model.Time;
+        //    this.Supplier = model.Supplier;
 
-            // ok
-            return null;
-        }
+        //    // ok
+        //    return null;
+        //}
 
         #endregion
 
@@ -104,8 +101,8 @@ namespace SDM.Domain.Models
 
         public class Texts : CustomLocalizationScopeBase
         {
-            public string Time = "Time";
-            public string Supplier = "Supplier";
+            public string ItemName = "Item Name";
+            public string Quantity = "Quantity";
         }
 
         #endregion

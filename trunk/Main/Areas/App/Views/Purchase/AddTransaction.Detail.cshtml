@@ -1,0 +1,23 @@
+﻿@using MvcControls
+@using MvcControls.Controls.Parameters
+@using SDM.Domain.Models
+@using ViewTexts = SDM.Main.Areas.App.Views.Purchase.Texts;
+@using ModelTexts = SDM.Domain.Models.PurchaseTransactionDetailModel.Texts;
+@inherits WebViewPage<PurchaseTransactionDetailModel>, ILocalizable<ViewTexts>, ILocalizable<ModelTexts>
+@using (Html.BeginForm())
+{
+    <div>@(this.Localize<ViewTexts>(t => t.QuickAdd))</div>
+    <div style="margin-left: 20px;">
+        @Html.Custom().TextBox().Bind(t => t.ItemName).Settings(
+        s =>
+        {
+            s.LabelText = this.Localize<ModelTexts>(t => t.ItemName);
+            s.AutoCompleteDataSource = new ActionParameter("GetItems");
+        })
+        @Html.Custom().TextBox().Bind(t => t.Quantity).Settings(
+        s =>
+        {
+            s.LabelText = this.Localize<ModelTexts>(t => t.Quantity);
+        })
+    </div>
+}

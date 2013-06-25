@@ -4,10 +4,10 @@
 @inherits WebViewPage<ICollection<SDM.Domain.Models.AccountModel>>, ILocalizable<SDM.Domain.Models.AccountModel.Texts>
 @(Html.Custom()
 .Grid(t => t)
-.PropertyColumn(this.Localize(t => t.UserName), this.Localize(t => t.UserName), t => t.UserName)
-.PropertyColumn(this.Localize(t => t.IsAdmin), this.Localize(t => t.IsAdmin), t => t.IsAdmin)
-.PropertyColumn(this.Localize(t => t.IsEnabled), this.Localize(t => t.IsEnabled), t => t.IsEnabled)
-.DynamicColumn(null, null, t => Html.Custom()
+.AddPropertyColumn(this.Localize(t => t.UserName), this.Localize(t => t.UserName), t => t.UserName)
+.AddPropertyColumn(this.Localize(t => t.IsAdmin), this.Localize(t => t.IsAdmin), t => t.IsAdmin)
+.AddPropertyColumn(this.Localize(t => t.IsEnabled), this.Localize(t => t.IsEnabled), t => t.IsEnabled)
+.AddDynamicColumn(null, null, t => Html.Custom()
     .Button().Settings(s =>
                            {
                                s.Text = this.Localize(t2 => t2.Shared.Edit);
@@ -22,7 +22,7 @@
                                s.Action = new ActionParameter("DeleteAccount", routeValues: new { id = t.ID });
                                s.ConfirmationText = this.Localize(t2 => t2.Shared.AreYouSure);
                            }))
-.AddToPanel(Html.Custom().Button().Settings(s =>
+.AddControlToPanel(Html.Custom().Button().Settings(s =>
                                                 {
                                                     s.Text = this.Localize(t => t.Shared.Add);
                                                     s.Action = new ActionParameter("AddAccount");

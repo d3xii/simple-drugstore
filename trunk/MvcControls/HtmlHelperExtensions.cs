@@ -1,6 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 using MvcControls.Controls;
-using MvcControls.Controls.Parameters;
 
 namespace MvcControls
 {
@@ -16,19 +17,13 @@ namespace MvcControls
         {
             return new CustomHeper<T>(helper);
         }
-    }
 
-    /// <summary>
-    /// Provides entry point to custom URL helper.
-    /// </summary>
-    public static class UrlHelperExtensions
-    {
         /// <summary>
-        /// Renders the URL to the action.
+        /// Joins the HTML string of 2 controls.
         /// </summary>
-        public static string Action(this UrlHelper helper, ActionParameter action)
+        public static IHtmlString Combine(this HtmlHelper helper, params IHtmlString[] values)
         {
-            return helper.Action(action.ActionName, action.ControllerName, action.RouteValues);
-        }
+            return new HtmlString(string.Join(null, values.Select(t => t.ToHtmlString().Trim())));
+        }        
     }
 }

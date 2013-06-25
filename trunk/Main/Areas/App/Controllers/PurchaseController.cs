@@ -17,7 +17,16 @@ namespace SDM.Main.Areas.App.Controllers
 
         public ActionResult AddTransaction()
         {
-            return this.View(new PurchaseTransactionModel());
+            //return this.View(new PurchaseTransactionModel());
+            return this.View(new PurchaseTransactionModel
+                                 {
+                                     Details =
+                                         {
+                                             new PurchaseTransactionDetailModel(),
+                                             new PurchaseTransactionDetailModel(),
+                                             new PurchaseTransactionDetailModel(),
+                                         }
+                                 });
         }
 
         [HttpPost]
@@ -96,6 +105,20 @@ namespace SDM.Main.Areas.App.Controllers
             var data = this.Data.Database.PurchaseTransactions
                 .Where(t => !string.IsNullOrEmpty(t.Supplier) && t.Supplier.Contains(term))
                 .Select(t => t.Supplier)
+                .Distinct()
+                .ToArray();
+
+            // return result
+            return Json(data);
+        }
+
+        [HttpPost]
+        public ActionResult GetItems(string term)
+        {
+            // get all distinct suppliers 
+            var data = this.Data.Database.Items
+                .Where(t => !string.IsNullOrEmpty(t.Name) && t.Name.Contains(term))
+                .Select(t => t.Name)
                 .Distinct()
                 .ToArray();
 

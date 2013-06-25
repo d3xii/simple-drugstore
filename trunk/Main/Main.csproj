@@ -194,6 +194,7 @@
     <Content Include="Areas\App\Views\Warehouse\AddItem.cshtml" />
     <Content Include="Areas\App\Views\Purchase\Transactions.cshtml" />
     <Content Include="Areas\App\Views\Purchase\AddTransaction.cshtml" />
+    <Content Include="Areas\App\Views\Purchase\AddTransaction.Detail.cshtml" />
     <None Include="Scripts\3rd_party\jquery\jquery-2.0.0.intellisense.js" />
     <Content Include="Scripts\3rd_party\jquery\jquery-2.0.0.js" />
     <Content Include="Scripts\3rd_party\jquery\jquery-2.0.0.min.js" />
