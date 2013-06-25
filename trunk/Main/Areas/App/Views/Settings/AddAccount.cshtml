@@ -40,7 +40,7 @@
     @Html.Custom().Button().Settings(s =>
                                          {
                                              s.Text = this.Localize<Texts>(t => isAddMode ? t.Shared.Add : t.Shared.Save);
-                                             s.Type = RenderInfo.ButtonType.Submit;
+                                             s.Type = ButtonControlRenderInfo.ButtonType.Submit;
                                          })
     @Html.Custom().Button().Settings(s =>
                                          {

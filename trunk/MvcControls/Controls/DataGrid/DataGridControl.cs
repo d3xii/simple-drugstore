@@ -11,7 +11,7 @@ namespace MvcControls.Controls.DataGrid
     /// <summary>
     /// Provides methods to render a datagrid.
     /// </summary>
-    public class DataGridControl<TModel, TElement> : HtmlControlBase<TModel, RenderInfo>
+    public class DataGridControl<TModel, TElement> : HtmlControlBase<TModel, DataGridControlRenderInfo>
     {
         //**************************************************
         //
@@ -47,7 +47,7 @@ namespace MvcControls.Controls.DataGrid
         public DataGridControl<TModel, TElement> PropertyColumn(string name, string displayText, Func<TElement, object> valueSelector)
         {
             // add column render info
-            RenderInfo.Columns.Add(new RenderInfo.ColumnInfo
+            RenderInfo.Columns.Add(new DataGridControlRenderInfo.ColumnInfo
                                         {
                                             Name = name,
                                             DisplayText = displayText,
@@ -62,7 +62,7 @@ namespace MvcControls.Controls.DataGrid
         public DataGridControl<TModel, TElement> DynamicColumn(string name, string displayText, Func<TElement, IHtmlString> htmlRenderer)
         {
             // add column render info
-            RenderInfo.Columns.Add(new RenderInfo.ColumnInfo
+            RenderInfo.Columns.Add(new DataGridControlRenderInfo.ColumnInfo
             {
                 Name = name,
                 DisplayText = displayText,

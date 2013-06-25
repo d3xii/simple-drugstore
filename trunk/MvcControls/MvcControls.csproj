@@ -45,10 +45,12 @@
   <ItemGroup>
     <Compile Include="Controls\Base\HtmlControlBase.cs" />
     <Compile Include="Controls\Button\ButtonControl.cs" />
-    <Compile Include="Controls\Button\RenderInfo.cs" />
+    <Compile Include="Controls\Button\ButtonControlRenderInfo.cs" />
+    <Compile Include="Controls\TextBox\TextBoxControl.cs" />
+    <Compile Include="Controls\TextBox\ButtonControlRenderInfo.cs" />
     <Compile Include="Controls\CustomHeper.cs" />
     <Compile Include="Controls\DataGrid\DataGridControl.cs" />
-    <Compile Include="Controls\DataGrid\RenderInfo.cs" />
+    <Compile Include="Controls\DataGrid\DataGridControlRenderInfo.cs" />
     <Compile Include="Controls\Base\IHtmlControl.cs" />
     <Compile Include="Controls\Message\ErrorHtmlMessage.cs" />
     <Compile Include="Controls\Message\HtmlMessageBase.cs" />
@@ -76,6 +78,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Templates\Button.Post.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Templates\TextBox.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

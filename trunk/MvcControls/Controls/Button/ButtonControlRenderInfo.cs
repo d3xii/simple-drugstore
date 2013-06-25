@@ -5,7 +5,7 @@ namespace MvcControls.Controls.Button
     /// <summary>
     /// Contains information necessary to render the button.
     /// </summary>
-    public class RenderInfo
+    public class ButtonControlRenderInfo
     {
         /// <summary>
         /// Gets or sets button type. Default value is <see cref="ButtonType.Default"/>.
