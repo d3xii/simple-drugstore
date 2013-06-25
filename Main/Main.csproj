@@ -173,7 +173,7 @@
     <Content Include="Styles\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Styles\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Styles\themes\base\minified\jquery.ui.tooltip.min.css" />
-    <Content Include="Scripts\custom\grid.js" />
+    <Content Include="Scripts\custom\MvcControls\grid.js" />
     <Content Include="Scripts\3rd_party\jquery.ui\jquery-ui-1.10.3.js" />
     <Content Include="Scripts\3rd_party\jquery.ui\jquery-ui-1.10.3.min.js" />
     <Content Include="Styles\3rd_party\SlickGrid\images\down.gif" />
@@ -195,6 +195,7 @@
     <Content Include="Areas\App\Views\Purchase\Transactions.cshtml" />
     <Content Include="Areas\App\Views\Purchase\AddTransaction.cshtml" />
     <Content Include="Areas\App\Views\Purchase\AddTransaction.Detail.cshtml" />
+    <Content Include="Areas\App\Views\Purchase\AddOrEditTransactionDetail.cshtml" />
     <None Include="Scripts\3rd_party\jquery\jquery-2.0.0.intellisense.js" />
     <Content Include="Scripts\3rd_party\jquery\jquery-2.0.0.js" />
     <Content Include="Scripts\3rd_party\jquery\jquery-2.0.0.min.js" />

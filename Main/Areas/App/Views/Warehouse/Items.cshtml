@@ -21,7 +21,7 @@
     .Button().Settings(s =>
                            {
                                s.Text = this.Localize<Texts>(t2 => t2.Shared.Delete);
-                               s.Type = ButtonControlRenderInfo.ButtonType.Post;
+                               s.Type = ButtonControlInfo.ButtonType.Post;
                                s.Action = new ActionParameter("DeleteItem", routeValues: new { id = t.ID });
                                s.ConfirmationText = this.Localize<Texts>(t2 => t2.Shared.AreYouSure);
                            }))

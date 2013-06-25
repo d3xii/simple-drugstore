@@ -1,0 +1,20 @@
+﻿@* ReSharper disable RedundantNameQualifier *@
+@inherits System.Web.Mvc.WebViewPage<MvcControls.Controls.DataGrid.DataGridInlineFormEditModule>
+@* ReSharper restore RedundantNameQualifier *@
+<script type="text/javascript">
+    // define global variable
+    function grid_Initialize()
+    {
+        // create new instance
+        var grid = new window.Grid();
+        
+        // initialize code below
+        grid.NewRowContentUrl = "@Model.NewLineContentUrl.ToUrl(Url)";
+        
+        // return result
+        return grid;
+    }    
+    
+    // execute script
+    var @Model.GridManagerVariableName = grid_Initialize();
+</script>

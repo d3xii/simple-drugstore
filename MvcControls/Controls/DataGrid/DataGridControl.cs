@@ -3,7 +3,6 @@ using System.Collections;
 using System.Diagnostics;
 using System.Web;
 using System.Web.Mvc;
-using JetBrains.Annotations;
 using MvcControls.Controls.Base;
 
 namespace MvcControls.Controls.DataGrid
@@ -11,7 +10,7 @@ namespace MvcControls.Controls.DataGrid
     /// <summary>
     /// Provides methods to render a datagrid.
     /// </summary>
-    public class DataGridControl<TModel, TElement> : HtmlControlBase<TModel, DataGridControlRenderInfo>
+    public class DataGridControl<TModel, TElement> : HtmlControlBase<TModel, DataGridRenderInfo>
     {
         //**************************************************
         //
@@ -47,7 +46,7 @@ namespace MvcControls.Controls.DataGrid
         public DataGridControl<TModel, TElement> AddPropertyColumn(string name, string displayText, Func<TElement, object> valueSelector)
         {
             // add column render info
-            RenderInfo.Columns.Add(new DataGridControlRenderInfo.ColumnInfo
+            RenderInfo.Columns.Add(new DataGridColumnInfo
                                         {
                                             Name = name,
                                             DisplayText = displayText,
@@ -62,7 +61,7 @@ namespace MvcControls.Controls.DataGrid
         public DataGridControl<TModel, TElement> AddDynamicColumn(string name, string displayText, Func<TElement, IHtmlString> htmlRenderer)
         {
             // add column render info
-            RenderInfo.Columns.Add(new DataGridControlRenderInfo.ColumnInfo
+            RenderInfo.Columns.Add(new DataGridColumnInfo
             {
                 Name = name,
                 DisplayText = displayText,
@@ -93,6 +92,7 @@ namespace MvcControls.Controls.DataGrid
         public override string ToHtmlString()
         {
             Debug.Assert(this.RenderInfo.DataSource != null);
+            this.RenderInfo.EditModule.InitializeBeforeRender(this.Helper, this.RenderInfo);
             return this.RenderPartial("DataGrid", this.RenderInfo).ToHtmlString();
         }
 

@@ -6,7 +6,7 @@ namespace MvcControls.Controls.Button
     /// <summary>
     /// Provides methods to render a datagrid.
     /// </summary>
-    public class ButtonControl<TModel> : HtmlControlBase<TModel, ButtonControlRenderInfo>
+    public class ButtonControl<TModel> : HtmlControlBase<TModel, ButtonControlInfo>
     {
         //**************************************************
         //

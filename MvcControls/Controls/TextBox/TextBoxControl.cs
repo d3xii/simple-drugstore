@@ -8,7 +8,7 @@ namespace MvcControls.Controls.TextBox
     /// <summary>
     /// Provides methods to render a datagrid.
     /// </summary>
-    public class TextBoxControl<TModel> : HtmlControlBase<TModel, TextBoxControlRenderInfo>
+    public class TextBoxControl<TModel> : HtmlControlBase<TModel, TextBoxRenderInfo>
     {
         //**************************************************
         //
@@ -43,7 +43,7 @@ namespace MvcControls.Controls.TextBox
         public TextBoxControl<TModel> Bind(Expression<Func<TModel, object>> propertySelector)
         {
             this.RenderInfo.PropertyName = ExpressionHelper.GetExpressionText(propertySelector);
-            this.RenderInfo.PropertyValue = propertySelector.Compile()(this.Model);
+            this.RenderInfo.PropertyValue = !ReferenceEquals(this.Model, null) ? propertySelector.Compile()(this.Model) : null;
             return this;
         }
 

@@ -1,7 +1,6 @@
 using System;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Mvc.Html;
 
 namespace MvcControls.Controls.Base
 {
@@ -101,14 +100,7 @@ namespace MvcControls.Controls.Base
         /// </summary>
         protected IHtmlString RenderPartial(string name, object model)
         {
-            // get absolute path
-            // ReSharper disable PossibleNullReferenceException
-            //string path = string.Format("~/{0}/{1}.cshtml", this.GetType().Namespace.Replace("SDM.Main.", string.Empty).Replace('.', '/'), name);
-            string path = string.Format("~/bin/Templates/{0}.cshtml", name);
-            // ReSharper restore PossibleNullReferenceException
-
-            // render
-            return this.Helper.Partial(path, model);
+            return RenderHelper.RenderTemplate(this.Helper, name, model);
         }
 
         #endregion

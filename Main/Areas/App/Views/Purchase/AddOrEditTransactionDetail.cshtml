@@ -1,0 +1,16 @@
+﻿@{
+    Layout = null;
+}
+@using MvcControls
+@using SDM.Domain.Models
+@using ViewTexts = SDM.Main.Areas.App.Views.Purchase.Texts;
+@using ModelTexts = SDM.Domain.Models.PurchaseTransactionDetailModel.Texts;
+@inherits WebViewPage<PurchaseTransactionDetailModel>, ILocalizable<ViewTexts>, ILocalizable<ModelTexts>
+@Html.Custom().TextBox().Bind(t => t.ItemName).Settings(s =>
+                                                            {
+                                                                s.LabelText = this.Localize<ModelTexts>(t => t.ItemName);                                                                
+                                                            })
+@Html.Custom().TextBox().Bind(t => t.Quantity).Settings(s =>
+                                                            {
+                                                                s.LabelText = this.Localize<ModelTexts>(t => t.Quantity);                                                                
+                                                            })

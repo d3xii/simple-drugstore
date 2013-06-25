@@ -1,11 +1,12 @@
 ﻿@* ReSharper disable RedundantNameQualifier *@
-@inherits System.Web.Mvc.WebViewPage<MvcControls.Controls.DataGrid.DataGridControlRenderInfo>
+@inherits System.Web.Mvc.WebViewPage<MvcControls.Controls.DataGrid.DataGridRenderInfo>
 @* ReSharper restore RedundantNameQualifier *@
 @{
     string gridName = Model.Name;
     string gridTableName = string.Format("{0}_table", gridName);
 }
 <div id="@gridName" style="border: 1px dotted black;">
+    @Model.EditModule.RenderInitializeCode()
     <div>
         @* ReSharper disable AccessToForEachVariableInClosure *@
         @foreach (var button in Model.PanelControls)
@@ -14,7 +15,7 @@
         }
         @* ReSharper restore AccessToForEachVariableInClosure *@
     </div>
-    <table id="@gridTableName" width="@Model.Width">
+    <table id="@gridTableName" style="width: @Model.Width;">
         <thead>
             <tr>
                 @foreach (var column in this.Model.Columns)
@@ -25,6 +26,7 @@
             </tr>
         </thead>
         <tbody>
+            @Model.EditModule.RenderNewLineRow()
             @foreach (var row in this.Model.DataSource)
             {
                 <tr>
@@ -32,13 +34,13 @@
                     {
                         if (column.PropertyValueSelector != null)
                         {
-                        <td>@Html.Encode(column.PropertyValueSelector(row))
-                        </td>
+                            <td>@Html.Encode(column.PropertyValueSelector(row))
+                            </td>
                         }
                         else
                         {
-                        <td>@column.HtmlRenderer(row)
-                        </td>
+                            <td>@column.HtmlRenderer(row)
+                            </td>
                         }
                     }
                 </tr>

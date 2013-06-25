@@ -5,7 +5,7 @@ namespace MvcControls.Controls.TextBox
     /// <summary>
     /// Contains information necessary to render the button.
     /// </summary>
-    public class TextBoxControlRenderInfo
+    public class TextBoxRenderInfo
     {
         /// <summary>
         /// Gets or sets text of the label at the left side of the text box.
