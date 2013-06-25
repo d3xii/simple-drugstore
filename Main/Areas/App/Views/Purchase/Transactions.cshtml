@@ -10,9 +10,9 @@
 }
 @(Html.Custom()
 .Grid(t => t)
-.PropertyColumn(null, this.Localize<ModelTexts>(t => t.Time), t => t.Time)
-.PropertyColumn(null, this.Localize<ModelTexts>(t => t.Supplier), t => t.Supplier)
-.DynamicColumn(null, null, t => Html.Custom()
+.AddPropertyColumn(null, this.Localize<ModelTexts>(t => t.Time), t => t.Time)
+.AddPropertyColumn(null, this.Localize<ModelTexts>(t => t.Supplier), t => t.Supplier)
+.AddDynamicColumn(null, null, t => Html.Custom()
     .Button()
     .Settings(s =>
                   {
@@ -34,7 +34,7 @@
             s.Type = ButtonControlRenderInfo.ButtonType.Post;
         })
 )
-.AddToPanel(Html.Custom().Button().Settings(s =>
+.AddControlToPanel(Html.Custom().Button().Settings(s =>
                                                {
                                                    s.Text = this.Localize<ViewTexts>(t => t.Shared.Add);
                                                    s.Action = new ActionParameter("AddTransaction");

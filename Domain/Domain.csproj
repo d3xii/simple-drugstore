@@ -47,6 +47,7 @@
     <Compile Include="Models\AccountRepository.cs" />
     <Compile Include="Models\Base\ModelBase.cs" />
     <Compile Include="Models\Base\IModel.cs" />
+    <Compile Include="Models\PurchaseTransactionDetailModel.cs" />
     <Compile Include="Models\PurchaseTransactionModel.cs" />
     <Compile Include="Models\ItemRepository.cs" />
     <Compile Include="Models\ItemModel.cs" />

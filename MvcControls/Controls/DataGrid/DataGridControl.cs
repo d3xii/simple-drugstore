@@ -44,7 +44,7 @@ namespace MvcControls.Controls.DataGrid
         /// <summary>
         /// Adds a column to the grid.
         /// </summary>
-        public DataGridControl<TModel, TElement> PropertyColumn(string name, string displayText, Func<TElement, object> valueSelector)
+        public DataGridControl<TModel, TElement> AddPropertyColumn(string name, string displayText, Func<TElement, object> valueSelector)
         {
             // add column render info
             RenderInfo.Columns.Add(new DataGridControlRenderInfo.ColumnInfo
@@ -59,7 +59,7 @@ namespace MvcControls.Controls.DataGrid
         /// <summary>
         /// Adds a dynamic column to the grid.
         /// </summary>
-        public DataGridControl<TModel, TElement> DynamicColumn(string name, string displayText, Func<TElement, IHtmlString> htmlRenderer)
+        public DataGridControl<TModel, TElement> AddDynamicColumn(string name, string displayText, Func<TElement, IHtmlString> htmlRenderer)
         {
             // add column render info
             RenderInfo.Columns.Add(new DataGridControlRenderInfo.ColumnInfo
@@ -74,7 +74,7 @@ namespace MvcControls.Controls.DataGrid
         /// <summary>
         /// Adds an html control to grid panel.
         /// </summary>
-        public DataGridControl<TModel, TElement> AddToPanel(IHtmlString control)
+        public DataGridControl<TModel, TElement> AddControlToPanel(IHtmlString control)
         {
             RenderInfo.PanelControls.Add(control);
             return this;

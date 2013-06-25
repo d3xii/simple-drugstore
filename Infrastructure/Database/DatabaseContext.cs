@@ -32,6 +32,11 @@ namespace SDM.Infrastructure.Database
         /// </summary>
         public DbSet<PurchaseTransactionModel> PurchaseTransactions { get; set; }
 
+        /// <summary>
+        /// Gets list of purchase transaction details in the database.
+        /// </summary>
+        public DbSet<PurchaseTransactionDetailModel> PurchaseTransactionDetails { get; set; }
+
         #endregion
 
 

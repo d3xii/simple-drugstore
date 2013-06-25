@@ -73,13 +73,21 @@ namespace SDM.Services.Database
             using (DbCommand command = _context.Database.Connection.CreateCommand())
             {
                 _context.Database.Connection.Open();
+//                command.CommandText = @"
+//begin transaction
+//EXEC sp_msforeachtable 'ALTER TABLE ? NOCHECK CONSTRAINT all'
+//EXEC sp_msforeachtable 'drop table ?'
+//EXEC sp_msforeachtable 'ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all'
+//if object_id('__MigrationHistory', 'U') is not null drop table __MigrationHistory;
+//commit transaction
+//";
                 command.CommandText = @"
-begin transaction
-EXEC sp_msforeachtable 'ALTER TABLE ? NOCHECK CONSTRAINT all'
-EXEC sp_msforeachtable 'drop table ?'
-EXEC sp_msforeachtable 'ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all'
 if object_id('__MigrationHistory', 'U') is not null drop table __MigrationHistory;
-commit transaction
+EXEC sp_MSForEachTable 'ALTER TABLE ? NOCHECK CONSTRAINT ALL' 
+EXEC sp_msforeachtable 'drop table ?'
+EXEC sp_msforeachtable 'drop table ?'
+EXEC sp_msforeachtable 'drop table ?'
+EXEC sp_msforeachtable 'drop table ?'
 ";
                 command.ExecuteNonQuery();
                 _context.Database.Connection.Close();

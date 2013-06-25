@@ -9,8 +9,8 @@
 }
 @(Html.Custom()
 .Grid(t => t)
-.PropertyColumn(null, this.Localize<ItemModel.Texts>(t => t.Name), t => t.Name) 
-.DynamicColumn(null, null, t => Html.Custom()
+.AddPropertyColumn(null, this.Localize<ItemModel.Texts>(t => t.Name), t => t.Name) 
+.AddDynamicColumn(null, null, t => Html.Custom()
     .Button().Settings(s =>
                            {
                                s.Text = this.Localize<Texts>(t2 => t2.Shared.Edit);
@@ -25,7 +25,7 @@
                                s.Action = new ActionParameter("DeleteItem", routeValues: new { id = t.ID });
                                s.ConfirmationText = this.Localize<Texts>(t2 => t2.Shared.AreYouSure);
                            }))
-.AddToPanel(Html.Custom().Button().Settings(s =>
+.AddControlToPanel(Html.Custom().Button().Settings(s =>
                                                 {
                                                     s.Text = this.Localize<Texts>(t => t.Shared.Add);
                                                     s.Action = new ActionParameter("AddItem");
