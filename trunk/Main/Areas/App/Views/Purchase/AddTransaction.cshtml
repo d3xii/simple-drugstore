@@ -1,6 +1,7 @@
 ﻿@using MvcControls
 @using MvcControls.Controls.Base
 @using MvcControls.Controls.Button
+@using MvcControls.Controls.DataGrid
 @using MvcControls.Controls.Parameters
 @using SDM.Domain.Models
 @using ViewTexts = SDM.Main.Areas.App.Views.Purchase.Texts;
@@ -36,13 +37,20 @@
         @(Html.Custom().Grid(t => t.Details)
         .AddPropertyColumn("Item Name", "Item Name", t => t.ItemName)
         .AddPropertyColumn("Quantity", "Quantity", t => t.Quantity)
-        .AddControlToPanel(Html.Partial("AddTransaction.Detail", new PurchaseTransactionDetailModel())))
+        .Settings(s =>
+                      {
+                          s.EditModule = new DataGridInlineFormEditModule
+                                             {
+                                                 NewLineContentUrl = new ActionParameter("AddOrEditTransactionDetail")
+                                             };
+                      })
+        )
     </fieldset>
         
     @Html.Custom().Button().Settings(s =>
                                          {
                                              s.Text = this.Localize<ViewTexts>(t => isAddMode ? t.Shared.Add : t.Shared.Save);
-                                             s.Type = ButtonControlRenderInfo.ButtonType.Submit;
+                                             s.Type = ButtonControlInfo.ButtonType.Submit;
                                          })
     @Html.Custom().Button().Settings(s =>
                                          {

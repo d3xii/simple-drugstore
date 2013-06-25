@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Web;
@@ -8,8 +7,8 @@ namespace MvcControls.Controls.DataGrid
     /// <summary>
     /// Contains information necessary to render the data grid.
     /// </summary>
-    public class DataGridControlRenderInfo
-    {
+    public class DataGridRenderInfo
+    {        
         //**************************************************
         //
         // Public variables
@@ -21,7 +20,7 @@ namespace MvcControls.Controls.DataGrid
         /// <summary>
         /// Gets or sets name of the grid control.
         /// </summary>
-        public string Name = "slickGrid";
+        public string Name = "grid";
 
         /// <summary>
         /// Gets or sets width of the grid.
@@ -36,34 +35,17 @@ namespace MvcControls.Controls.DataGrid
         /// <summary>
         /// Gets or sets the columns.
         /// </summary>
-        public readonly List<ColumnInfo> Columns = new List<ColumnInfo>();
+        public readonly List<DataGridColumnInfo> Columns = new List<DataGridColumnInfo>();
 
         /// <summary>
         /// Gets or sets list of html controls on the grid panel.
         /// </summary>
         public readonly List<IHtmlString> PanelControls = new List<IHtmlString>();
 
-        #endregion
-
-
-        //**************************************************
-        //
-        // Nested classes
-        //
-        //**************************************************
-
-        #region Nested classes
-
         /// <summary>
-        /// Contains column information.
+        /// Gets or sets the edit mode of the grid.
         /// </summary>
-        public class ColumnInfo
-        {
-            public string Name;
-            public string DisplayText;
-            public Func<object, object> PropertyValueSelector;
-            public Func<object, IHtmlString> HtmlRenderer;
-        }
+        public IDataGridEditModule EditModule = new DataGridNoEditModule();
 
         #endregion
     }

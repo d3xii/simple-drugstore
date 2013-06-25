@@ -125,5 +125,10 @@ namespace SDM.Main.Areas.App.Controllers
             // return result
             return Json(data);
         }
+
+        public ActionResult AddOrEditTransactionDetail()
+        {
+            return View();
+        }
     }
 }

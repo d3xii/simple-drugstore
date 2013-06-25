@@ -31,7 +31,7 @@
             s.Text = this.Localize<ViewTexts>(t2 => t2.Shared.Delete);
             s.ConfirmationText = string.Format(this.Localize<ViewTexts>(t2 => t2.Shared.AreYouSure));
             s.Action = new ActionParameter("DeleteTransaction", routeValues: new { id = t.ID });
-            s.Type = ButtonControlRenderInfo.ButtonType.Post;
+            s.Type = ButtonControlInfo.ButtonType.Post;
         })
 )
 .AddControlToPanel(Html.Custom().Button().Settings(s =>
