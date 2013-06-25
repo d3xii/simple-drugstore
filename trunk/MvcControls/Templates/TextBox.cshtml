@@ -2,8 +2,25 @@
 @using System.Web.Mvc.Html
 @inherits System.Web.Mvc.WebViewPage<MvcControls.Controls.TextBox.TextBoxControlRenderInfo>
 @* ReSharper restore RedundantNameQualifier *@
-@if(Model.LabelText != null)
-{
-    <label for="@Html.Id(Model.PropertyName)">@Model.LabelText</label>
+@{
+    var controlName = Html.Id(Model.PropertyName);
 }
-<input type="text" id="@Html.Id(Model.PropertyName)" name="@Html.Name(Model.PropertyName)" value="@Model.PropertyValue"/>
+@if (Model.LabelText != null)
+{
+    <label for="@controlName">@Model.LabelText</label>
+}
+<input type="text" id="@controlName" name="@Html.Name(Model.PropertyName)" value="@Model.PropertyValue"/>
+@if (Model.AutoCompleteDataSource != null)
+{
+    <script type="text/javascript">
+        //        $("#@controlName").autocomplete({
+        //            source: "Model.AutoCompleteDataSource.ToUrl(Url)"
+        //        });
+        $("#@controlName").autocomplete({
+            source: function (request, response)
+            {
+                $.post("@Model.AutoCompleteDataSource.ToUrl(Url)", request, response);
+            }
+        });
+    </script>
+}

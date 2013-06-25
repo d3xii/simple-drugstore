@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System.Web.Mvc;
+using JetBrains.Annotations;
 
 namespace MvcControls.Controls.Parameters
 {
@@ -38,6 +39,25 @@ namespace MvcControls.Controls.Parameters
             ActionName = actionName;
             ControllerName = controllerName;
             RouteValues = routeValues;
+        }
+
+        #endregion    
+
+
+        //**************************************************
+        //
+        // Public methods
+        //
+        //**************************************************
+
+        #region Public methods
+
+        /// <summary>
+        /// Renders the URL to the action.
+        /// </summary>
+        public string ToUrl(UrlHelper helper)
+        {
+            return helper.Action(this);
         }
 
         #endregion
