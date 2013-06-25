@@ -1,5 +1,4 @@
-using System;
-using System.Linq.Expressions;
+using MvcControls.Controls.Parameters;
 
 namespace MvcControls.Controls.TextBox
 {
@@ -23,5 +22,11 @@ namespace MvcControls.Controls.TextBox
         /// Gets or sets value of the property.
         /// </summary>
         public object PropertyValue;
+
+        /// <summary>
+        /// Gets or sets JSON source of the data source.
+        /// If NULL, autocomplete feature will be disabled.
+        /// </summary>
+        public ActionParameter AutoCompleteDataSource;
     }
 }

@@ -88,5 +88,19 @@ namespace SDM.Main.Areas.App.Controllers
             // refresh
             return this.RedirectToAction("Transactions");
         }
+
+        [HttpPost]
+        public ActionResult GetSuppliers(string term)
+        {
+            // get all distinct suppliers 
+            var data = this.Data.Database.PurchaseTransactions
+                .Where(t => !string.IsNullOrEmpty(t.Supplier) && t.Supplier.Contains(term))
+                .Select(t => t.Supplier)
+                .Distinct()
+                .ToArray();
+
+            // return result
+            return Json(data);
+        }
     }
 }

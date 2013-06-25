@@ -12,15 +12,17 @@
 }
 @using (Html.BeginForm())
 {
-    <div>        
+    <div>
         @Html.LabelFor(t => t.Time, this.Localize<ModelTexts>(t => t.Time))
         @Html.TextBoxFor(t => t.Time)
         @*@Html.LabelFor(t => t.Supplier, this.Localize<ModelTexts>(t => t.Supplier))
         @Html.TextBoxFor(t => t.Supplier)*@
-        @Html.Custom().TextBox().Bind(t => t.Supplier).Settings(s =>
-                                                                    {
-                                                                        s.LabelText = "Supplier";
-                                                                    })
+        @Html.Custom().TextBox().Bind(t => t.Supplier).Settings(
+        s =>
+            {
+                s.LabelText = "Supplier";
+                s.AutoCompleteDataSource = new ActionParameter("GetSuppliers");
+            })
     </div>
     <div>
         @Html.ValidationSummary()

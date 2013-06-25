@@ -47,7 +47,7 @@
     <Compile Include="Controls\Button\ButtonControl.cs" />
     <Compile Include="Controls\Button\ButtonControlRenderInfo.cs" />
     <Compile Include="Controls\TextBox\TextBoxControl.cs" />
-    <Compile Include="Controls\TextBox\ButtonControlRenderInfo.cs" />
+    <Compile Include="Controls\TextBox\TextBoxControlRenderInfo.cs" />
     <Compile Include="Controls\CustomHeper.cs" />
     <Compile Include="Controls\DataGrid\DataGridControl.cs" />
     <Compile Include="Controls\DataGrid\DataGridControlRenderInfo.cs" />
