@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using MvcControls.Controls.Base;
 using MvcControls.Controls.Button;
 using MvcControls.Controls.DataGrid;
+using MvcControls.Controls.TextBox;
 
 namespace MvcControls.Controls
 {
@@ -103,6 +104,16 @@ namespace MvcControls.Controls
         {
             return new ButtonControl<T>(_helper);
         }
+
+        /// <summary>
+        /// Renders a text box.
+        /// </summary>
+        /// <returns></returns>
+        public TextBoxControl<T> TextBox()
+        {
+            return new TextBoxControl<T>(_helper);
+        }
+
 
         #endregion
 

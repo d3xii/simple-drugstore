@@ -1,0 +1,9 @@
+﻿@* ReSharper disable RedundantNameQualifier *@
+@using System.Web.Mvc.Html
+@inherits System.Web.Mvc.WebViewPage<MvcControls.Controls.TextBox.TextBoxControlRenderInfo>
+@* ReSharper restore RedundantNameQualifier *@
+@if(Model.LabelText != null)
+{
+    <label for="@Html.Id(Model.PropertyName)">@Model.LabelText</label>
+}
+<input type="text" id="@Html.Id(Model.PropertyName)" name="@Html.Name(Model.PropertyName)" value="@Model.PropertyValue"/>

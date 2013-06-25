@@ -1,11 +1,10 @@
 ﻿@* ReSharper disable RedundantNameQualifier *@
-@inherits System.Web.Mvc.WebViewPage<MvcControls.Controls.Button.RenderInfo>
+@inherits System.Web.Mvc.WebViewPage<MvcControls.Controls.Button.ButtonControlRenderInfo>
 @* ReSharper restore RedundantNameQualifier *@
 @{
     // define confirmation code, if needed
     string confirmationCode = Model.ConfirmationText != null ? string.Format("if (!confirm('{0}')) return", Model.ConfirmationText) : null;
 }
-case RenderInfo.ButtonType.Submit:
 <button type="submit" onclick="@confirmationCode">
     @Model.Text
 </button>

@@ -8,7 +8,7 @@ namespace MvcControls.Controls.DataGrid
     /// <summary>
     /// Contains information necessary to render the data grid.
     /// </summary>
-    public class RenderInfo
+    public class DataGridControlRenderInfo
     {
         //**************************************************
         //

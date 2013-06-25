@@ -15,8 +15,12 @@
     <div>        
         @Html.LabelFor(t => t.Time, this.Localize<ModelTexts>(t => t.Time))
         @Html.TextBoxFor(t => t.Time)
-        @Html.LabelFor(t => t.Supplier, this.Localize<ModelTexts>(t => t.Supplier))
-        @Html.TextBoxFor(t => t.Supplier)
+        @*@Html.LabelFor(t => t.Supplier, this.Localize<ModelTexts>(t => t.Supplier))
+        @Html.TextBoxFor(t => t.Supplier)*@
+        @Html.Custom().TextBox().Bind(t => t.Supplier).Settings(s =>
+                                                                    {
+                                                                        s.LabelText = "Supplier";
+                                                                    })
     </div>
     <div>
         @Html.ValidationSummary()
@@ -25,7 +29,7 @@
     @Html.Custom().Button().Settings(s =>
                                          {
                                              s.Text = this.Localize<ViewTexts>(t => isAddMode ? t.Shared.Add : t.Shared.Save);
-                                             s.Type = RenderInfo.ButtonType.Submit;
+                                             s.Type = ButtonControlRenderInfo.ButtonType.Submit;
                                          })
     @Html.Custom().Button().Settings(s =>
                                          {

@@ -18,7 +18,7 @@
     .Button().Settings(s =>
                            {
                                s.Text = this.Localize(t2 => t2.Shared.Delete);
-                               s.Type = RenderInfo.ButtonType.Post;
+                               s.Type = ButtonControlRenderInfo.ButtonType.Post;
                                s.Action = new ActionParameter("DeleteAccount", routeValues: new { id = t.ID });
                                s.ConfirmationText = this.Localize(t2 => t2.Shared.AreYouSure);
                            }))
