@@ -214,6 +214,10 @@ Grid.prototype.OnNewRowSaveNewButtonClicked = function (sender, isResetPanel)
         this.FindControl(Grid.IdPendingChanges).append(inputs[i]);
     }
 
+    // clone last row
+    var lastRow = $(sender).parents("table:first").find("tr:last");
+    lastRow.after(lastRow[0].outerHTML);
+
     // reset panel
     if (isResetPanel)
     {
