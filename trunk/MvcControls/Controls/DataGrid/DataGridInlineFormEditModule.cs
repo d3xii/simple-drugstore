@@ -40,6 +40,21 @@ namespace MvcControls.Controls.DataGrid
         /// </summary>
         public ActionParameter NewLineContentUrl { get; set; }
 
+        /// <summary>
+        /// Gets or sets text of save button.
+        /// </summary>
+        public string SaveButtonText { get; set; }
+
+        /// <summary>
+        /// Gets or sets text of save button.
+        /// </summary>
+        public string SaveNewButtonText { get; set; }
+
+        /// <summary>
+        /// Gets or sets text of cancel button.
+        /// </summary>
+        public string CancelButtonText { get; set; }
+
         #endregion
 
 
@@ -57,6 +72,9 @@ namespace MvcControls.Controls.DataGrid
         public DataGridInlineFormEditModule()
         {
             this.NewLineDisplayContent = new HtmlString("Click here to add new row");
+            this.SaveButtonText = "Save";
+            this.SaveNewButtonText = "Save & New";
+            this.CancelButtonText = "Cancel";
         }
 
         #endregion

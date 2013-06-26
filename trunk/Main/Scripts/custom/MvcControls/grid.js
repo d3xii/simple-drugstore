@@ -3,111 +3,233 @@ var Grid = function ()
 {
 };
 
-// define properties
+// define public properties
+Grid.prototype.DataSourceName = null;
+Grid.prototype.GridName = null;
 Grid.prototype.NewRowContentUrl = null;
 
-// ============================================================================
-Grid.prototype.OnNewRowClicked = function (currentRow)
-{
-    // switch row
-    var nextRow = this.SwitchRow(currentRow, null);
+// define private properties
+Grid.prototype._currentNewRowId = 0;
+Grid.prototype._cacheNewRowContent = null;
 
-    // get content from service
-    $.get(this.NewRowContentUrl, function (data) {
-        // fill content to the row
-        $(nextRow).find("td").html(data); 
-    });    
-};
+// define public static properties
+Grid.Namespace = "grid";
+Grid.CustomAttributeNamespace = "data-" + Grid.Namespace + "-";
+Grid.CustomAttributePropertyName = Grid.CustomAttributeNamespace + "propertyname";
+Grid.IdContentRow = "_ContentRow";
+Grid.IdPendingChanges = "PendingChanges";
+Grid.IdNewRowButtons = "NewRowButtons";
 
 // ============================================================================
 Grid.prototype.SwitchRow = function (currentRow, isNextRow)
 {
+    /// <summary>Switches display from current to next row</summary>
+    /// <param name="currentRow" type="TR">Reference to the current row that will be hidden.</param>
+    /// <param name="isNextRow" type="Boolean">Indicates the next row to show is next or previous to current row.</param>    
+
     // hide current row
     $(currentRow).hide();
 
     // get next row
     var nextRow = isNextRow ? $(currentRow).next() : $(currentRow).prev();
-    var nextRowName = currentRow.id + "_ContentRow";
 
-    // found or not matched
-    if (nextRow.length == 0 || nextRow[0].id != nextRowName)
+    // generate dynamic content
+    if (isNextRow)
     {
-        // not found
-        // create new row
+        // showing content in next row
+        var nextRowName = currentRow.id + Grid.IdContentRow;
 
-        // get column count
-        var columnCount = $("tr").last().parents("table").find("th").length;
+        // found or not matched
+        if (nextRow.length == 0 || nextRow[0].id != nextRowName)
+        {
+            // not found
+            // create new row
 
-        // generate HTML
-        nextRow = $("<tr/>").attr("id", nextRowName).append($("<td/>").attr("colspan", columnCount)).insertAfter(currentRow);
+            // get column count
+            var columnCount = $("tr").last().parents("table").find("th").length;
+
+            // generate HTML
+            nextRow = $("<tr/>").attr("id", nextRowName).append($("<td/>").attr("colspan", columnCount)).insertAfter(currentRow);
+        }
     }
 
     // show new row
-    return nextRow.show();       
+    return nextRow.show();
+};
+
+// ============================================================================
+Grid.prototype.GenerateInputs = function (currentDiv, editType, id)
+{
+    /// <summary>Generates inputs from input tags that belongs to given DIV tag.</summary>
+    /// <param name="currentDiv" type="DIV">Reference to the DIV tag that contains input tags.</param>
+    /// <param name="editType" type="String">Type of the edit: new, edit, delete.</param>
+    /// <param name="id" type="Number">ID of the row on client or server side (depends on the edit type).</param>
+
+    // generate inputs
+    var inputs = $(currentDiv).find(":input").filter(":not(:button)");
+
+    // prepare result
+    var result = [];
+
+    // for each input
+    for (var i = 0; i < inputs.length; i++)
+    {
+        // get the input
+        var input = $(inputs[i]);
+
+        // generate input tags:
+        // key: new_1_Property1, value: <value>
+        // key: edit_1_Property1, value: <value>
+        result.push(this.CreateInputTag(editType, id, input.attr(Grid.CustomAttributePropertyName), input.val()));
+    }
+
+    // return result
+    return result;
+};
+
+// ============================================================================
+Grid.prototype.CreateInputTag = function (editType, id, propertyName, value)
+{
+    /// <summary>Creates an input tag that contais combination of given parameters.</summary>
+    /// <param name="editType" type="String">Type of the edit: new, edit, delete.</param>
+    /// <param name="id" type="Integer">ID of the row on client or server side (depends on the edit type).</param>
+    /// <param name="propertyName" type="String">Name of the binding property on the server side.</param>
+    /// <param name="value" type="String">Value to bind to the property on the server side, available with new and edit Edit Type only.</param>
+    /// <returns type="INPUT" />
+
+    // prepare an input tag
+    var tagName = this.DataSourceName + "_" + editType + "_" + id;
+
+    // for each case
+    switch (editType)
+    {
+        case "new":
+        case "edit":
+            tagName += "_" + propertyName;
+            break;
+        case "delete":
+            break;
+        default:
+            throw "Unexpected edit type: " + editType;
+    }
+
+    // create tag
+    return $("<input/>").attr("type", "hidden").attr("id", tagName).attr("name", tagName).val(value);
+};
+
+// ============================================================================
+Grid.prototype.FindControl = function (name)
+{
+    /// <summary>Finds the control specifically belongs to this grid.</summary>
+    /// <param name="name" type="String">Name of the object, does not include the prefix "[gridName]_".</param>
+    /// <returns type="$" />
+
+    // try to find the control or the grid itself
+    var result = name != null ? $("#" + this.GridName + "_" + name) : $("#" + this.GridName);
+
+    // if not exactly matched
+    if (result.length != 1)
+    {
+        console.log(result);
+        throw "Find control '" + name + "' but found " + result.length + 'result(s). Expecting exactly 1 result.';
+    }
+
+    // return result
+    return result;
 };
 
 
-//// ============================================================================
-//grid.render = function (name, width, height)
-//{
-//    // get table name
-//    var tableName = "#" + name + "_table";
 
-//    // get the grid and set its css
-//    //var grid = $("#" + name).css("width", width).css("height", height)[0];
-//    var grid = $(tableName)[0];
+// ============================================================================
+Grid.prototype.OnNewRowClicked = function (currentRow)
+{
+    // switch row
+    var nextRow = this.SwitchRow(currentRow, true);
+    var container = $(nextRow).find("td");
+    var grid = this;
 
-//    // scan its structure for columns
-//    var rawColumns = $(tableName + ">thead>tr>th");
-//    var columns = [];
-//    for (var i = 0; i < rawColumns.length; i++)
-//    {
-//        // get properties
-//        var id = rawColumns[i].id;
-//        var text = rawColumns[i].innerText;
+    // if the content is cached, take from that
+    if (this._cacheNewRowContent != undefined)
+    {
+        container.html(this._cacheNewRowContent);
+        return;
+    }
 
-//        // add columns
-//        columns.push({ id: id, name: text, field: id });
-//    }
+    // get content from service
+    $.get(this.NewRowContentUrl, function (data)
+    {
+        // fill content to the row
+        var content = container.html(data);
 
-//    // scan its structure for rows, i = 1 <== skip first header row
-//    var rows = [];
-//    for (var rowIndex = 1; rowIndex < grid.rows.length; rowIndex++)
-//    {
-//        // get cells
-//        var cells = grid.rows[rowIndex].cells;
-//        var obj = {};
+        // replace the content with special attribute to avoid collision with other inputs in the parent form
+        content.children(":input").each(function ()
+        {
+            // get control
+            var control = $(this);
 
-//        // for each cell
-//        for (var cellIndex = 0; cellIndex < cells.length; cellIndex++)
-//        {
-//            // get properties
-//            var value = cells[cellIndex].innerText;
-//            var id = columns[cellIndex].id;
+            // replace its attribute
+            control.attr(Grid.CustomAttributePropertyName, control.attr("name")).attr("name", null);
+        });
 
-//            // add property
-//            obj[id] = value;
-//        }
+        // clone the New Row buttons and append to the downloaded content
+        content.append(grid.FindControl(Grid.IdNewRowButtons).html());
 
-//        // add row
-//        rows.push(obj);
-//    }
+        // save to cache
+        grid._cacheNewRowContent = content.html();
+    });
+};
 
-//    // define options
-//    var options =
-//        {
-//            enableCellNavigation: true,
-//            enableColumnReorder: false,
-//            forceFitColumns: true
-//        };
+// ============================================================================
+Grid.prototype.OnNewRowSaveButtonClicked = function (sender)
+{
+    /// <summary>Fired when the button Save in New Row Row panel is clicked.</summary>
+    /// <param name="sender" type="DIV">Reference to the BUTTON tag that fires the event.</param>
 
-//    // clear the grid
-//    grid.outerHTML = "<div id='" + name + "_table" + "' />";
-//    $(tableName).width(width).height(height);
+    // save & reset
+    this.OnNewRowSaveNewButtonClicked(sender, false);
 
-//    // render the grid
-//    var slickGrid = new Slick.Grid(tableName, rows, columns, options);
+    // hide the panel
+    this.OnNewRowCancelButtonClicked(sender);
+};
 
-//    // add grid to managed list
-//    grid.controls.push(new { table: grid });
-//};
+
+// ============================================================================
+Grid.prototype.OnNewRowSaveNewButtonClicked = function (sender, isResetPanel)
+{
+    /// <summary>Fired when the button Save in New Row Row panel is clicked.</summary>
+    /// <param name="sender" type="DIV">Reference to the BUTTON tag that fires the event.</param>
+    /// <param name="isResetPanel" type="Boolean">Indicates whether the input panel will be reset after saving.</param>
+
+    // TODO: validate
+
+    // allocate new id
+    var id = this._currentNewRowId++;
+
+    // generate inputs
+    var inputs = this.GenerateInputs($(sender).parents("tr")[0], "new", id);
+
+    // append to pending changes div
+    for (var i = 0; i < inputs.length; i++)
+    {
+        this.FindControl(Grid.IdPendingChanges).append(inputs[i]);
+    }
+
+    // reset panel
+    if (isResetPanel)
+    {
+        var container = $(sender).parents("td:first");
+        container.html(this._cacheNewRowContent);
+    }
+    return;
+};
+
+
+// ============================================================================
+Grid.prototype.OnNewRowCancelButtonClicked = function (sender)
+{
+    /// <summary>Fired when the button Cancel in New Row Row panel is clicked.</summary>
+    /// <param name="sender" type="DIV">Reference to the BUTTON tag that fires the event.</param>
+
+    // hiden current panel
+    this.SwitchRow($(sender).parents("tr")[0], false);
+};

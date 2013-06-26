@@ -1,6 +1,15 @@
 ﻿@* ReSharper disable RedundantNameQualifier *@
 @inherits System.Web.Mvc.WebViewPage<MvcControls.Controls.DataGrid.DataGridInlineFormEditModule>
 @* ReSharper restore RedundantNameQualifier *@
+<div id="@(Model.GridManagerVariableName)_PendingChanges" style="display: none;">
+</div>
+<div id="@(Model.GridManagerVariableName)_NewRowButtons" style="display: none;">
+    <div style="text-align: center;">
+        <button onclick="@(Model.GridManagerVariableName).OnNewRowSaveButtonClicked(this); return false;">@Model.SaveButtonText</button>
+        <button onclick="@(Model.GridManagerVariableName).OnNewRowSaveNewButtonClicked(this, true); return false;">@Model.SaveNewButtonText</button>
+        <button onclick="@(Model.GridManagerVariableName).OnNewRowCancelButtonClicked(this); return false;">@Model.CancelButtonText</button>
+    </div>
+</div>
 <script type="text/javascript">
     // define global variable
     function grid_Initialize()
@@ -9,6 +18,8 @@
         var grid = new window.Grid();
         
         // initialize code below
+        grid.DataSourceName = "@Model.RenderInfo.DataSourcePropertyName";
+        grid.GridName = "@Model.GridManagerVariableName";
         grid.NewRowContentUrl = "@Model.NewLineContentUrl.ToUrl(Url)";
         
         // return result
@@ -16,5 +27,5 @@
     }    
     
     // execute script
-    var @Model.GridManagerVariableName = grid_Initialize();
+    var @(Model.GridManagerVariableName) = grid_Initialize();
 </script>

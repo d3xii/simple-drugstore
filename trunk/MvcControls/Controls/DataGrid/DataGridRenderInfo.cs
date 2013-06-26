@@ -33,6 +33,11 @@ namespace MvcControls.Controls.DataGrid
         public ICollection DataSource;
 
         /// <summary>
+        /// Gets or sets the property that contains data source.
+        /// </summary>
+        public string DataSourcePropertyName;
+
+        /// <summary>
         /// Gets or sets the columns.
         /// </summary>
         public readonly List<DataGridColumnInfo> Columns = new List<DataGridColumnInfo>();
@@ -47,6 +52,6 @@ namespace MvcControls.Controls.DataGrid
         /// </summary>
         public IDataGridEditModule EditModule = new DataGridNoEditModule();
 
-        #endregion
+        #endregion        
     }
 }

@@ -40,10 +40,10 @@ namespace MvcControls.Controls.TextBox
         /// <summary>
         /// Binds property to this text box.
         /// </summary>
-        public TextBoxControl<TModel> Bind(Expression<Func<TModel, object>> propertySelector)
+        public TextBoxControl<TModel> Bind<TResult>(Expression<Func<TModel, TResult>> propertySelector)
         {
             this.RenderInfo.PropertyName = ExpressionHelper.GetExpressionText(propertySelector);
-            this.RenderInfo.PropertyValue = !ReferenceEquals(this.Model, null) ? propertySelector.Compile()(this.Model) : null;
+            this.RenderInfo.PropertyValue = !ReferenceEquals(this.Model, null) ? (object) propertySelector.Compile()(this.Model) : default(TResult);
             return this;
         }
 

@@ -23,10 +23,11 @@ namespace MvcControls.Controls.DataGrid
         /// <summary>
         /// Initializes a new instance of the <see cref="T:System.Object"/> class.
         /// </summary>
-        public DataGridControl(HtmlHelper<TModel> helper, ICollection dataSource)
+        public DataGridControl(HtmlHelper<TModel> helper, ICollection dataSource, string dataSourcePropertyName)
             : base(helper)
         {
             this.RenderInfo.DataSource = dataSource;
+            this.RenderInfo.DataSourcePropertyName = dataSourcePropertyName;
         }
 
         #endregion
