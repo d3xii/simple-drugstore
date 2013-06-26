@@ -5,9 +5,9 @@
 </div>
 <div id="@(Model.GridManagerVariableName)_NewRowButtons" style="display: none;">
     <div style="text-align: center;">
-        <button onclick="@(Model.GridManagerVariableName).OnNewRowSaveButtonClicked(this); return false;">@Model.SaveButtonText</button>
-        <button onclick="@(Model.GridManagerVariableName).OnNewRowSaveNewButtonClicked(this, true); return false;">@Model.SaveNewButtonText</button>
-        <button onclick="@(Model.GridManagerVariableName).OnNewRowCancelButtonClicked(this); return false;">@Model.CancelButtonText</button>
+        <button type="button" onclick="@(Model.GridManagerVariableName).OnNewRowSaveButtonClicked(this)">@Model.SaveButtonText</button>
+        <button type="button" onclick="@(Model.GridManagerVariableName).OnNewRowSaveNewButtonClicked(this, true)">@Model.SaveNewButtonText</button>
+        <button type="button" onclick="@(Model.GridManagerVariableName).OnNewRowCancelButtonClicked(this)">@Model.CancelButtonText</button>
     </div>
 </div>
 <script type="text/javascript">
