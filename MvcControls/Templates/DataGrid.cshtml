@@ -3,7 +3,6 @@
 @* ReSharper restore RedundantNameQualifier *@
 @{
     string gridName = Model.Name;
-    string gridTableName = string.Format("{0}_table", gridName);
 }
 <div id="@gridName" style="border: 1px dotted black;">
     @Model.EditModule.RenderInitializeCode()
@@ -15,7 +14,7 @@
         }
         @* ReSharper restore AccessToForEachVariableInClosure *@
     </div>
-    <table id="@gridTableName" style="width: @Model.Width;">
+    <table id="Table" style="width: @Model.Width;">
         <thead>
             <tr>
                 @foreach (var column in this.Model.Columns)
@@ -48,8 +47,3 @@
         </tbody>
     </table>
 </div>
-@*<script type="text/javascript">
-    // render grid
-    grid.render("@gridTableName", "@Model.Width", "@Model.Height");
-</script>
-*@

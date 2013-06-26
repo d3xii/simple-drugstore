@@ -6,6 +6,7 @@ var Grid = function ()
 // define public properties
 Grid.prototype.DataSourceName = null;
 Grid.prototype.GridName = null;
+Grid.prototype.GridControl = null;
 Grid.prototype.NewRowContentUrl = null;
 
 // define private properties
@@ -15,47 +16,15 @@ Grid.prototype._cacheNewRowContent = null;
 // define public static properties
 Grid.Namespace = "grid";
 Grid.CustomAttributeNamespace = "data-" + Grid.Namespace + "-";
+Grid.CustomAttributeId = Grid.CustomAttributeNamespace + "id";
 Grid.CustomAttributePropertyName = Grid.CustomAttributeNamespace + "propertyname";
-Grid.IdContentRow = "_ContentRow";
 Grid.IdPendingChanges = "PendingChanges";
-Grid.IdNewRowButtons = "NewRowButtons";
+Grid.IdNewRowDisplayContent = "NewRowDisplayContent";
+Grid.IdNewRowContentTemplate = "NewRowContentTemplate";
+Grid.IdContentPlaceHolder = "ContentPlaceHolder";
+Grid.IdNewRowContentPanel = "NewRowContentPanel";
+Grid.IdTable = "Table";
 
-// ============================================================================
-Grid.prototype.SwitchRow = function (currentRow, isNextRow)
-{
-    /// <summary>Switches display from current to next row</summary>
-    /// <param name="currentRow" type="TR">Reference to the current row that will be hidden.</param>
-    /// <param name="isNextRow" type="Boolean">Indicates the next row to show is next or previous to current row.</param>    
-
-    // hide current row
-    $(currentRow).hide();
-
-    // get next row
-    var nextRow = isNextRow ? $(currentRow).next() : $(currentRow).prev();
-
-    // generate dynamic content
-    if (isNextRow)
-    {
-        // showing content in next row
-        var nextRowName = currentRow.id + Grid.IdContentRow;
-
-        // found or not matched
-        if (nextRow.length == 0 || nextRow[0].id != nextRowName)
-        {
-            // not found
-            // create new row
-
-            // get column count
-            var columnCount = $("tr").last().parents("table").find("th").length;
-
-            // generate HTML
-            nextRow = $("<tr/>").attr("id", nextRowName).append($("<td/>").attr("colspan", columnCount)).insertAfter(currentRow);
-        }
-    }
-
-    // show new row
-    return nextRow.show();
-};
 
 // ============================================================================
 Grid.prototype.GenerateInputs = function (currentDiv, editType, id)
@@ -124,14 +93,26 @@ Grid.prototype.FindControl = function (name)
     /// <param name="name" type="String">Name of the object, does not include the prefix "[gridName]_".</param>
     /// <returns type="$" />
 
-    // try to find the control or the grid itself
-    var result = name != null ? $("#" + this.GridName + "_" + name) : $("#" + this.GridName);
+    // do not accept undefined parameter
+    if (name == undefined)
+    {
+        throw "Invalid argument: undefined name.";
+    }
+
+    // find the grid first, if not done yet
+    if (this.GridControl == null)
+    {
+        this.GridControl = $("#" + this.GridName);
+    }
+
+    // try to find the control inside the grid
+    var result = this.GridControl.find("[" + Grid.CustomAttributeId + "='" + name + "']");
 
     // if not exactly matched
     if (result.length != 1)
     {
         console.log(result);
-        throw "Find control '" + name + "' but found " + result.length + 'result(s). Expecting exactly 1 result.';
+        throw "Find control '" + name + "' but found " + result.length + ' result(s). Expecting exactly 1 result.';
     }
 
     // return result
@@ -141,11 +122,14 @@ Grid.prototype.FindControl = function (name)
 
 
 // ============================================================================
-Grid.prototype.OnNewRowClicked = function (currentRow)
+Grid.prototype.OnNewRowClicked = function ()
 {
-    // switch row
-    var nextRow = this.SwitchRow(currentRow, true);
-    var container = $(nextRow).find("td");
+    /// <summary>Fired when the text "Click here to add new row" clicked.</summary>
+
+    // get the content container
+    var container = this.FindControl(Grid.IdNewRowContentPanel);
+
+    // save the grid context
     var grid = this;
 
     // if the content is cached, take from that
@@ -157,9 +141,15 @@ Grid.prototype.OnNewRowClicked = function (currentRow)
 
     // get content from service
     $.get(this.NewRowContentUrl, function (data)
-    {
-        // fill content to the row
-        var content = container.html(data);
+    {        
+        // clone the New Row buttons and append to the downloaded content
+        //content.append(grid.FindControl(Grid.IdNewRowButtonsTemplate).html());
+
+        // clone the New Row template
+        var content = $("<div/>").html(grid.FindControl(Grid.IdNewRowContentTemplate).html());
+
+        // replace the placeholder with downloaded content
+        content.find("[" + Grid.CustomAttributeId + "='" + Grid.IdContentPlaceHolder + "']").html(data);
 
         // replace the content with special attribute to avoid collision with other inputs in the parent form
         content.children(":input").each(function ()
@@ -170,34 +160,33 @@ Grid.prototype.OnNewRowClicked = function (currentRow)
             // replace its attribute
             control.attr(Grid.CustomAttributePropertyName, control.attr("name")).attr("name", null);
         });
-
-        // clone the New Row buttons and append to the downloaded content
-        content.append(grid.FindControl(Grid.IdNewRowButtons).html());
-
+        
         // save to cache
         grid._cacheNewRowContent = content.html();
+
+        // show it        
+        grid.FindControl(Grid.IdNewRowDisplayContent).hide();
+        grid.FindControl(Grid.IdNewRowContentPanel).html(content).show();
     });
 };
 
 // ============================================================================
-Grid.prototype.OnNewRowSaveButtonClicked = function (sender)
+Grid.prototype.OnNewRowSaveButtonClicked = function ()
 {
     /// <summary>Fired when the button Save in New Row Row panel is clicked.</summary>
-    /// <param name="sender" type="DIV">Reference to the BUTTON tag that fires the event.</param>
 
     // save & reset
-    this.OnNewRowSaveNewButtonClicked(sender, false);
+    this.OnNewRowSaveNewButtonClicked(false);
 
     // hide the panel
-    this.OnNewRowCancelButtonClicked(sender);
+    this.OnNewRowCancelButtonClicked();
 };
 
 
 // ============================================================================
-Grid.prototype.OnNewRowSaveNewButtonClicked = function (sender, isResetPanel)
+Grid.prototype.OnNewRowSaveNewButtonClicked = function (isResetPanel)
 {
     /// <summary>Fired when the button Save in New Row Row panel is clicked.</summary>
-    /// <param name="sender" type="DIV">Reference to the BUTTON tag that fires the event.</param>
     /// <param name="isResetPanel" type="Boolean">Indicates whether the input panel will be reset after saving.</param>
 
     // TODO: validate
@@ -206,22 +195,22 @@ Grid.prototype.OnNewRowSaveNewButtonClicked = function (sender, isResetPanel)
     var id = this._currentNewRowId++;
 
     // generate inputs
-    var inputs = this.GenerateInputs($(sender).parents("tr")[0], "new", id);
+    var inputs = this.GenerateInputs(this.FindControl(Grid.IdContentPlaceHolder), "new", id);
 
     // append to pending changes div
     for (var i = 0; i < inputs.length; i++)
     {
-        this.FindControl(Grid.IdPendingChanges).append(inputs[i]);
+        grid.FindControl(Grid.IdPendingChanges).append(inputs[i]);
     }
 
     // clone last row
-    var lastRow = $(sender).parents("table:first").find("tr:last");
+    var lastRow = this.FindControl(Grid.IdTable).find("tr:last");
     lastRow.after(lastRow[0].outerHTML);
 
     // reset panel
     if (isResetPanel)
     {
-        var container = $(sender).parents("td:first");
+        var container = this.FindControl(Grid.IdNewRowContentPanel);
         container.html(this._cacheNewRowContent);
     }
     return;
@@ -235,5 +224,43 @@ Grid.prototype.OnNewRowCancelButtonClicked = function (sender)
     /// <param name="sender" type="DIV">Reference to the BUTTON tag that fires the event.</param>
 
     // hiden current panel
-    this.SwitchRow($(sender).parents("tr")[0], false);
+    this.FindControl(Grid.IdNewRowContentPanel).hide();
+    this.FindControl(Grid.IdNewRowDisplayContent).show();
 };
+
+//// ============================================================================
+//Grid.prototype.SwitchRow = function (currentRow, isNextRow)
+//{
+//    /// <summary>Switches display from current to next row</summary>
+//    /// <param name="currentRow" type="TR">Reference to the current row that will be hidden.</param>
+//    /// <param name="isNextRow" type="Boolean">Indicates the next row to show is next or previous to current row.</param>    
+
+//    // hide current row
+//    $(currentRow).hide();
+
+//    // get next row
+//    var nextRow = isNextRow ? $(currentRow).next() : $(currentRow).prev();
+
+//    // generate dynamic content
+//    if (isNextRow)
+//    {
+//        // showing content in next row
+//        var nextRowName = currentRow.id + Grid.IdContentRow;
+
+//        // found or not matched
+//        if (nextRow.length == 0 || nextRow[0].id != nextRowName)
+//        {
+//            // not found
+//            // create new row
+
+//            // get column count
+//            var columnCount = $("tr").last().parents("table").find("th").length;
+
+//            // generate HTML
+//            nextRow = $("<tr/>").attr("id", nextRowName).append($("<td/>").attr("colspan", columnCount)).insertAfter(currentRow);
+//        }
+//    }
+
+//    // show new row
+//    return nextRow.show();
+//};

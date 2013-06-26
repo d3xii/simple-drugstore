@@ -25,15 +25,7 @@ namespace MvcControls.Controls.DataGrid
         /// <summary>
         /// Gets or sets content displayed in the new line row.
         /// </summary>
-        public IHtmlString NewLineDisplayContent { get; set; }
-
-        /// <summary>
-        /// Gets name of the manager class to control the grid.
-        /// </summary>
-        public string GridManagerVariableName
-        {
-            get { return this.RenderInfo.Name + "_manager"; }
-        }
+        public IHtmlString NewLineDisplayContent { get; set; }        
 
         /// <summary>
         /// Gets or sets action which returns new line content.
