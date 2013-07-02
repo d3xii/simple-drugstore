@@ -1,6 +1,7 @@
 ﻿// define class
 var Grid = function ()
 {
+    Grid.Latest = this;
 };
 
 // define public properties
@@ -14,6 +15,7 @@ Grid.prototype._currentNewRowId = 0;
 Grid.prototype._cacheNewRowContent = null;
 
 // define public static properties
+Grid.Latest = null;
 Grid.Namespace = "grid";
 Grid.CustomAttributeNamespace = "data-" + Grid.Namespace + "-";
 Grid.CustomAttributeId = Grid.CustomAttributeNamespace + "id";
@@ -25,6 +27,17 @@ Grid.IdContentPlaceHolder = "ContentPlaceHolder";
 Grid.IdNewRowContentPanel = "NewRowContentPanel";
 Grid.IdTable = "Table";
 
+// ============================================================================
+Grid.prototype.OnFormatData = function (name, value)
+{
+    /// <summary>Fired when data is being formatted in order to add/update into a row cell.</summary>
+    /// <param name="name" type="String">Name of the data. It is the name of the input in the template.</param>    
+    /// <param name="value" type="String">Value of the data.</param>    
+    /// <returns type="String">Returns HTML string or DOM object to add to cell.</returns>
+
+    return value;
+};
+
 
 // ============================================================================
 Grid.prototype.GenerateInputs = function (currentDiv, editType, id)
@@ -33,8 +46,9 @@ Grid.prototype.GenerateInputs = function (currentDiv, editType, id)
     /// <param name="currentDiv" type="DIV">Reference to the DIV tag that contains input tags.</param>
     /// <param name="editType" type="String">Type of the edit: new, edit, delete.</param>
     /// <param name="id" type="Number">ID of the row on client or server side (depends on the edit type).</param>
+    /// <returns type="Object">Returns an object that contains 3 properties: SourceInputControl(original HTML input tag), InputTag (HTML input tag) & CellContent (Formatted cell data).</returns>
 
-    // generate inputs
+    // generate inputs & cells
     var inputs = $(currentDiv).find(":input").filter(":not(:button)");
 
     // prepare result
@@ -45,11 +59,25 @@ Grid.prototype.GenerateInputs = function (currentDiv, editType, id)
     {
         // get the input
         var input = $(inputs[i]);
+        var inputName = input.attr("id");
+        var inputValue = input.val();
 
         // generate input tags:
         // key: new_1_Property1, value: <value>
         // key: edit_1_Property1, value: <value>
-        result.push(this.CreateInputTag(editType, id, input.attr("id"), input.val()));
+        var inputTag = this.CreateInputTag(editType, id, inputName, inputValue);
+
+        // generate formatted value
+        var cellContent = this.OnFormatData(inputName, inputValue);
+
+        // error if returned invalid content
+        if (cellContent === undefined)
+        {
+            throw "Grid.OnFormatData must return value. Name: " + inputName + ", Value: " + inputValue;
+        }
+
+        // add to result
+        result.push({ SourceInputControl: input, InputTag: inputTag, CellContent: cellContent });
     }
 
     // return result
@@ -141,7 +169,7 @@ Grid.prototype.OnNewRowClicked = function ()
 
     // get content from service
     $.get(this.NewRowContentUrl, function (data)
-    {        
+    {
         // clone the New Row buttons and append to the downloaded content
         //content.append(grid.FindControl(Grid.IdNewRowButtonsTemplate).html());
 
@@ -160,7 +188,7 @@ Grid.prototype.OnNewRowClicked = function ()
             // replace its attribute
             control.attr(Grid.CustomAttributePropertyName, control.attr("name")).attr("name", null);
         });
-        
+
         // save to cache
         grid._cacheNewRowContent = content.html();
 
@@ -176,7 +204,13 @@ Grid.prototype.OnNewRowSaveButtonClicked = function ()
     /// <summary>Fired when the button Save in New Row Row panel is clicked.</summary>
 
     // save & reset
-    this.OnNewRowSaveNewButtonClicked(false);
+    var result = this.OnNewRowSaveNewButtonClicked(false);
+
+    // stop if cant be added
+    if (!result)
+    {
+        return;
+    }
 
     // hide the panel
     this.OnNewRowCancelButtonClicked();
@@ -188,23 +222,44 @@ Grid.prototype.OnNewRowSaveNewButtonClicked = function (isResetPanel)
 {
     /// <summary>Fired when the button Save in New Row Row panel is clicked.</summary>
     /// <param name="isResetPanel" type="Boolean">Indicates whether the input panel will be reset after saving.</param>
-
-    // TODO: validate
+    /// <returns type="Boolean" />
 
     // allocate new id
     var id = this._currentNewRowId++;
 
-    // generate inputs & find pending changes div to insert to
+    // generate inputs & find pending changes div to insert to    
     var inputs = this.GenerateInputs(this.FindControl(Grid.IdNewRowContentPanel), "new", id);
     var pendingChangesPanel = grid.FindControl(Grid.IdPendingChanges); // append to pending changes div
-    for (var i = 0; i < inputs.length; i++)
-    {
-        pendingChangesPanel.append(inputs[i]);
-    }
 
     // clone last row
     var lastRow = this.FindControl(Grid.IdTable).find("tr:last");
-    lastRow.after(lastRow[0].outerHTML);
+    var newRow = $("<tr/>").html(lastRow.html());
+
+    // for each cell in last row
+    var newRowCells = newRow.find("td");
+    for (var i = 0; i < newRowCells.length; i++)
+    {
+        // get input
+        var input = inputs[i];
+
+        // if there is error
+        if (input.CellContent instanceof Error)
+        {
+            // focus on control & show error            
+            alert(input.CellContent.message);
+            input.SourceInputControl.effect("highlight").focus();
+
+            // rollback id
+            this._currentNewRowId--;
+            return false;
+        }
+
+        pendingChangesPanel.append(inputs[i].InputTag);
+        $(newRowCells[i]).text(inputs[i].CellContent);
+    }
+
+    // append last row to table
+    lastRow.after(newRow);
 
     // reset panel
     if (isResetPanel)
@@ -212,7 +267,7 @@ Grid.prototype.OnNewRowSaveNewButtonClicked = function (isResetPanel)
         var container = this.FindControl(Grid.IdNewRowContentPanel);
         container.html(this._cacheNewRowContent);
     }
-    return;
+    return true;
 };
 
 

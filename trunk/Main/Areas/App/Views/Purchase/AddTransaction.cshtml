@@ -44,7 +44,36 @@
                                                  NewLineContentUrl = new ActionParameter("AddOrEditTransactionDetail")
                                              };
                       })
-        )
+              )
+        <script type="text/javascript">
+            // override previous grid
+            var grid = Grid.Latest;
+            grid.OnFormatData = function (name, value)
+            {
+                // validate
+                if (name == "@(Html.IdForProperty<PurchaseTransactionDetailModel, string>(t => t.ItemName))")
+                {
+                    // empty?
+                    if (value.length == 0)
+                    {
+                        // not accepted
+                        return new Error("@(this.Localize<ViewTexts>(t => t.ValidationItemNameMustNotBeEmpty))");
+                    }
+                }
+                if (name == "@(Html.IdForProperty<PurchaseTransactionDetailModel, int>(t => t.Quantity))")
+                {
+                    // greater than zero
+                    if (value <= 0)
+                    {
+                        // not accepted
+                        return new Error("@(this.Localize<ViewTexts>(t => t.ValidationQuantityMustBeGreaterThanZero))");
+                    }
+                }
+                
+                // return value
+                return value;
+            };
+        </script>
     </fieldset>
         
     @Html.Custom().Button().Settings(s =>

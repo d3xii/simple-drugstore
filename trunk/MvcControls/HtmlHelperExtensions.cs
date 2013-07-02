@@ -1,6 +1,10 @@
-﻿using System.Linq;
+﻿using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Mvc.Html;
 using MvcControls.Controls;
 
 namespace MvcControls
@@ -24,6 +28,20 @@ namespace MvcControls
         public static IHtmlString Combine(this HtmlHelper helper, params IHtmlString[] values)
         {
             return new HtmlString(string.Join(null, values.Select(t => t.ToHtmlString().Trim())));
-        }        
+        }
+
+        /// <summary>
+        /// Gets the id from a property.
+        /// This allows generating ID without depending on the root HtmlHelper.
+        /// </summary>
+        public static IHtmlString IdForProperty<TModel, TProperty>(this HtmlHelper helper, Expression<Func<TModel, TProperty>> selector)
+        {
+            // get id
+            var name = ExpressionHelper.GetExpressionText(selector);
+            Debug.Assert(!string.IsNullOrEmpty(name));
+
+            // return id
+            return helper.Id(name);
+        }
     }
 }
