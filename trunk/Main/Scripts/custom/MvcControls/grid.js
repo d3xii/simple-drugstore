@@ -49,7 +49,7 @@ Grid.prototype.GenerateInputs = function (currentDiv, editType, id)
         // generate input tags:
         // key: new_1_Property1, value: <value>
         // key: edit_1_Property1, value: <value>
-        result.push(this.CreateInputTag(editType, id, input.attr(Grid.CustomAttributePropertyName), input.val()));
+        result.push(this.CreateInputTag(editType, id, input.attr("id"), input.val()));
     }
 
     // return result
@@ -148,8 +148,8 @@ Grid.prototype.OnNewRowClicked = function ()
         // clone the New Row template
         var content = $("<div/>").html(grid.FindControl(Grid.IdNewRowContentTemplate).html());
 
-        // replace the placeholder with downloaded content
-        content.find("[" + Grid.CustomAttributeId + "='" + Grid.IdContentPlaceHolder + "']").html(data);
+        // replace the placeholder with downloaded content and remove its name to avoid later duplicated search results (with the template)
+        content.find("[" + Grid.CustomAttributeId + "='" + Grid.IdContentPlaceHolder + "']").html(data).attr(Grid.CustomAttributeId, "");
 
         // replace the content with special attribute to avoid collision with other inputs in the parent form
         content.children(":input").each(function ()
@@ -194,13 +194,12 @@ Grid.prototype.OnNewRowSaveNewButtonClicked = function (isResetPanel)
     // allocate new id
     var id = this._currentNewRowId++;
 
-    // generate inputs
-    var inputs = this.GenerateInputs(this.FindControl(Grid.IdContentPlaceHolder), "new", id);
-
-    // append to pending changes div
+    // generate inputs & find pending changes div to insert to
+    var inputs = this.GenerateInputs(this.FindControl(Grid.IdNewRowContentPanel), "new", id);
+    var pendingChangesPanel = grid.FindControl(Grid.IdPendingChanges); // append to pending changes div
     for (var i = 0; i < inputs.length; i++)
     {
-        grid.FindControl(Grid.IdPendingChanges).append(inputs[i]);
+        pendingChangesPanel.append(inputs[i]);
     }
 
     // clone last row
@@ -218,7 +217,7 @@ Grid.prototype.OnNewRowSaveNewButtonClicked = function (isResetPanel)
 
 
 // ============================================================================
-Grid.prototype.OnNewRowCancelButtonClicked = function (sender)
+Grid.prototype.OnNewRowCancelButtonClicked = function ()
 {
     /// <summary>Fired when the button Cancel in New Row Row panel is clicked.</summary>
     /// <param name="sender" type="DIV">Reference to the BUTTON tag that fires the event.</param>
