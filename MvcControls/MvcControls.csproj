@@ -69,6 +69,7 @@
     <Compile Include="UrlHelperExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Scripts\grid.js" />
     <Content Include="Templates\Button.Default.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

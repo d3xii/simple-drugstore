@@ -40,22 +40,13 @@ namespace SDM.Main
         private static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            //routes.MapRoute("Default", "{controller}/{action}/{id}",
-            //                new
-            //                    {
-            //                        controller = "Home",
-            //                        action = "Index",
-            //                        id = UrlParameter.Optional
-            //                    },
-            //                new[] {typeof (HomeController).Namespace});
-            //routes.MapRoute("Root", "", new { controller = "Home", action = "Index" }, new[] { "SDM.Main.Areas.User.Controllers" });
             routes.MapRoute("Root", "", new { controller = "Home", action = "Index" }, new[] { typeof(HomeController).Namespace });
         }
 
         private static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new StyleBundle("~/bundles/css").IncludeDirectory("~/styles/", "*.css", true));
-            bundles.Add(new ScriptBundle("~/bundles/js").IncludeDirectory("~/scripts/", "*.js", true));
+            bundles.Add(new ScriptBundle("~/bundles/js").IncludeDirectory("~/scripts/", "*.js", true).Include("~/scripts/grid.js"));            
             BundleTable.EnableOptimizations = false;
         }
     }
