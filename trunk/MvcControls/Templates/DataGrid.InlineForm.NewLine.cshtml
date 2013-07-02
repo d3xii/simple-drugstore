@@ -1,8 +1,8 @@
 ﻿@* ReSharper disable RedundantNameQualifier *@
-@inherits System.Web.Mvc.WebViewPage<MvcControls.Controls.DataGrid.DataGridInlineFormEditModule>
+@inherits System.Web.Mvc.WebViewPage<MvcControls.Controls.DataGrid.DataGridInlineFormEditModuleBase>
 @* ReSharper restore RedundantNameQualifier *@
 <tr>
-    <td colspan="@Model.RenderInfo.Columns.Count">
+    <td colspan="@(Model.RenderInfo.Columns.Count + Model.AddtionalCellCount)">
         @* render "Click here to add new row line" *@
         <div data-grid-id="NewRowDisplayContent" 
              style="text-align: center; color: gray; font-style: italic; font-size: smaller; cursor: pointer;"

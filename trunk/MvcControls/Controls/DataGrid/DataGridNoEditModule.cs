@@ -10,10 +10,11 @@ namespace MvcControls.Controls.DataGrid
     public class DataGridNoEditModule : IDataGridEditModule
     {
         #region Implementation of IDataGridEditModule
+
         /// <summary>
         /// Renders new line row.
         /// </summary>
-        public IHtmlString RenderNewLineRow()
+        IHtmlString IDataGridEditModule.RenderNewLineRow()
         {
             return null;
         }
@@ -21,7 +22,7 @@ namespace MvcControls.Controls.DataGrid
         /// <summary>
         /// Renders initialize code.
         /// </summary>
-        public IHtmlString RenderInitializeCode()
+        IHtmlString IDataGridEditModule.RenderInitializeCode()
         {
             return null;
         }
@@ -29,8 +30,32 @@ namespace MvcControls.Controls.DataGrid
         /// <summary>
         /// Initializes this module before it is ready to be used to render HTML.
         /// </summary>
-        public void InitializeBeforeRender(HtmlHelper helper, DataGridRenderInfo renderInfo)
+        void IDataGridEditModule.InitializeBeforeRender(HtmlHelper helper, DataGridRenderInfo renderInfo)
         {
+        }
+
+        /// <summary>
+        /// Renders command column header.
+        /// </summary>
+        IHtmlString IDataGridEditModule.RenderCommandColumnHeader()
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// Renders command cell.
+        /// </summary>
+        public IHtmlString RenderCommandCell()
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// Renders row id.
+        /// </summary>
+        public string RenderRowId(object rowObject)
+        {
+            return null;
         }
 
         #endregion

@@ -4,9 +4,9 @@
 @inherits WebViewPage<ICollection<SDM.Domain.Models.AccountModel>>, ILocalizable<SDM.Domain.Models.AccountModel.Texts>
 @(Html.Custom()
 .Grid(t => t)
-.AddPropertyColumn(this.Localize(t => t.UserName), this.Localize(t => t.UserName), t => t.UserName)
-.AddPropertyColumn(this.Localize(t => t.IsAdmin), this.Localize(t => t.IsAdmin), t => t.IsAdmin)
-.AddPropertyColumn(this.Localize(t => t.IsEnabled), this.Localize(t => t.IsEnabled), t => t.IsEnabled)
+.AddPropertyColumn(this.Localize(t => t.UserName), t => t.UserName)
+.AddPropertyColumn(this.Localize(t => t.IsAdmin), t => t.IsAdmin)
+.AddPropertyColumn(this.Localize(t => t.IsEnabled), t => t.IsEnabled)
 .AddDynamicColumn(null, null, t => Html.Custom()
     .Button().Settings(s =>
                            {

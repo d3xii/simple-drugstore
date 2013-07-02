@@ -6,7 +6,8 @@
 @using SDM.Domain.Models
 @using ViewTexts = SDM.Main.Areas.App.Views.Purchase.Texts;
 @using ModelTexts = SDM.Domain.Models.PurchaseTransactionModel.Texts;
-@inherits WebViewPage<PurchaseTransactionModel>, ILocalizable<ViewTexts>, ILocalizable<ModelTexts>
+@using DetailModelTexts = SDM.Domain.Models.PurchaseTransactionDetailModel.Texts;
+@inherits WebViewPage<PurchaseTransactionModel>, ILocalizable<ViewTexts>, ILocalizable<ModelTexts>, ILocalizable<DetailModelTexts>
 @{
     var isAddMode = Model != null && Model.IsNew;
     ViewBag.Title = isAddMode ? this.Localize<ViewTexts>(t => t.AddTransaction) : this.Localize<ViewTexts>(t => t.EditTransaction);
@@ -35,14 +36,15 @@
     <fieldset>
         <legend>@(this.Localize<ViewTexts>(t => t.DetailInformation))</legend>
         @(Html.Custom().Grid(t => t.Details)
-        .AddPropertyColumn("Item Name", "Item Name", t => t.ItemName)
-        .AddPropertyColumn("Quantity", "Quantity", t => t.Quantity)
+        .AddPropertyColumn(this.Localize<DetailModelTexts>(t => t.ItemName), t => t.ItemName)
+        .AddPropertyColumn(this.Localize<DetailModelTexts>(t => t.Quantity), t => t.Quantity)        
         .Settings(s =>
                       {
-                          s.EditModule = new DataGridInlineFormEditModule
+                          s.EditModule = new DataGridInlineFormEditModule<PurchaseTransactionDetailModel>
                                              {
-                                                 NewLineContentUrl = new ActionParameter("AddOrEditTransactionDetail")
-                                             };
+                                                 NewLineContentUrl = new ActionParameter("AddOrEditTransactionDetail"),
+                                                 RowIdPropertySelector = t => t.ID
+                                             };                          
                       })
               )
         <script type="text/javascript">

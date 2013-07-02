@@ -47,6 +47,7 @@
     <Compile Include="Controls\Base\RenderHelper.cs" />
     <Compile Include="Controls\Button\ButtonControl.cs" />
     <Compile Include="Controls\Button\ButtonControlInfo.cs" />
+    <Compile Include="Controls\DataGrid\DataGridInlineFormEditModuleBase.cs" />
     <Compile Include="Controls\DataGrid\DataGridNoEditModule.cs" />
     <Compile Include="Controls\DataGrid\DataGridColumnInfo.cs" />
     <Compile Include="Controls\DataGrid\DataGridInlineFormEditModule.cs" />
@@ -99,6 +100,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Templates\DataGrid.InlineForm.Initialize.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Templates\DataGrid.InlineForm.CommandCell.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -1,5 +1,6 @@
 using System;
 using System.Web;
+using System.Web.WebPages;
 
 namespace MvcControls.Controls.DataGrid
 {
@@ -12,5 +13,6 @@ namespace MvcControls.Controls.DataGrid
         public string DisplayText;
         public Func<object, object> PropertyValueSelector;
         public Func<object, IHtmlString> HtmlRenderer;
+        //public Func<dynamic, HelperResult> Template;
     }
 }

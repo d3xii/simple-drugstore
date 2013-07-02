@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Diagnostics;
+using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
 using MvcControls.Controls.Base;
@@ -39,19 +40,19 @@ namespace MvcControls.Controls.DataGrid
         //
         //**************************************************
 
-        #region Public methods        
+        #region Public methods
 
         /// <summary>
         /// Adds a column to the grid.
         /// </summary>
-        public DataGridControl<TModel, TElement> AddPropertyColumn(string name, string displayText, Func<TElement, object> valueSelector)
+        public DataGridControl<TModel, TElement> AddPropertyColumn<TValue>(string displayText, Expression<Func<TElement, TValue>> valueSelector)
         {
             // add column render info
             RenderInfo.Columns.Add(new DataGridColumnInfo
                                         {
-                                            Name = name,
+                                            Name = ExpressionHelper.GetExpressionText(valueSelector),
                                             DisplayText = displayText,
-                                            PropertyValueSelector = t => valueSelector((TElement) t),
+                                            PropertyValueSelector = t => valueSelector.Compile()((TElement) t),
                                         });
             return this;
         }
@@ -70,6 +71,20 @@ namespace MvcControls.Controls.DataGrid
             });
             return this;
         }
+
+        ///// <summary>
+        ///// Adds a dynamic column to the grid.
+        ///// </summary>
+        //public DataGridControl<TModel, TElement> AddCustomColumn(string displayText, Func<DataGridRenderInfo, HelperResult> template)
+        //{
+        //    // add column render info
+        //    RenderInfo.Columns.Add(new DataGridColumnInfo
+        //    {
+        //        DisplayText = displayText,
+        //        Template = t => template(t),
+        //    });
+        //    return this;
+        //}
 
         /// <summary>
         /// Adds an html control to grid panel.

@@ -1,0 +1,9 @@
+﻿@* ReSharper disable RedundantNameQualifier *@
+@inherits System.Web.Mvc.WebViewPage<MvcControls.Controls.DataGrid.DataGridInlineFormEditModuleBase>
+@* ReSharper restore RedundantNameQualifier *@
+<td>
+    @if (Model.IsEditButtonVisible)
+    {
+        <a href="#" onclick="@(Model.RenderInfo.Name).OnEditRowClicked(this);">@Model.EditButtonText</a>
+    }
+</td>

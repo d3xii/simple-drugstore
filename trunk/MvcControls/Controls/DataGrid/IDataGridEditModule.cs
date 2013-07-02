@@ -22,5 +22,20 @@ namespace MvcControls.Controls.DataGrid
         /// Initializes this module before it is ready to be used to render HTML.
         /// </summary>
         void InitializeBeforeRender(HtmlHelper helper, DataGridRenderInfo renderInfo);
+
+        /// <summary>
+        /// Renders command column header.
+        /// </summary>
+        IHtmlString RenderCommandColumnHeader();
+
+        /// <summary>
+        /// Renders command cell.
+        /// </summary>
+        IHtmlString RenderCommandCell();
+
+        /// <summary>
+        /// Renders row id.
+        /// </summary>
+        string RenderRowId(object rowObject);
     }
 }
