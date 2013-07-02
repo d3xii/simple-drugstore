@@ -10,5 +10,7 @@ namespace SDM.Main.Areas.App.Views.Purchase
         public string HeaderInformation = "Header Information";
         public string DetailInformation = "Detail Information";
         public string QuickAdd = "Quick Add:";
+        public string ValidationItemNameMustNotBeEmpty = "The item name must not be empty.";
+        public string ValidationQuantityMustBeGreaterThanZero = "The quantity must be greater than zero.";
     }
 }
