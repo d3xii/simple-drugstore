@@ -221,17 +221,6 @@
     <Content Include="Styles\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Styles\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Styles\themes\base\minified\jquery.ui.tooltip.min.css" />
-    <Content Include="Scripts\3rd_party\jquery.ui\jquery-ui-1.10.3.js" />
-    <Content Include="Scripts\3rd_party\jquery.ui\jquery-ui-1.10.3.min.js" />
-    <Content Include="Styles\3rd_party\SlickGrid\images\down.gif" />
-    <Content Include="Styles\3rd_party\SlickGrid\images\header-columns-bg.gif" />
-    <Content Include="Styles\3rd_party\SlickGrid\images\sort-asc.gif" />
-    <Content Include="Styles\3rd_party\SlickGrid\images\sort-desc.gif" />
-    <Content Include="Styles\3rd_party\SlickGrid\slick.columnpicker.css" />
-    <Content Include="Styles\3rd_party\SlickGrid\slick.grid.css" />
-    <Content Include="Styles\3rd_party\SlickGrid\slick.headerbuttons.css" />
-    <Content Include="Styles\3rd_party\SlickGrid\slick.headermenu.css" />
-    <Content Include="Styles\3rd_party\SlickGrid\slick.pager.css" />
     <Content Include="Global.asax" />
     <Content Include="Areas\App\Views\Home\Login.cshtml" />
     <Content Include="Areas\App\Views\Settings\System.cshtml" />
@@ -243,15 +232,10 @@
     <Content Include="Areas\App\Views\Purchase\AddTransaction.cshtml" />
     <Content Include="Areas\App\Views\Purchase\AddTransaction.Detail.cshtml" />
     <Content Include="Areas\App\Views\Purchase\AddOrEditTransactionDetail.cshtml" />
-    <None Include="Scripts\3rd_party\jquery\jquery-2.0.0.intellisense.js" />
-    <Content Include="Scripts\3rd_party\jquery\jquery-2.0.0.js" />
-    <Content Include="Scripts\3rd_party\jquery\jquery-2.0.0.min.js" />
     <Content Include="Scripts\custom\runner.js" />
     <Content Include="Scripts\custom\debug.js" />
     <Content Include="Scripts\custom\loading.js" />
     <Content Include="Scripts\custom\cursor.js" />
-    <Content Include="Scripts\3rd_party\jquery.event.drag\jquery.event.drag.js" />
-    <Content Include="Scripts\3rd_party\jquery.event.drag\jquery.event.drag.min.js" />
     <Content Include="Styles\custom\runner.css" />
     <Content Include="Styles\custom\debug.css" />
     <Content Include="Styles\custom\loading.css" />
@@ -272,7 +256,6 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Areas\App\Views\Web.config" />
-    <Content Include="Scripts\3rd_party\jquery\jquery-2.0.0.min.map" />
     <Content Include="Areas\App\Views\Dashboard\Index.cshtml" />
     <Content Include="Areas\App\Views\Settings\Index.cshtml" />
     <Content Include="Areas\App\Views\Shared\LoginLayout.cshtml" />
