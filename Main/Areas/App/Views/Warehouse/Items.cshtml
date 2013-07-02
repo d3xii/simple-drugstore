@@ -9,7 +9,7 @@
 }
 @(Html.Custom()
 .Grid(t => t)
-.AddPropertyColumn(null, this.Localize<ItemModel.Texts>(t => t.Name), t => t.Name) 
+.AddPropertyColumn(this.Localize<ItemModel.Texts>(t => t.Name), t => t.Name) 
 .AddDynamicColumn(null, null, t => Html.Custom()
     .Button().Settings(s =>
                            {

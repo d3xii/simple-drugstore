@@ -19,6 +19,7 @@ Grid.Latest = null;
 Grid.Namespace = "grid";
 Grid.CustomAttributeNamespace = "data-" + Grid.Namespace + "-";
 Grid.CustomAttributeId = Grid.CustomAttributeNamespace + "id";
+Grid.CustomAttributeColumnId = Grid.CustomAttributeNamespace + "columnid";
 Grid.CustomAttributePropertyName = Grid.CustomAttributeNamespace + "propertyname";
 Grid.IdPendingChanges = "PendingChanges";
 Grid.IdNewRowDisplayContent = "NewRowDisplayContent";
@@ -46,7 +47,7 @@ Grid.prototype.GenerateInputs = function (currentDiv, editType, id)
     /// <param name="currentDiv" type="DIV">Reference to the DIV tag that contains input tags.</param>
     /// <param name="editType" type="String">Type of the edit: new, edit, delete.</param>
     /// <param name="id" type="Number">ID of the row on client or server side (depends on the edit type).</param>
-    /// <returns type="Object">Returns an object that contains 3 properties: SourceInputControl(original HTML input tag), InputTag (HTML input tag) & CellContent (Formatted cell data).</returns>
+    /// <returns type="Object">Returns an object that contains 3 properties: SourceInputControl(original HTML input tag), InputTag (HTML input tag) & CellName(string) & CellContent (Formatted cell data).</returns>
 
     // generate inputs & cells
     var inputs = $(currentDiv).find(":input").filter(":not(:button)");
@@ -77,7 +78,12 @@ Grid.prototype.GenerateInputs = function (currentDiv, editType, id)
         }
 
         // add to result
-        result.push({ SourceInputControl: input, InputTag: inputTag, CellContent: cellContent });
+        result.push({
+            SourceInputControl: input,
+            InputTag: inputTag,
+            CellName: inputName,
+            CellContent: cellContent
+        });
     }
 
     // return result
@@ -163,7 +169,9 @@ Grid.prototype.OnNewRowClicked = function ()
     // if the content is cached, take from that
     if (this._cacheNewRowContent != undefined)
     {
-        container.html(this._cacheNewRowContent);
+        // show it        
+        grid.FindControl(Grid.IdNewRowDisplayContent).hide();
+        container.html(this._cacheNewRowContent).show();
         return;
     }
 
@@ -235,9 +243,8 @@ Grid.prototype.OnNewRowSaveNewButtonClicked = function (isResetPanel)
     var lastRow = this.FindControl(Grid.IdTable).find("tr:last");
     var newRow = $("<tr/>").html(lastRow.html());
 
-    // for each cell in last row
-    var newRowCells = newRow.find("td");
-    for (var i = 0; i < newRowCells.length; i++)
+    // validate all cellss first
+    for (var i = 0; i < inputs.length; i++)
     {
         // get input
         var input = inputs[i];
@@ -253,9 +260,23 @@ Grid.prototype.OnNewRowSaveNewButtonClicked = function (isResetPanel)
             this._currentNewRowId--;
             return false;
         }
+    }
 
-        pendingChangesPanel.append(inputs[i].InputTag);
-        $(newRowCells[i]).text(inputs[i].CellContent);
+    // for each cell in last row
+    //var newRowCells = newRow.find("td");
+    for (i = 0; i < inputs.length; i++)
+    {
+        // get input
+        input = inputs[i];
+
+        // add to pending list
+        pendingChangesPanel.append(input.InputTag);
+
+        // get the index of the cell
+        var columnIndex = this.FindControl(Grid.IdTable).find("thead > tr > th[" + Grid.CustomAttributeColumnId + "='" + input.CellName + "']").index();
+
+        // search for apporiate cell and set its text
+        $($(newRow).find("td")[columnIndex]).text(input.CellContent);
     }
 
     // append last row to table
@@ -281,40 +302,3 @@ Grid.prototype.OnNewRowCancelButtonClicked = function ()
     this.FindControl(Grid.IdNewRowContentPanel).hide();
     this.FindControl(Grid.IdNewRowDisplayContent).show();
 };
-
-//// ============================================================================
-//Grid.prototype.SwitchRow = function (currentRow, isNextRow)
-//{
-//    /// <summary>Switches display from current to next row</summary>
-//    /// <param name="currentRow" type="TR">Reference to the current row that will be hidden.</param>
-//    /// <param name="isNextRow" type="Boolean">Indicates the next row to show is next or previous to current row.</param>    
-
-//    // hide current row
-//    $(currentRow).hide();
-
-//    // get next row
-//    var nextRow = isNextRow ? $(currentRow).next() : $(currentRow).prev();
-
-//    // generate dynamic content
-//    if (isNextRow)
-//    {
-//        // showing content in next row
-//        var nextRowName = currentRow.id + Grid.IdContentRow;
-
-//        // found or not matched
-//        if (nextRow.length == 0 || nextRow[0].id != nextRowName)
-//        {
-//            // not found
-//            // create new row
-
-//            // get column count
-//            var columnCount = $("tr").last().parents("table").find("th").length;
-
-//            // generate HTML
-//            nextRow = $("<tr/>").attr("id", nextRowName).append($("<td/>").attr("colspan", columnCount)).insertAfter(currentRow);
-//        }
-//    }
-
-//    // show new row
-//    return nextRow.show();
-//};

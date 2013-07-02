@@ -17,18 +17,28 @@
     <table data-grid-id="Table" style="width: @Model.Width;">
         <thead>
             <tr>
+                @Model.EditModule.RenderCommandColumnHeader()
                 @foreach (var column in this.Model.Columns)
                 {
-                    <th id="@Html.Encode(column.Name)">@Html.Encode(column.DisplayText)
-                    </th>
+                    <th data-grid-columnid="@Html.AttributeEncode(column.Name)">@Html.Encode(column.DisplayText)</th>
                 }
             </tr>
         </thead>
         <tbody>
             @Model.EditModule.RenderNewLineRow()
+            @* render hidden row template *@
+            <tr data-grid-id="RowTemplate" style="display: none;">
+                @Model.EditModule.RenderCommandCell()
+                @for (int i = 0; i < this.Model.DataSource.Count; i++)
+                {
+                    <td />
+                }
+            </tr>
+            @* render normal rows *@
             @foreach (var row in this.Model.DataSource)
-            {
-                <tr>
+            {                
+                <tr data-grid-rowid="@Model.EditModule.RenderRowId(row)">
+                    @Model.EditModule.RenderCommandCell()
                     @foreach (var column in this.Model.Columns)
                     {
                         if (column.PropertyValueSelector != null)
